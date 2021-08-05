@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet"
+  href="styles/monokai-sublime.min.css">
+  <script src="highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <title>Document</title>
+</head>
+<body class="container">
+  <div class="container-fluid">
+    <section>
+      <h1>Introdução</h1>
+      <div class="row">
+        <div class="col-md-2">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Ruby_logo.svg/1024px-Ruby_logo.svg.png" alt="Ruby_logo" class="img-fluid" style="width:150px;">
+        </div>
+        <p class="col-md-10">
+          Ruby é uma linguagem de programação interpretada multiparadigma, de tipagem
+          dinâmica e forte, com gerenciamento de memória automático, originalmente
+          planejada e desenvolvida no Japão em 1995, por Yukihiro "Matz" Matsumoto,
+          para ser usada como linguagem de script. Matsumoto queria desenvolver uma
+          linguagem de script que fosse mais poderosa do que Perl, e mais orientada a
+          objetos do que Python. Ruby suporta programação funcional, orientada a
+          objetos, imperativa e reflexiva. Foi inspirada principalmente por Python,
+          Perl, Smalltalk, Eiffel, Ada e Lisp, ele resultou da união de partes dessas
+          linguagens. Ruby está constantemente entre as top 10 linguagens mais
+          populares.
+          A intenção do Ruby sempre foi ser uma linguagem natural. O Ruby também é totalmente livre. Não somente livre de custos, mas também livre para utilizar, copiar, modificar e distribuir.
+        </p>
+        <p>
+          Ele tem um sistema de threading independente do Sistema Operacional. Portanto, para todas as plataformas nas quais o Ruby roda, temos multithreading independentemente de o Sistema Operacional suportar ou não, temos multithreading até em MS-DOS!
+          O Ruby não necessita de declarações de variáveis. Usa simples convenções de nomes para denotar o âmbito das variáveis.
+        </p>    
+      </div>
+    </section>
+  
+    <section>
+      <h1>Tipagem e Variáveis</h1>
+      <p>
+        Ruby tem Tipagem dinâmica e fortemente tipada. Isso significa que todas as variáveis devem ter um tipo, mas ele é inferido de acordo com a atribuição.
+        Para comparação em linguagens fortemente tipadas como Java e C#, em cada declaração de variável você deve incluir o tipo dela:
+        <pre class="m-0">
+          <code class="language-C# rounded">
+            int a = 1
+          </code>
+        </pre>
+        <p>
+          Onde int é o tipo Inteiro, Ruby não permite soma de inteiro com variável.
+          Em Ruby você não precisa dizer que vai declarar uma variável com var ou dizer seu tipo, abaixo comparações em Javascript:</p>
+        <pre class="m-0">
+          <code class="language-javascript rounded">
+            var a = 1;
+            var b = 'a';
+            a + b;
+            '1a'
+            b = '1'
+            a == b
+            true
+            a + b
+            '11'
+          </code>
+        </pre>
+        <div class="row">
+          <div class="col-md-6"> <h6>Convenções sobre váriaveis</h6>
+            <pre>
+            <code class="rounded">var # poderia ser uma variável local.</code>   
+            <code class="rounded">@var # é uma variável de instância.</code>   
+            <code class="rounded">@@var # é uma variável de classe.</code>   
+            <code class="rounded">$var # é uma variável global.</code>  
+            </pre>
+          </div>
+          <div class="col-md-6">
+            <p>
+             <h6>
+              Observação:
+             </h6>
+              <ul>
+                <li>Não existem "tipos primitivos" em Ruby, todos os tipos são classes.</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+        
+      
+        <span>
+          <h2>Atualização sobre Ruby 3</h2>
+          <p>Na nova versão 3 do Ruby foi adicionado entre outras coisas a possibilidade de se definir tipagem, é uma nova maneira de escrever código chamada RBS. Criando arquivos .rbs. </p>
+          <pre class="m-0">
+            <code class="language-ruby rounded">
+              # Classes
+              class Usuario
+                attr_reader nome : String
+                attr_reader idade : Integer
+                def initialize : (nome: String, idade: Integer) -> [String, Integer]
+              end
+            </code>
+          </pre>
+        </span>
+      </p>
+    </section>
+  
+    <section>
+      <h1>Sobre o crescimento do Ruby</h1>
+      <p>
+        Em 2006, o Ruby atingiu aceitação massiva, principalmente impulsionado pelo framework Ruby on Rails(RoR),
+      </p>
+    </section>
+  
+    <section>
+      <h1>Sintaxe</h1>
+      <p>
+        Ruby possui um sintaxe simples e enxuta, não é necessário o  <code><kbd>;</kbd></code> (ponto e vírgula) para definir o fim de uma instrução.
+        para imprimir uma mensagem no console você pode simplesmente fazer: 
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            puts 'Hello World!'
+          </code>
+        </pre>
+  
+      </p>
+    </section>
+  
+    <section>
+      <h1>Minha História com o Ruby</h1>
+      <p>
+        Na época que eu trabalhava na Editora Abril o CTO, Manoel Lemos trocou toda tecnologia pelo Ruby alegando que era muito mais produtivo.
+        Eu como trabalhava com linguagens compiladas(Java e C#), não acreditava que ele pudesse ter mais performance que eles, com o tempo acabei mudando minha opinião e hoje é uma das minhas linguagens preferidas.
+      </p>
+      <p>
+        Fui forçado a trabalhar com Ruby em 2009, na época ele estava em sua versão 1.9, não existia muita documentação nem material disponível.
+        Trabalhamos com frameworks como Rails, Sinatra etc., migrando aplicações para o Ruby.
+      </p>
+      <p>
+        O Rails se consolidou como uma excelente ferramenta para startups, provendo uma estrutura ágil de desenvolvimento, já com bastante código podendo ser importado através das Gems.
+        Eu percebi que poço lançar projetos meus pessoais de forma muito rápida, sem perder muito tempo, colocar no ar e ter uma aplicação em produção muito mais rápido do que com linguagens compiladas.
+      </p>
+      <p>
+        Para você como programador é interessante que domine mais de uma linguagem para ter formas diferentes de pensar num mesmo problema, ter ferramentas diferentes adequadas para cada propósito, aumentando sua produtividade. Nós aqui no Torne-se um programador ensinamos você a ser um Programador não um programador de uma só linguagem.
+      </p>
+    </section>
+    <section>
+      <h1>Em Ruby tudo é um objeto</h1>
+      <p>Em Ruby, tudo é um objeto. Cada parcela de informação e código podem receber as suas próprias propriedades e ações. A Programação orientada a objetos denomina as propriedades como variáveis de instância e as ações como métodos. A aproximação pura, da orientação aos objetos do Ruby, é geralmente demonstrada pelo seguinte trecho de código que aplica uma ação a um número.</p>
+    </section>
+    <p>Exemplo Loop em Ruby</p>
+    <pre class="m-0">
+      <code class="language-ruby rounded">
+        10.times{|i| puts i}
+      </code>
+    </pre>
+  <p>
+    Repare na forma como é escrito 10 times(vezes), literalmete fazer 10 vezes tal instrução.
+  </p>
+
+  <p>Em Javascript:</p>
+  <pre class="m-0">
+    <code class="language-javascript rounded"> 
+      for (var i = 0; i < 9; i++) {
+        console.log(i);
+     }
+    </code>
+  </pre>
+  <p>
+    No exemplo acima a variável <code>i</code> está acessivel fora do loop <code>for</code>, porque o <code>var</code> tem um escopo  aberto, neste caso substituido por <code>let</code>, caso tentasse acessar de fora do loop receberia um erro.  O Ruby consegue entender o escopo da variável, mantendo o escopo fechado.
+  </p>
+  <p>
+   Sobre a instrução condicional, em outras linguagens comumente <code>if</code>, ruby tem uma particularidade, o <code>if</code> seria "invertido", os parenteses também são opcionais você poderia fazer algo como:
+  </p>
+  <pre class="m-0">
+    <code class="language-ruby rounded">
+      puts 'Oi!' if 1 == 1
+    </code>
+  </pre>
+  </div>
+  <hr>
+  <section>
+    <h1>Aula Prática</h1>
+    <p>
+      Acesse o Try Ruby e pratique um pouco dos códigos que falamos.
+    </p>
+    <pre class="m-0">
+      <code class="language-ruby rounded">
+        10.times{|i| puts i}
+        a = 1
+        puts a
+      </code>
+    </pre>
+    <h2>
+     Comandos Uteis
+    </h2>
+    <p>Abra seu terminal para testar os comandos shell.</p>
+    <h5>Ver versão do Ruby instalada</h5>
+    <pre class="m-0">
+      <code class="language-ruby rounded">
+        $ ruby -v
+        # ver versão do Ruby
+      </code>
+    </pre>
+    <h5>IRB Terminal interetivo do Ruby</h5>
+    <pre class="m-0">
+      <code class="language-ruby rounded">
+        $ irb
+        # Pode-se executar qualquer código Ruby aqui
+      </code>
+    </pre>
+
+      <h5>Concatenação</h5>
+     <pre class="m-0">
+       <code class="language-ruby rounded">
+         10.times{|i| puts i.to_s + " - "}
+         # to_s - converte o int para string(casting)
+         10.times{|i| puts i + " #{i} - "}
+         # #{} - Faz com que o i sera convertido para string na concatenação
+       </code>
+     </pre>
+    
+     <h5> Tudo é Objeto </h5>
+     <p>
+      No Ruby tudo pode receber methodos como você viu o <code>10</code> recebendo o metodo <code>.times</code>
+     </p>
+     <pre class="m-0">
+       <code class="language-ruby rounded">
+         1.class
+         # retorno o tipo da classe, neste caso Fixnum
+         1.methods
+         # Mostra os metodos disponíveis para esse objeto
+       </code>
+     </pre>
+
+  </section>
+
+  <h3>Conclusão</h3>
+  <p>É isso pessoal</p>
+
+ <section>
+   
+   <h2> Referencias e Links citados </h2>
+   <div class="row">
+    <figure class="col-md-2">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Yukihiro_Matsumoto.JPG" alt="Matz" class="img-fluid rounded" style="width:150px;"> 
+      <figcaption><a href="https://matz.rubyist.net/">Yukihiro “Matz” Matsumoto</a></figcaption>
+      <p>Esse é o Matz criador do Ruby 💎</p>
+    </figure>
+ 
+   <ul class="list-group col-md-10">
+    <li class="list-group-item active">
+      <a href="https://www.torneseumprogramador.com.br/agenda" class="text-white">Reservar horario com Profº. Danilo</a>
+     </li>
+     <li class="list-group-item">
+      <a href="https://try.ruby-lang.org/">Try Ruby</a>
+     </li>
+     <li class="list-group-item">
+      <a href="https://www.ruby-lang.org/pt/">Documentação oficial do Ruby</a>
+     </li>
+     <li class="list-group-item">
+      <a href="https://www.torneseumprogramador.com.br/aulas/ruby"> Curso completo de Ruby & Ruby on Rails do Torne-se um Programador</a>
+     </li>
+     <li class="list-group-item">
+      <a href="https://www.ruby-lang.org/pt/documentation/installation/"> Guia de instalação oficial do Ruby</a>
+     </li>
+     <li class="list-group-item">
+      <a href="https://rubygems.org/"> Ruby Gems</a>
+     </li>
+    </ul>
+  </div>
+ </section>
+
+ <footer>
+   <br>
+ </footer>
+</body>
+</html>
+
