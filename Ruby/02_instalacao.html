@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css">
+  <script src="../highlight/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <title>Document</title>
+</head>
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h1>Instalação do Ruby</h1> 
+      <p>
+        A instalação do Ruby varia conforme o sistema operacional, é especialmente recomendado que se desenvolva com sistemas Unix-like (OSX e Linux), dependendo de como fizer a instalação o Windows pode apresentar alguns problemas.
+      </p>
+      <p>
+       Você pode pesquisar na internet por <em>Install Ruby on Windows</em>, ou <em>Install Ruby on Linux</em> etc. 
+      </p>
+      <p>
+        No próprio site do Ruby existem algumas orientações, nos sistemas baseados em Unix, pode fazer toda instalação por linha de comando.
+        Normalmente arquivos Ruby tem a extensão <code>.rb</code> por padrão. 
+      </p>
+      <h1>Ferramentas para o Ruby</h1>
+
+      <p>
+        Além do Ruby em si, você precisara de algumas ferramentas, tais como:
+      </p>
+      <h5>RVM</h5>
+      <p>O RVM é o gerenciador de versões do Ruby, assim como o NVM do node.js, ele permite que você execute qual versão do Ruby precisar, num projeto poder usar a 1.9 no outro trocar para a 2.7 por exemplo.</p>
+      <h5>Gems</h5>
+      Normalmente o Gems vem junto caso instale o RVM, Gems são trechos de código Ruby feitos por terceiros, bibliotecas para implementarmos no nosso programa.
+      Obs.: Você pode instalar o Gems separadamente caso não venha com o RVM.
+      <h5>Bundler</h5>
+      O Bundler permite que você gerencie suas Gems, assim sendo um arquivo Gemfile ele consegue instalar as Gems que você especificar.
+      Pense no Gemfile como o package.json do Javascript ou o composer.json do PHP, neste caso o Bundler é como o NPM ou o Composer.
+      <h5>Debugger</h5>
+      Gem que ajuda no debbuging do código Ruby pela linha de comando.
+
+
+      <h4>Aula Prática</h4>
+      <p>Comando usado na aula para instalar RVM com Ruby</p>
+      <pre class="m-0">
+        <code class="language-shell rounded"> $ \curl -sSL https://get.rvm.io | bash -s stable --ruby</code>
+      </pre>
+      <p>Comando usado na aula para testar o RVM</p>
+      <pre class="m-0">
+        <code class="language-shell rounded"> $ rvm</code>
+        <code class="language-shell rounded"> $ rvm info</code>
+      </pre>
+      <p>Comando para ver se o Gems está instalado</p>
+      <pre class="m-0">
+        <code class="language-shell rounded"> $ gem list </code>
+      </pre>
+      <p>Comando para ver Gems começando com bundle</p>
+      <pre class="m-0">
+        <code class="language-shell rounded"> $ gem list | grep bundle </code>
+      </pre>
+      <h6>Configurar atalhos para terminal de linha de comando</h6>
+      <p>
+        Você pode customizar seu terminal para abrir determinado editor de texto, ou reduzir comandos grandes por um menor, mas isso varia constantemente conforme seu sistema operacional, seu terminal etc.
+      </p>
+      <p>
+        Sendo assim você pode procurar na internet a melhor maneira de customizar adequadamente para sua plataforma.
+      </p>
+      <h6>RVM</h6>
+      <p>
+        Criando um arquivo .rvmrc dentro da pasta do projeto, você pode configurar qual versão do Ruby este projeto usa, por exemplo:
+      </p>
+      <pre class="m-0">
+        <code class="language-shell rounded"> rvm use 2.2.2 </code>
+      </pre>
+      <p>Usando o @ depois da versão do ruby, você pode configurar o seu Gemset usando versões de Gems diferentes por projeto também, o <code>--create</code> faz com que o arquivo diretório seja criado caso não exista. </p>
+
+      <pre class="m-0">
+        <code class="language-shell rounded"> rvm use 2.2.2@aula_ruby --create </code>
+      </pre>
+      <p>* RVM oferece um diretório gem separado para cada versão e conjunto de gems do Ruby. * Isso significa que as gems devem ser instaladas explicitamente para cada revisão e conjunto de gems. O RVM ajuda você a gerenciar esse processo; </p>
+      <h6>Bundler</h6>
+      <p>
+        Caso precise, você pode instalar o Bundler no seu sistema com o comando:
+      </p>
+      <pre class="m-0">
+        <code class="language-shell rounded"> $ sudo gem install bundler </code>
+      </pre>
+      
+      <h6>Gemfile</h6>
+      <p>
+        Criando um arquivo Gemfile na raiz do seu diretório, por exemplo:
+      </p>
+      <pre class="m-0">
+        <code class="language-shell rounded"> gem 'byebug' </code>
+      </pre>
+      Para adicionar o repositório onde queremos buscar as Gems utilizamos o <code>source</code> seguido do endereço web:
+    </p>
+<pre class="m-0">
+<code class="language-shell rounded"> source https://rubygems.org/   
+ gem 'byebug' </code>
+</pre>
+    <p>
+      Após isso você precisa usar o <code> bundle install </code> para instalar a Gems adicionadas no arquivo.
+    </p>         
+    <p>
+      Relembrando, para abrir o interpretador Ruby use:
+    </p>
+    <pre class="m-0">
+      <code class="language-shell rounded"> $ irb </code>
+    </pre>   
+    <p>
+      Agora crie um arquivo com um editor de texto, salve com a extensão <code>.rb</code>, e vamos criar nosso primeiro programa:
+    </p>
+<pre class="m-0">
+  <code class="language-ruby rounded"> 
+  a = "Danilo" 
+  puts a
+  </code>
+</pre>   
+
+    <p>
+      Salve o código agora você pode rodar ele pela linha de comando usando: 
+    </p>
+    <pre class="m-0">
+      <code class="language-ruby rounded"> $ ruby nome_do_arquivo.rb</code>
+    </pre>   
+ 
+    <p>
+    Caso tudo ocorra certo você recebera o retorno: 
+    </p>
+    <pre class="m-0">
+      <code class="language-ruby rounded"> $ Danilo</code>
+    </pre> 
+  </section>
+</body>
+</html>
+
