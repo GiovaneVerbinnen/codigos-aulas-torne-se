@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+    <script src="../highlight/highlight.min.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="container">
+      <div class="mt-5">
+        <h2>Variáveis e Data Types</h2>
+        <p>No Ruby temos esses tipos principais(Data Types):</p>
+        <ul >
+          <li>Numbers</li>
+          <li>Boolean</li>
+          <li>Strings</li>
+          <li>Hashes</li>
+          <li>Arrays</li>
+          <li>Symbols</li>
+          <li>Nilclass</li>
+          <li>Hash</li>
+          <li>Range</li>
+        </ul>
+        <hr />
+        <table class="table table-bordered">
+          <thead>
+            <h5>Tipos de Numbers</h5>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Classe</th>
+              <th>Descrição</th>
+              <th>Exemplo</th>
+            </tr>
+            <tr>
+              <td>
+                Fixnum
+                <span class="badge badge-pill badge-primary">Integer</span>
+              </td>
+              <td>Numeros "normais"</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>
+                Bignum
+                <span class="badge badge-pill badge-primary">Integer</span>
+              </td>
+              <td>Numeros grandes</td>
+              <td>999999999999</td>
+            </tr>
+            <tr>
+              <td>Float</td>
+              <td>Numeros Decimais</td>
+              <td>7.0</td>
+            </tr>
+            <tr>
+              <td>Complex</td>
+              <td>Numeros Imaginários</td>
+              <td>4 + 3i</td>
+            </tr>
+            <tr>
+              <td>Rational</td>
+              <td>Frações</td>
+              <td>9/4</td>
+            </tr>
+            <tr>
+              <td>BigDecimal</td>
+              <td>Números decimais de alta precisão</td>
+              <td>0.99999999999</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          <h6>Observação sobre aspas:</h6>
+          Com aspas duplas <code>"</code>, você pode concatenar usando
+          <code>#{}</code>, já com aspas simples terá que usar sinal de
+          <code>+</code>.
+        </p>
+        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
+        <span>Exemplo no Ruby: 2.7</span>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            # Tudo é um objeto.
+            > 1.class
+            => Integer
+          </code>
+        </pre>
+        <h5>Conversão de tipo - Casting</h5>
+        <p>No Ruby temos acesso a métodos específicos de conversão, por exemplo:
+          Dada variável a, para converter para um inteiro, basta fazer        <pre class="m-0">
+            <code class="language-ruby rounded">
+            # Converte para inteiro
+            a.to_i
+            
+            # Converte para string
+            a.to_s
+            </code>
+          </pre>
+        </p>
+        <div class="row">
+          <div class="col-md-6"> <h5>Tipos de variáveis váriaveis</h5>
+            <pre>
+              <code class="language-ruby rounded"> xis = 1 # variável simples.</code>   
+              <code class="language-ruby rounded"> @xis = 1 # é uma variável de instância.</code>   
+              <code class="language-ruby rounded"> @@xis = 1 # é uma variável de classe.</code>   
+              <code class="language-ruby rounded"> $Xis = 1  # é uma variável global.</code>  
+            </pre>
+          </div>
+        </div>
+        <h5>Observação do Professor:</h5>
+        <p>No Ruby a Orientação a Objetos é um conceito essencial para o entendimento da linguagem, você pode estudar mais O.O. através dos outros vídeos do canal, como os de C#.</p>
+        <p>No <code>irb</code> você pode testar o método <code>.methods</code>, que retorna todos métodos disponiveis para aquela classe.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded"> > BasicObject.methods</code>
+        </pre>
+        <p>Observe que nas versões mais novas do Ruby, 2.5 ou 2.7 você receberá um retorno diferente no <code>1.class</code>, na aula o professor usa o Ruby 2.3.3, onde retornava Fixnum, nas versões mais novas ouve uma mudança para o Integer como tipo numérico básico.
+        Com o <code>.superclass</code> você consegue ver a classe pai daquela classe.</p>
+        <p>
+          Você pode configurar o seu RVM como 2.3.3 no <code>.rvmrc</code> para acompanhar as aulas como foi ensinado nas aulas passadas.
+        </p>
+        <p>Agora criaremos um arquivo <code>aula.rb</code>, lembrando de criar o arquivo Gemfile com o <code>source 'https://rubygems.org'</code> e <code>gem 'byebug'</code></p>
+        <pre>
+          <code class="language-ruby rounded">
+            require 'byebug'
+            debugger
+
+            h = {}
+            puts "string".class
+            puts 1.class
+            puts 1.class.superclass
+            puts 1.class.superclass.superclass
+            puts 4.3.class
+            puts 4.3.class.superclass
+            puts nil.class
+            puts h.class
+            puts :symbol.class
+            puts [].class
+            puts (1..8).class
+          </code>
+        </pre>
+      <p>Você pode rodar usando <code>ruby aula.rb</code>, com o byebug a tecla <code><kbd>n</kbd></code>, avança para a próxima linha.</p>
+      <p>Lembrando da questão da tipagem, você não podera trabalhar uma variável <code>string</code> em determinadas operações com um inteiro sem fazer o casting(conversão de tipo), </p>
+      </div>
+     
+     <h5> Exemplos de variáveis</h5>
+     <pre>
+      <code class="language-ruby rounded">
+        require 'byebug'
+        debugger
+
+        a = 1 # é uma variável local.
+        puts a
+
+        @a = 2 # é uma variável de instância.
+        puts @a
+      
+        @@a = 3 # é uma variável de classe.
+        puts @@a
+
+        $a = 4  # é uma variável global.
+        puts @a
+
+        A = 5 # Uma constante.
+        puts A
+      </code>
+    </pre>
+    <p>Exemplo variável de instância</p>
+    <pre>
+      <code class="language-ruby rounded">
+        require 'byebug'
+        debugger
+
+        @a = 1
+        def teste
+          puts @a
+        end
+
+        teste
+
+      </code>
+    </pre>
+    <p>Exemplo de variável de classe fora da classe, executa mas exibe um aviso.</p>
+    <pre>
+      <code class="language-ruby rounded">
+        require 'byebug'
+        @@a = 1 # Maneira errada de fazer
+        class Teste
+          @@a = 4
+          def a
+            puts @@a
+          end
+        end
+        puts Teste.new.a
+
+      </code>
+    </pre>
+    <p>Mais exemplos</p>
+    <pre>
+      <code class="language-ruby rounded">
+        require 'byebug'
+        
+        # Maneiras corretas de fazer
+        $a = 2  
+        A = 3
+        
+        class Teste
+          def initianlize
+          # variável de instância
+            @a = 4
+          end
+          # variável de classe
+          @@a = 4
+
+          # Aqui você pode acessar uma variálvel global ou uma constante
+          def a
+            # constante
+            A
+            # variável global
+            $a
+          end
+        end
+
+        puts Teste.new.a
+      </code>
+    </pre>
+    </section>
+  </body>
+</html>
