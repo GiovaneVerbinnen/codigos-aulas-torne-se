@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h2>Tratamento de Strings</h2>
+      <h5>O que é uma String?</h5>
+      <p>
+        Uma string é um valor podendo ser composto por letras e números,
+        normalmente são usadas <code>""</code>, aspas simples ou duplas para
+        atribuir ou exibir.
+      </p>
+      <h5>Operações comuns com strings</h5>
+      <ul>
+        <li class="font-weight-bold py-1">Concatenação</li>
+        <span>"#{string}" ou "+" ou "string".concat("outra_string")</span>
+        <li class="font-weight-bold py-1">Substring</li>
+        <span>Dada uma string <code>a = "Danilo"</code>, você poderia fazer
+          <code>a[1,2]</code>, e teria o retorno <code>"an"</code></span>
+        <li class="font-weight-bold py-1">Replace</li>
+        <span>O replace em Ruby funciona usando o gsub, pode ser usado com uma
+          REGEX, e substitui a parte desejada pelo valor passado. Exemplo:
+          <code> "Danilo".gsub("Dan","Mur")</code> retorna <code>"Murilo"</code></span>
+        <li class="font-weight-bold py-1">Capitalize</li>
+        <span>O capitalize consegue colocar a primeira letra de uma string em
+          maiúscula. Exemplo:
+          <code> "danilo".capitalize()</code> retorna <code>"Danilo"</code></span>
+        <li class="font-weight-bold py-1">Center</li>
+        <span>O center consegue colocar espaços dos lados da string por exemplo.
+          <code>"D".center(20)</code>, retorna " D " com espaços antes e após.
+        </span>
+        <li class="font-weight-bold py-1">Delete</li>
+        <span>Deleta uma fração da string. exemplo:
+          <code>"Danilo".delete("D")</code>.</span>
+        <li class="font-weight-bold py-1">Delete</li>
+        <span>Deleta uma fração da string. exemplo:
+          <code>"Danilo".delete("D")</code>.</span>
+      </ul>
+      <h5>Aula Prática</h5>
+      <p>Como de praxe, pegamos a estrutura base das outras aulas com o <code>Gemfile</code>, já configurado para usar o
+        byebug.</p>
+      <p>Acesse o <code>irb</code> ou crie um arquivo
+        <code>.rb</code> para testar alguns códigos:
+      </p>
+      <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            a = "nossa aula de hoje"
+            a = a.gsub("aula", "aula 2")
+            # a = a.gsub!("aula", "aula 2") altera por referência
+            puts a
+          </code>
+        </pre>
+      <p>Concatenação:</p>
+      <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            b = "aniversário"
+            a = "nossa aula de hoje #{b}"
+            # => nossa aula de hoje aniversário
+          </code>
+      </pre>
+      <p>Com aspas simples você não consegue fazer concatenação com <code>#{}</code>, somente com aspas duplas.</p>
+      <p>Outra forma de fazer concatenação:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          b = " --- 2"
+          a = "nossa aula de hoje "
+          a << b 
+          puts a
+        </code>
+    </pre>
+      <p>Substring:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        require 'byebug'
+
+        a = "nossa aula de hoje "
+        
+        puts a.split(" ")
+      </code>
+  </pre>
+      <p>Upcase:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          a = "nossa aula de hoje "
+          
+          puts a.upcase
+        </code>
+      </pre>
+      <p>Downcase:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        require 'byebug'
+
+        a = "NOSSA aula de hoje "
+        
+        puts a.downcase
+      </code>
+      </pre>
+      <p>Delete:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        require 'byebug'
+
+        a = "NOSSA aula de hoje "
+        
+        puts a.delete("aula")
+      </code>
+      </pre>
+      <p>Replace(gsub):</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        require 'byebug'
+
+        a = "NOSSA aula de hoje "
+        
+        puts a.gsub(" ", "")
+      </code>
+      </pre>
+      <p>Strip:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        require 'byebug'
+
+        a = "NOSSA aula de hoje "
+        
+        puts a.strip
+        puts a.lstrip # remove da esquerda
+        puts a.rstrip # remove da direita
+      </code>
+      </pre>
+      <p>Include:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        require 'byebug'
+
+        a = "NOSSA aula de hoje "
+        
+        puts a.include?("NOSSA")
+
+      </code>
+      </pre>
+      <p>Index:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        require 'byebug'
+
+        a = "NOSSA aula de hoje "
+        
+        puts a.index?("NOSSA")
+
+      </code>
+      </pre>
+      <p>Reverse:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        require 'byebug'
+
+        a = "NOSSA aula de hoje "
+        
+        puts a.reverse
+
+      </code>
+      </pre>
+      <div>
+        <a class="btn mb-2" href="https://github.com/Didox/torne-se-programador/blob/master/apostila_ruby.doc">Apostila
+          Ruby</a>
+
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>
