@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h2>Condicionais</h2>
+      <p>Aula de hoje:</p>
+      <ul>
+        <li>if</li>
+        <li>elsif</li>
+        <li>else</li>
+        <li>then</li>
+        <li>unless</li>
+        <li>case</li>
+        <li>when</li>
+        <li>Ternário</li>
+      </ul>
+      <p>Acesso o <code>irb</code> para testar alguns códigos</p>
+      <h5>if</h5>
+      <p>
+        Se <code>a</code> for igual a 2 ele executa uma instrução, senão ele
+        pula para o próximo bloco.
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          > if a == 2
+        </code>
+      </pre>
+      <h5>if</h5>
+      <p>
+        Se <code>a</code> for igual a 2 ele executa uma instrução, senão ele
+        pula para o próximo bloco.
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          > if a == 2
+        </code>
+      </pre>
+      <h5>unless</h5>
+      <p>Se <code>a</code> não for igual a 2 ele não entra</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          > unless a == 2
+        </code>
+      </pre>
+      <p>
+        Tanto no <code>if</code> quanto no <code>unless</code>, usa-se a mesma
+        estrutura de <code>else</code> e <code>end</code>, e os parênteses
+        opcionais.
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          > if (a == 2)
+        </code>
+      </pre>
+      <p>
+        Dependendo do caso é melhor utilizar o <code>case</code> ao invés do
+        <code>if</code>, para evitar o encadeamento de consecutivos "ifs".
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          > a = 3
+          case a
+          when 3
+            puts "oi"
+          when 4
+            puts "2"
+          else
+            puts "8"
+          end
+        </code>
+      </pre>
+      <h5>Ternário</h5>
+      <p>
+        Se 1 for igual a 1 a variável <code>a</code> passa a ter o valor
+        <code>"oi"</code>, senão será <code>"ola"</code>
+      </p>
+      <pre class="m-0">
+          <code class="language-ruby rounded">
+            > a = 1 == 1 ? "oi" : "ola"
+          </code>
+        </pre>
+    </div>
+    <h5>Aula Prática</h5>
+    <p>Para acompanhar a aula prática você pode copiar a pastar de exercícios da aula anterior como o professor fez.</p>
+    <p>
+      Você pode configurar o seu RVM como 2.3.3 no <code>.rvmrc</code> para acompanhar as aulas como foi ensinado nas
+      aulas passadas.
+    </p>
+    <p>Agora criaremos um arquivo <code>.rb</code>, lembrando de criar o arquivo Gemfile com o
+      <code>source 'https://rubygems.org'</code> e <code>gem 'byebug'</code>
+    </p>
+    <pre>
+      <code class="language-ruby rounded">
+        require 'byebug'
+        debugger
+      </code>
+    </pre>
+    <p>Exemplo if, elsif, else</p>
+    <pre>
+      <code class="language-ruby rounded">
+        require 'byebug'
+        debugger
+        a = 2
+        if 1 == 1
+          puts"o a e igual a 1"
+        elsif a == 3
+          puts "o a não é igual ao 1"
+        else 
+          puts "o a não é igual ao 1"
+        end
+      </code>
+    </pre>
+    <p>Exemplo unless</p>
+    <pre class="m-0">
+      <code class="language-ruby rounded">
+        unless a == 1
+          puts "o a é diferente de 1"
+      </code>
+    </pre>
+    <p>Diferença if e unless</p>
+    <pre class="m-0">
+      <code class="language-ruby rounded">
+        unless a == 1
+          puts "o a é diferente de 1"
+      </code>
+    </pre>
+    <p>Exemplo Ternário</p>
+    <pre class="m-0">
+      <code class="language-ruby rounded">
+        debugger
+        a = a == 3 ? 50 : 40
+        puts "O valor final de a com o ternário é de: #{a}"
+      </code>
+    </pre>
+  </section>
+</body>
+
+</html>
