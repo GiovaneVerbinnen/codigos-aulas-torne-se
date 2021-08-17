@@ -19,8 +19,70 @@
   <section class="container">
     <div class="mt-5 ">
       <h2>Operadores Lógicos</h2>
-      <p></p>
+      <p>
+        As opereções lógicas também conhecidas como opereções <em>booleanas</em>, são proposições que podem ser apenas verdadeiras ou falsas apenas, ou seja, na comparação <code>2 + 2 = 4</code>, pode ler como uma pergunta, dois mais dois é igual a quatro?
+        Nesse caso sim, então a proposição é verdadeira, caso contrario seria falsa.
+      </p>
+      <p>
+        O exemplo acima é um exemplo básico de lógica, na programação você irá utilizar comparações no blocos condicinais principalmente, <code>if else</code>, <code>switch</code> etc, em laços(loop) <code>for</code>, <code>while</code>, mas não se restringindo a isso.
+      </p>
+      <p>
+        Operadores básicos do Ruby
+      </p>
+      <ul>
+        <li><code> == </code></li>
+        <li><code> > </code></li>
+        <li><code> <</code></li>
+        <li><code> <=> </code></li>
+        <li><code> <= </code></li>
+        <li><code> => </code></li>
+        <li><code> != </code></li>
+        <li><code> ! </code></li>
+        <li><code> NOT </code></li>
+        <li><code> AND </code></li>
+        <li><code> =~ </code></li>
+        <li><code> !~ </code></li>
+      </ul>
+
+      <h5>Valor lógico de negação ou operador de negação</h5>
+      <p>Um operador de negação vai inverter o valor lógico de qualquer proposição, numa verdadeira ela vira falsa, numa falsa ela vira verdadeira. Por exemplo: <code>!true</code> retorna <code>false</code></p>
+      <p>Basicamente um <code>!true</code> está dizendo que não é verdade.</p>
+      <p>Agora um <code>!!true</code> está dizendo que o valor (não verdade) é falso, ou seja ele é verdade, a negação da negação é verdade, seja qual for o caso ele retorna o valor lógico original.</p>
+
+
+      <p>O operador <code> =~ </code>é um <em>pattern-matching </em> em Ruby, ele ira buscar com REGEX se o padrão existe na string</p>
+      <h6 class="text-danger">Importante não confundir o sinal de atribuição <code> =</code>, com o de comparação de igualdadecode <code>==</code>. Abaixo você confere uma tabela geral com operadores disponíveis. </h6>
+
+      <p>
+        Dentro da lógica além do comparador de igualdade, utilizamos conectivos exemplo: <code>&&, || </code>, ou <code>and, or</code>, eles validam se algo existe nos dois lados da proposição ou pelo menos em um lado, respectivamente função do E e OU.
+      </p>
+      <p>
+        Por exemplo:
+      </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded"> 
+            2 + 2 = 4 && 1 + 1 = 2 # true 
+            2 + 2 = 4 || 1 + 1 = 2 # true 
+            2 + 2 = 5 && 1 + 1 = 2 # false 
+            2 + 2 = 5 || 1 + 1 = 2 # true 
+            2 + 2 = 5 && 1 + 1 = 3 # false 
+            2 + 2 = 5 || 1 + 1 = 3 # false 
+          </code>
+        </pre>
+      <p>Como pode ver ele valida o resultado da comparação de dois valores lógicos e retorna um outro valor lógico como resultado.</p>
+      <p>Exemplo com o valor lógico do exemplo anterior:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded"> 
+          true && true # true 
+          true || true # true 
+          false && true # false 
+          false || true # true 
+          false && false # false 
+          false || false # false 
+        </code>
+      </pre>
       <div class="row">
+        <p>Operadores disponíveis:</p>
         <table class="table table-sm table-striped table-hover text-center">
           <tbody>
             <thead>
@@ -345,11 +407,80 @@
       </div>
 
       <h5>Aula Prática</h5>
-      <p>Acesso o <code>irb</code> para testar alguns códigos</p>
+      <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir.</p>
       <pre class="m-0">
           <code class="language-ruby rounded">
-            > 1.class
-            => Integer
+            require 'byebug'
+
+            debugger
+
+            a = 1
+            b = 2
+            c = 4
+
+            if 1==1 or 2==2
+              puts "entrou no if"
+            end
+            
+            unless b==1 && a==3
+              puts "mostrou unless 1"
+            end
+
+            unless b==1 and a==3
+              puts "mostrou unless 2"
+            end
+
+            while( a<=b || b>c )
+              puts "olá"
+              a += 1
+            end
+
+          </code>
+        </pre>
+        <p>Comparação de igualdade com expressão</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+
+            debugger
+
+            puts 24eql?(12*2)
+
+          </code>
+        </pre>
+        <p>Comparação se é igual retorna 0</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+
+            debugger
+
+            puts 12 <=> 12
+            # 0
+          </code>
+        </pre>
+        <p>Comparação se é maior retorna -1</p>
+
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+
+            debugger
+
+            puts 12 <=> 13
+            # -1
+
+          </code>
+        </pre>  
+        <p>Comparação se é menor retorna 1</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+
+            debugger
+
+            puts 12 <=> 4
+            # 1
           </code>
         </pre>
     </div>
