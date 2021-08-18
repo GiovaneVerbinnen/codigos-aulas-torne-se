@@ -20,7 +20,7 @@
     <div class="mt-5">
       <h2>Looping(laço)</h2>
       <p>
-        Estruturas de Repetição(loop).
+        Estruturas de Repetição em Ruby(loop).
       </p>
       <ul>
         <li><code> while </code></li>
@@ -31,13 +31,14 @@
         <li><code> each </code></li>
         <li><code> map </code></li>
       </ul>
-      <p>Exemplo <code>while</code>, note que o parenteses é opcional, enquanto index for menor que 5 ele irá imprimir o
+      <p>Exemplo <code>while</code>, note que o parênteses é opcional, enquanto index for menor que 5 ele irá imprimir o
         valor de index na tela.</p>
       <pre class="m-0">
         <code class="language-ruby rounded">
           index = 0
           while index < 5 
             puts index
+          end
         </code>
       </pre>
       <p>Esse código imprime a mensagem 5 vezes no console incrementando o index a cada loop.</p>
@@ -113,7 +114,120 @@
           end             
         </code>
       </pre>
-      <p>Para parar a execução use <code>Control + C</code></p>
+      <p class="font-weight-bold">Para parar a execução use <code><kbd>Control</kbd> + <kbd>C</kbd></code></p>
+      <p>
+        Código com tratamento evitando o Loop infinito, ele vai "quebrar" o loop assim que index for maior que 20
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          index = 0
+
+          loop do
+            puts index
+            index += 1
+
+            break if index > 20
+          end             
+        </code>
+      </pre>
+      <p>
+        No código abaixo temos o comando <code>next</code> que pula a execução pro próximo loop assim que a condição for verdadeira, neste caso pulando a exibição do numero 5 e 8, observe que desta forma devemos iterar antes do next para que não entre em loop infinito.
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          index = 0
+
+          loop do
+            index += 1
+            next if index == 5 or index == 8
+            puts index
+
+            break if index > 20
+          end             
+        </code>
+      </pre>
+      <p>
+        Times uma linha
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          5.times{ |index| puts index } 
+        </code>
+      </pre>
+      <p>
+        Times em bloco
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          5.times do |index|
+            puts index
+          end
+        </code>
+      </pre>
+      <p>
+        For - esse script pega os numeros ímpares até 7
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          for i in 0..7
+            next if i % 2 == 0
+            puts i
+          end
+        </code>
+      </pre>
+      <p class="bg-light p-2 rounded">Observação: O range <code>0..7</code> executa 8 vezes, para que execute somente 7 vezes deve utilizar três pontos no range: <code>0...7</code></p>
+      <p>
+        Comparação do Times com For - esse script pega os numeros ímpares até 7
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          8.times do |i|
+            next if i % 2 == 0
+            puts i
+          end
+        </code>
+      </pre>
+      <p>
+      Times - esse script pega os numeros pares até 7
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          8.times do |i|
+            next if i % 2 != 0
+            puts i
+          end
+        </code>
+      </pre>
+      <p> Each </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          (1..7).each{|i| puts i}
+        </code>
+      </pre>
+      <p class="bg-light p-2 rounded">Observação: O range é um objeto, <code>(0..7).class</code> retorna a classe <code>Range</code>.</p>
+      <p>Select - Faz uma filtragem em um array com base num valor lógico</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        a = [1,2,3,4,5].select{|i| i > 4}
+        puts a.to_s
+        </code>
+      </pre>
+      <p>Map - Faz uma filtragem em um array de um dado já formatado</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        a = [1,2,3,4,5].map{|i| "oi - #{i}"}
+        puts a.to_s
+        </code>
+      </pre>
+      <p>Map com Each</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        a = [1,2,3,4,5].map{|i| "oi - #{i}"}
+        a.each do |i|
+          puts i
+        end
+        </code>
+      </pre>
     </div>
   </section>
 </body>
