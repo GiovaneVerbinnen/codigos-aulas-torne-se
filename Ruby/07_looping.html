@@ -1,36 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
-          <code class="language-ruby rounded">
-            > 1.class
-            => Integer
-          </code>
-        </pre>
-      </div>
-    </section>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h2>Looping(laço)</h2>
+      <p>
+        Estruturas de Repetição(loop).
+      </p>
+      <ul>
+        <li><code> while </code></li>
+        <li><code> until </code></li>
+        <li><code> loop </code></li>
+        <li><code> times </code></li>
+        <li><code> for </code></li>
+        <li><code> each </code></li>
+        <li><code> map </code></li>
+      </ul>
+      <p>Exemplo <code>while</code>, note que o parenteses é opcional, enquanto index for menor que 5 ele irá imprimir o
+        valor de index na tela.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          index = 0
+          while index < 5 
+            puts index
+        </code>
+      </pre>
+      <p>Esse código imprime a mensagem 5 vezes no console incrementando o index a cada loop.</p>
+
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          index = 0
+          puts "O index é #{index+=1}" while index < 5 
+        </code>
+      </pre>
+      <p>Esse código imprime o valor de i na tela a cada loop.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          10.times do |i|
+           puts i
+          end
+        </code>
+      </pre>
+      <!-- Aula Prática -->
+      <h3>Aula Prática</h3>
+      <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir conforme o padrão.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          top = 4
+          now = 0
+          while now < top
+              puts "while #{now} .. #{top}"
+              now += 1
+          end          
+        </code>
+      </pre>
+      <p>
+        While em 1 linha
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          top = 4
+          now = 0
+          print "#{now+=1} " while now < top
+          print "\n"             
+        </code>
+      </pre>
+      <p>
+        Until
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          top = 4
+          now = 0
+          until now > top
+              puts "until #{now} .. #{top}"
+              now += 1
+          end                     
+        </code>
+      </pre>
+      <p>
+        Until em 1 linha
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          top = 4
+          now = 0
+            puts "until #{now += 1} .. #{top}" until now >= top              
+        </code>
+      </pre>
+      <p>
+        Loop infinito
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          loop do |index|
+            puts "oi"
+          end             
+        </code>
+      </pre>
+      <p>Para parar a execução use <code>Control + C</code></p>
+    </div>
+  </section>
+</body>
+
 </html>

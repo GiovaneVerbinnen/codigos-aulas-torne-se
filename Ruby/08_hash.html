@@ -1,36 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
-          <code class="language-ruby rounded">
-            > 1.class
-            => Integer
-          </code>
-        </pre>
-      </div>
-    </section>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h1>Hash</h1>
+      <h5>O que é um Hash?</h5>
+      <p>Um Hash é uma coleção do tipo dicionário, onde tem uma estrutura de chave-valor.</p>
+      <h5>Como definir um Hash:</h5>
+      <p></p>
+      <pre class="m-0">
+        <code class="language-ruby rounded"> a = {nome:'Danilo', tel:3333}</code>
+      </pre>
+      <h5>Onde e onde devo utilizar?</h5>
+      <p>Deve-se utilizar onde há necessidade de dados mapeados.</p>
+      <p>Pode-se retornar os dados da seguinte forma:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded"> puts a[:nome]</code>
+      </pre>
+      <p>Estrutura de Hash legada(mais antiga, Ruby menor que 1.9)</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">{nome => 'Danilo'}</code>
+      </pre>
+      <!-- Aula Prática -->
+      <h3>Aula Prática</h3>
+      <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir conforme o padrão.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          a = {}
+
+          debugger
+
+          puts a
+        </code>
+      </pre>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          a = {nome:'Danilo'}
+
+          debugger
+
+          puts a
+        </code>
+      </pre>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          {:nome=>"Danilo", :tel=>3333}
+        </code>
+      </pre>
+      <p>A chave do Hash como um Symbol utiliza-se os dois pontos<code>:</code> para acessar. </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          a = {nome:'Danilo'}
+
+          debugger
+
+          puts a[:nome]
+          puts a[:tel]
+        </code>
+      </pre>
+      <p>A chave do Hash como um String utiliza-se as aspas <code>""</code> para acessar. </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          a = {}
+          a["nome"] = 'Danilo'
+          a["tel"] = 3333
+
+          debugger
+
+          puts a["nome"]
+          puts a["tel"]
+        </code>
+      </pre>
+      <p>Existe a possibilidade de converter um String para Symbol com <code>.to_sym</code> para converter. </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          a = {}
+          a["nome".to_sym] = 'Danilo'
+          a["tel".to_sym] = 3333
+
+          debugger
+
+          puts a[:nome]
+          puts a[:tel]
+        </code>
+      </pre>
+      <p>Programa simples utilizando os conceitos aprendidos.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          loop do
+          puts "Bem vindo ao programa"
+          puts "Digite 0 para sair ou 1 para continuar"
+      
+          valor = gets.to_i
+          
+          break if(valor == 0)
+      
+          alunos = []
+      
+          3.times do
+            aluno = {}
+      
+            puts "Digite o nome do aluno"
+            aluno[:nome] = gets.delete("\n")
+      
+            puts "Digite o telefone do aluno"
+            aluno[:tel] = gets.delete("\n")
+            alunos << aluno
+          end
+      
+          alunos.each do |aluno|
+            puts "==============================================}"
+            puts "aluno: #{aluno[:nome]}, telefone: #{aluno[:tel]}"
+          end 
+        end
+          
+        </code>
+      </pre>
+    </div>
+  </section>
+</body>
+
 </html>
