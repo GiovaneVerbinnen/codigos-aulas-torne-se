@@ -1,36 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h2>Funções</h2>
+      <p>As funções nos ajudam a reutilizar código, uma rotina que seria util em comum pode ser transformada em função.
+      </p>
+
+      <p>Definição básica de função</p>
+      <pre class="m-0">
           <code class="language-ruby rounded">
-            > 1.class
-            => Integer
+            def funcao
+              puts "oi"
+            end
           </code>
         </pre>
-      </div>
-    </section>
-  </body>
+      <!-- Aula Prática -->
+      <h3>Aula Prática</h3>
+      <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir conforme o padrão.</p>
+
+      <p>Abaixo você vê uma função simples de cálculo, observe que além de defini-lá deve invoca-lá, chamando o nome
+        dela. Os parênteses são opcionais a não ser que precise passar parâmetros.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # debugger
+          def teste
+            puts 1 + 5 - 3
+          end
+
+          teste
+        </code>
+      </pre>
+      <p>Nunca se esqueça de sempre acompanhar com o <code>debugger</code>, acompanhando a execução passo-a-passo para
+        melhor entendimento.</p>
+      <p>Você pode chama-lá quantas vezes quiser executar a mesma rotina. Abaixo conseguimos o retorno do cálculo 5
+        vezes seguidas, chamando a função ao invés de repetir código. A lógica se mantem a mesma facilitando a
+        manutenção e evolução do código.</p>
+      <p>As funções em Ruby tem retorno automático, ou seja se não explicitar com a palavra <code>return</code>, a
+        última instrução é a que será retornada.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          debugger
+          
+          def teste
+            puts 1 + 5 - 3
+          end
+
+          teste
+          teste
+          teste
+          teste
+          teste
+        </code>
+      </pre>
+      <p>Exemplo com return, assim devemos passar o valor retornado pela função para uma variável para então imprimir a
+        variável.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # debugger
+          def teste
+            return 1 + 420 - 3
+          end
+
+          a = teste
+
+          puts a
+        </code>
+      </pre>
+      <p>Exemplo com return condicional antes do final da função, parâmetros e atribuição para variável do valor
+        retornado da função, altere o parâmetro de teste para ver os diferentes resultados.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # debugger
+          def teste(count)
+            return 1 if count == 2
+
+            1 + 420 - 3
+          end
+
+          a = teste(4)
+          # a = teste 4 - outra opção
+          puts a
+        </code>
+      </pre>
+      <p>Exemplo com parâmetro padrão.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # debugger
+          def teste(count=1)
+            return 1 if count == 2
+
+            1 + 420 - 3
+          end
+
+          a = teste
+          
+          puts a
+        </code>
+      </pre>
+    </div>
+  </section>
+</body>
+
 </html>
