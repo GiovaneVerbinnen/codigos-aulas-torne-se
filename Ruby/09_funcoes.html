@@ -119,8 +119,102 @@
           puts a
         </code>
       </pre>
+      <p>Exemplo com multiplos parâmetros, ele recebe como um array.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # debugger
+          def teste(*parametros)
+            return 1 if count == 2
+
+            1 + 420 - 3
+          end
+
+          a = teste 1,2,3,4,5
+          
+          puts a
+        </code>
+      </pre>
+      <p>Exemplo com multiplos parâmetros, testando parametros.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # debugger
+          def teste(*parametros)
+            return 1 if parametros.include? 2
+
+            1 + 420 - 3
+          end
+
+          a = teste 1,2,3,4,5
+          
+          puts a
+        </code>
+      </pre>
+      <p>Exemplo com multiplos parâmetros, trabalhando com exeções(captura de erros).</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # debugger
+          
+          def teste(*parametros)
+            return 1 if parametros.include? 2
+
+            1 + 420 - 3
+          rescue Exception =>
+            puts "Opa um erro aconteceu"
+            puts e.message
+          end
+
+          a = teste 1,3,4,5
+          
+          puts a
+        </code>
+      </pre>
+      <p>Sem esse tratamento o próprio Ruby terminará a execução.</p>
+    
+      <p>Exemplo com multiplos parâmetros, trabalhando com exeções(captura de erros).</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+      def captura_aluno
+        aluno = {}
+
+        puts "Digite o nome do aluno"
+        aluno[:nome] = gets.delete("\n")
+
+        puts "Digite o telefone do aluno"
+        aluno[:tel] = gets.delete("\n")
+        
+        aluno
+      end
+
+      def mostrar_alunos(alunos)
+        alunos.each do |aluno|
+          puts "==============================================}"
+          puts "aluno: #{aluno[:nome]}, telefone: #{aluno[:tel]}"
+        end 
+      end
+
+      loop do
+        puts "Bem vindo ao programa"
+        puts "Digite 0 para sair ou 1 para continuar"
+    
+        valor = gets.to_i
+        
+        break if(valor == 0)
+    
+        alunos = []
+    
+        3.times do
+          alunos << captura_aluno
+        end
+        
+        mostrar_alunos(alunos)
+
+      end
+      </code>
+    </pre>
     </div>
   </section>
 </body>
-
 </html>
