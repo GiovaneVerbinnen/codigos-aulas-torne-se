@@ -1,36 +1,155 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
-          <code class="language-ruby rounded">
-            > 1.class
-            => Integer
-          </code>
-        </pre>
-      </div>
-    </section>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h2>Funções Recursivas</h2>
+      <p></p>
+
+      <h5>Definição básica de função recursiva</h5>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          def recursiva
+            puts "Danilo"
+          end
+
+          recursiva
+        </code>
+      </pre>
+      <p>A função acima gera um loop infinito pois não colocamos uma saída, então ela chama a si mesmo (recursividade)
+        até
+        o infinito, abaixo mostramos como implementar uma condição de saída para prevenir a execução infinita.
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          def recursiva(count)
+            puts "Danilo"
+            return if count == 10
+            recursiva(count + 1)
+          end
+          count = 0
+          recursiva(1)
+        </code>
+      </pre>
+      <!-- Aula Prática -->
+      <h3>Aula Prática</h3>
+      <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir conforme o padrão.</p>
+      <p>Estrutura base que usaremos.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # debugger
+          @i = 1
+          def captura_servico
+            #TODO: capturar dados do serviço: http://localhost:3000/usuarios.json
+            puts "implementar o dado para buscar da API #{@i}"
+            @i += 1
+            return if 1 > 3
+            captura_servico
+          end
+          
+          captura_servico
+      
+        </code>
+      </pre>
+      <p>A URL que usaremos do serviço é utilizada localmente, caso você deseje o mesmo
+        resultado deve iniciar a API que foi desenvolvida no curso de node.js como é mostrado na aula</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # debugger
+          def captura_servico(pagina=1)
+            uri = URI("http://localhost:3000/usuarios.json?pagina=#{pagina}")
+            request = Net::HTTP.get_response(uri)
+            if request.code == "200"
+            dados = JSON.parse(request.body)
+            debugger
+            x = ""
+          end
+          
+          captura_servico
+      
+        </code>
+      </pre>
+      <p><strong>Dica:</strong> Procure sobre o JSON Server <a href="https://www.npmjs.com/package/json-server">Link
+          para o
+          pacote no NPM</a>, assim você consegue montar uma resposta falsa de API REST simulando o que o fizemos aqui,
+        inclusive com paginação.
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          require 'active_suport/all'
+          require 'httparty'
+
+          def captura_servico(pagina=1)
+            uri = URI("http://localhost:3000/usuarios.json?pagina=#{pagina}")
+            request = Net::HTTP.get_response(uri)
+            if request.code == "200"
+              dados = JSON.parse(request.body)
+              dados.each do |dado|
+                puts"==========================================="
+                puts dado["id"]
+                puts dado["nome"]
+                puts dado["login"]
+                puts dado["senha"]
+                puts dado["email"]
+                puts"==========================================="
+              end
+            end
+          end
+
+          6.times do |i|
+            captura_servico(i)
+          end
+        </code>
+      </pre>
+      <p>Implementação final com validação de paginas.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          require 'active_suport/all'
+          require 'httparty'
+
+          def captura_servico(pagina=1)
+            uri = URI("http://localhost:3000/usuarios.json?pagina=#{pagina}")
+            request = Net::HTTP.get_response(uri)
+            if request.code == "200"
+              dados = JSON.parse(request.body)
+              dados.each do |dado|
+                puts"==========================================="
+                puts dado["id"]
+                puts dado["nome"]
+                puts dado["login"]
+                puts dado["senha"]
+                puts dado["email"]
+                puts"==========================================="
+              end
+              captura_servico(pagina + 1) if dados.size > 0
+            end
+          end
+
+          captura_servico
+
+        </code>
+      </pre>
+    </div>
+  </section>
+</body>
+
 </html>
