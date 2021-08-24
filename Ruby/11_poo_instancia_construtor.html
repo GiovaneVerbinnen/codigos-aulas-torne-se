@@ -1,36 +1,186 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
-          <code class="language-ruby rounded">
-            > 1.class
-            => Integer
-          </code>
-        </pre>
-      </div>
-    </section>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h2>Instância e Construtor</h2>
+      <p>Em orientação a objetos trabalhamos com classes, resumidamente são "moldes" ou "formas" para criação de
+        objetos, elas reúnem características e comportamentos que definem o conjunto de objetos que compõem essa classe.
+      </p>
+      <p>Definição básica de classe</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Pessoa
+            def nome 
+              @nome
+            end
+            def nome(value) 
+              @nome = value
+            end
+          end
+          Pessoa.nome = "Danilo"
+        </code>
+      </pre>
+
+      <p>Observações:</p>
+      <p>Em Ruby o <code>self</code> é usado para referenciar a própia classe, como seria o <code>this</code> em várias
+        linguagens.</p>
+      <p>Se você não utilizar a palavra return, a última instrução será retornada.</p>
+      <p>Um método de classe é definido por</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          def nome 
+            @nome
+          end
+        </code>
+      </pre>
+      <p>Um método de classe também pode receber valores padrão</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          def nome(nome)
+            @nome = nome
+          end
+        </code>
+      </pre>
+      <p>Definição de classe com inicializador</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Pessoa
+            def initialize(nome) 
+              @nome = nome
+            end
+          end
+          Pessoa.new("Danilo")
+        </code>
+      </pre>
+
+      <!-- Aula Prática -->
+      <h3>Aula Prática</h3>
+      <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir conforme o padrão.</p>
+      <hr>
+      <p>Definição de classe de linha única</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded"> class Carro;end</code>
+      </pre>
+      <p>Definição de classe com métodos e definição de objeto</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          class Carro
+            def nome(value)
+              @nome = value
+            end
+
+            def nome
+              @nome
+            end
+
+            def mostrar
+              puts @nome
+            end
+          end
+          debugger
+          carro = Carro.new
+          carro.nome = "Palio"
+          carro.mostrar
+        </code>
+      </pre>
+
+      <p>Definição de classe com métodos e definição de objeto</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          class Carro
+            def nome(value)
+              @nome = value
+            end
+
+            def nome
+              @nome
+            end
+
+            def mostrar(marca)
+              puts "Marca: #{marca} - Modelo: #{self.nome}"
+            end
+          end
+          debugger
+          carro = Carro.new
+          carro.nome = "Palio"
+          carro.mostrar("Fiat")
+        </code>
+      </pre>
+
+      <p>Definição de classe com inicializador</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          class Carro
+            def initialize(nome)
+              @nome = nome
+            end
+
+            def nome(value)
+              @nome = value
+            end
+
+            def nome
+              @nome
+            end
+
+            def mostrar(marca="Marca Padrão")
+              puts "Marca: #{marca} - Modelo: #{self.nome}"
+            end
+          end
+          debugger
+          carro = Carro.new("Fiesta")
+          carro.mostrar("Ford")
+        </code>
+      </pre>
+
+      <p>Definição de classe com parâmetros padrão para o inicializador </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          class Carro
+            def initialize(nome = "Modelo Padrão")
+              @nome = nome
+            end
+
+            def nome(value)
+              @nome = value
+            end
+
+            def nome
+              @nome
+            end
+
+            def mostrar(marca = "Marca Padrão")
+              puts "Marca: #{marca} - Modelo: #{self.nome}"
+            end
+          end
+          debugger
+          carro = Carro.new
+          carro.mostrar
+        </code>
+      </pre>
+
+    </div>
+  </section>
+</body>
+
 </html>
