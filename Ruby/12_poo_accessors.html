@@ -1,36 +1,218 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
-          <code class="language-ruby rounded">
-            > 1.class
-            => Integer
-          </code>
-        </pre>
-      </div>
-    </section>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Prática -->
+      <h2>Accessors</h2>
+      <p>Acessors manipulam os métodos de uma classe, gerando os getters e setters através da metaprogramação do Ruby,
+        provendo agilidade no desenvolvimento.
+      </p>
+      <h5>Tipos de Accessors</h5>
+      <ul>
+        <li>attr_accessor</li>
+        <p>Gera get e set</p>
+        <li>attr_reader</li>
+        <p>Gera somente get</p>
+        <li>attr_writer</li>
+        <p>Gera somente set</p>
+      </ul>
+      <br />
+      <p>Definição sem Accessors</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Pessoa
+            def nome 
+              @nome
+            end
+            def nome(value) 
+              @nome = value
+            end
+          end
+          Pessoa.nome = "Danilo"
+        </code>
+      </pre>
+      <p>Relembrando os métodos de Classe:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          def nome 
+            @nome
+          end
+        </code>
+      </pre>
+      <p>Um método de classe também pode receber valores padrão</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          def nome(nome)
+            @nome = nome
+          end
+        </code>
+      </pre>
+      <p>Definição de classe com inicializador</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Pessoa
+            def initialize(nome) 
+              @nome = nome
+            end
+          end
+          Pessoa.new("Danilo")
+        </code>
+      </pre>
+      <!-- Aula Prática -->
+      <h3>Aula Prática</h3>
+      <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir conforme o padrão.</p>
+      <hr>
+      <p>Definição de classe com métodos e getters e setters sem Accessors</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          class Carro
+            def initialize(nome = "Modelo Padrão") 
+              @nome = nome
+            end
+
+            def nome=(value)
+              @nome = value
+            end
+
+            def nome
+              @nome
+            end
+
+            def pneu=(value)
+              @pneu = value
+            end
+
+            def pneu
+              @pneu
+            end
+            
+            def porta=(value)
+              @porta = value
+            end
+
+            def porta
+              @porta
+            end
+
+            def painel=(value)
+             @painel = value
+            end
+
+            def painel
+              @painel
+            end
+
+            def roda=(value)
+              @roda = value
+            end
+
+            def roda
+              @roda
+            end
+
+            def mostrar(marca="Marca Padrão")
+              puts "Marca: #{marca} - Modelo: #{self.nome}"
+            end
+          end
+          
+          c = Carro.new
+          
+          debugger
+          
+          Carro.new.mostrar
+        </code>
+      </pre>
+      <p>Definição de classe com Accessors</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          class Carro
+            def initialize(nome = "Modelo Padrão") 
+              @nome = nome
+            end
+            attr_accessor :nome, :pneu, :porta, :painel, :roda
+
+            def mostrar(marca="Marca Padrão")
+              puts "Marca: #{marca} - Modelo: #{self.nome}"
+            end
+          end
+          
+          c = Carro.new
+          
+          debugger
+
+          Carro.new.mostrar
+        </code>
+      </pre>
+      <p>Como você pode ver os Accessors geram os getters e setters automaticamente para você.</p>
+      <p>Para fazer somente o set de <code>:pneu</code></p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          class Carro
+            def initialize(nome = "Modelo Padrão") 
+              @nome = nome
+            end
+            attr_accessor :nome, :porta, :painel, :roda
+
+            attr_writer :pneu
+
+            def mostrar(marca="Marca Padrão")
+              puts "Marca: #{marca} - Modelo: #{self.nome}"
+            end
+          end
+          
+          c = Carro.new
+          
+          debugger
+
+          Carro.new.mostrar
+        </code>
+      </pre>
+      <p>Para fazer somente o get de <code>:pneu</code></p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          class Carro
+            def initialize(nome = "Modelo Padrão") 
+              @nome = nome
+            end
+            attr_accessor :nome, :porta, :painel, :roda
+
+            attr_reader :pneu
+
+            def mostrar(marca="Marca Padrão")
+              puts "Marca: #{marca} - Modelo: #{self.nome}"
+            end
+          end
+          
+          c = Carro.new
+          
+          debugger
+
+          Carro.new.mostrar
+        </code>
+      </pre>
+
+    </div>
+  </section>
+</body>
+
 </html>
