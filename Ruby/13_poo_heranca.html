@@ -1,36 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <h2>Herança</h2>
+      <p>Herança é um princípio da programação orientada a objetos (POO) que permite criar uma nova classe a
+        partir de uma já existente, útil para reaproveitamento de código, uma classe pode "herdar" de outra vários
+        métodos e implementar novos métodos e atributos, você vai ouvir palavras como: classe Pai, Mãe, superclasse,
+        subclasse, classe filha etc.
+      </p>
+      <br />
+      <p>Exemplo de herança, definida classe Pai carro e classe filha Fiesta que herda os métodos do Pai.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Carro
+            attr_accessor :nome, :portas
+          end
+        </code>
+      </pre>
+      <p>Usamos o sinal <code><</code>, para representar o conceito de herança em Ruby</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Fiesta < Carro
+            # Aqui a classe Fiesta tem os mesmos attr_accessor :nome, :portas
+          end
+        </code>
+      </pre>
+
+      <!-- Aula Prática -->
+      <div>
+        <h3>Aula Prática</h3>
+        <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir conforme o padrão.</p>
+        <hr>
+        <p>Para essa aula criaremos alguns arquivos de classe separados do código principal</p>
+        <p>Para o arquivo <code>fiesta.rb</code> faça: </p>
         <pre class="m-0">
           <code class="language-ruby rounded">
-            > 1.class
-            => Integer
+            class Fiesta
+              attr_accessor :cor
+            end
           </code>
         </pre>
+        <p>No arquivo <code>carro.rb</code> faça:</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            class Carro
+              def initialize(nome = "Modelo Padrão")
+                @nome = nome
+              end
+
+              attr_accessor :nome, :porta, :painel, :roda
+              attr_reader :pneu
+
+              def mostrar(marca="Marca Padrão")
+                puts "Marca: #{marca} - Modelo: #{self.nome}"
+              end
+            end
+          </code>
+        </pre>
+
+        <p>Para o arquivo aula.rb deve-se fazer o <code>require_relative</code> dos outros arquivos.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          require 'byebug'
+
+          require_relative 'carro'
+          require_relative 'fiesta'
+
+          debugger
+          
+          fiesta = Fiesta.new
+          carro = Carro.new
+
+          Carro.new.mostrar
+          </code>
+        </pre>
+
+        <p>Incluindo a herança no <code>fiesta.rb</code> </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            class Fiesta < Carro
+              attr_accessor :cor
+            end
+          </code>
+        </pre>
+        <p>Incluindo a herança no <code>golf.rb</code> </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            class Golf < Carro
+              
+            end
+          </code>
+        </pre>
+        <p>Para o arquivo aula.rb atualize com o <code>golf.rb</code>.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+
+            require_relative 'carro'
+            require_relative 'fiesta'
+            require_relative 'golf'
+
+            debugger
+            
+            fiesta = Fiesta.new
+            golf = Golf.new
+            carro = Carro.new
+
+            Carro.new.mostrar
+          </code>
+        </pre>
+        <p>Como vimos a classe <code>Golf</code> pode ser vazia, assim utilizando apenas os métodos herdados de
+          <code>Carro</code>, atente-se para o <code>require_relative</code> de <code>carro</code> ser feito antes das
+          classes que herdam ele.
+        </p>
+
+        <p>Incluindo a herança <code>golf.rb</code>, assim ele herdará todos métodos das classes Carro e Fiesta
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            class Golf < Fiesta
+              # Golf está herdando tudo de Carro e Fiesta.
+            end
+          </code>
+        </pre>
+        <p>Observações:</p>
+        <p>Sempre preste atenção na ordem de importação, observe a semântica quando for herdar métodos e sempre que você
+          fizer <code>AlgumaClasse.new</code>, estará criando uma nova instância, um novo objeto, tendo um diferente
+          endereço na memória inclusive.
+        </p>
       </div>
-    </section>
-  </body>
+  </section>
+</body>
+
 </html>
