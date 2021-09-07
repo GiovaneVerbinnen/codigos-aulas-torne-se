@@ -1,36 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <h2>Modificadores de Acesso (public, private e protected)</h2>
+      <br />
+      <p>Exemplos de acesso.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Carro
+          protected
+            def Danilo
+              # método protegida
+            end
+          end
+        </code>
+      </pre>
+      <p>Usamos o sinal <code><</code>, para representar o conceito de herança em Ruby</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Fiesta < Carro
+          end
+          Fista.new.Carro # Não irá funcionar devido ao protected
+        </code>
+      </pre>
+
+      <!-- Aula Prática -->
+      <div>
+        <h3>Aula Prática</h3>
+        <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir conforme o padrão.</p>
+        <hr>
+        <p>Para essa aula criaremos alguns arquivos de classe separados do código principal</p>
+        <p>Para o arquivo <code>fiesta.rb</code> faça: </p>
         <pre class="m-0">
           <code class="language-ruby rounded">
-            > 1.class
-            => Integer
+            class Fiesta
+              attr_accessor :cor
+            end
           </code>
         </pre>
+        
       </div>
-    </section>
-  </body>
+  </section>
+</body>
+
 </html>
