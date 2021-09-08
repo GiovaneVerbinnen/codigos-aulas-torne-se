@@ -21,7 +21,11 @@
       <!-- Aula Teórica -->
       <h2>Modificadores de Acesso (public, private e protected)</h2>
       <br />
+      <p>Privada: Fica restrita ao escopo da classe. </p>
+      <p>Protegida: Fica restrita ao escopo da classe e ás classes que herdam ela. </p>
+      <p>Pública: Fica com acesso livre. </p>
       <p>Exemplos de acesso.</p>
+
       <pre class="m-0">
         <code class="language-ruby rounded">
           class Carro
@@ -32,30 +36,163 @@
           end
         </code>
       </pre>
-      <p>Usamos o sinal <code><</code>, para representar o conceito de herança em Ruby</p>
+      <p>Na situação acima caso fizéssemos: <code>Carro.new.Danilo</code>, não funcionaria pois o método está protegido.
+      </p>
+      <hr>
+      <p>Importante notar que:</p>
+      <p>Uma vez definido o acesso ele será aplicado a todo código abaixo, tendo que ser mudado
+        explicitamente para outro modo caso necessário.</p>
+      <p>Você pode utilizar um método protegido dentro de um público e assim exibir o valor protegido.</p>
+      <p>E ao utilizar um método sem informar o acesso, ele será público por padrão.</p>
       <pre class="m-0">
         <code class="language-ruby rounded">
-          class Fiesta < Carro
+        class Carro
+          def mostrar
+            # método público
           end
-          Fista.new.Carro # Não irá funcionar devido ao protected
+          private
+          def olhar
+            # método privado
+          end
+          protected
+          def ver
+            # método protegido
+          end
+        end
         </code>
       </pre>
-
+      <p>Fazendo um método publico receber o protegido por herança é uma forma de ter acesso ao método protected de
+        outra classe:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        class Carro
+        protected
+          def Danilo
+            # método protegido
+          end
+        end
+        class Fiesta < Carro
+          def mostrar
+            # método publico
+            Danilo
+          end
+        end
+        Fiesta.new.mostrar
+        </code>
+      </pre>
+      <p>Lembrando que se o método <code>Danilo</code> fosse privado não seria possível fazer o processo acima, um
+        método privado não pode ser herdado.</p>
       <!-- Aula Prática -->
       <div>
         <h3>Aula Prática</h3>
-        <p>Como de praxe copie o arquivo padrão das aulas anteriores para seguir conforme o padrão.</p>
+        <p>Como de praxe copie o arquivo padrão da aula anterior para seguir conforme o padrão.</p>
         <hr>
         <p>Para essa aula criaremos alguns arquivos de classe separados do código principal</p>
         <p>Para o arquivo <code>fiesta.rb</code> faça: </p>
         <pre class="m-0">
           <code class="language-ruby rounded">
-            class Fiesta
-              attr_accessor :cor
+            class Carro
+              def initialize(nome = "Modelo Padrão")
+                @nome = nome
+              end
+
+              attr_accessor :nome, :porta, :painel, :roda
+              attr_reader :pneu
+
+              def mostrar(marca="Marca Padrão")
+                puts "Marca: #{marca} - Modelo: #{self.nome} - #{algo_mais}"
+              end
+
+              private
+              def algo_mais
+                "este é um método privado para retornar algo a mais"
+              end
             end
           </code>
         </pre>
-        
+
+        <p>Uma diferença entre o acesso do privado e o protegido é que o privado não pode ser acessado diretamente nem
+          dentro ou fora da classe, já com o protegido não é possível criar uma nova instância para acessa-lo. </p>
+        <p>Mais testes: </p>
+        <pre class="m-0">
+            <code class="language-ruby rounded">
+              class Carro
+                def initialize(nome = "Modelo Padrão")
+                  @nome = nome
+                end
+  
+                attr_accessor :nome, :porta, :painel, :roda
+                attr_reader :pneu
+  
+                def mostrar(marca="Marca Padrão")
+                  puts "Marca: #{marca} - Modelo: #{self.nome} - #{algo_mais}"
+                end
+  
+                private
+                def algo_mais
+                  "este é um método privado para retornar algo a mais"
+                end
+
+                def algo_mais2
+                  "este é um método privado para retornar algo a mais"
+                end
+
+                public
+                def algo_mais
+                  "este é um método público para retornar algo a mais"
+                end
+
+                protected
+                def algo_mais_protected
+                  "este é um método protegido para retornar algo a mais"
+                end
+              end
+            </code>
+          </pre>
+        <p>
+          Utilizando método privado com herança.
+        </p>
+        <pre class="m-0">
+            <code class="language-ruby rounded">
+            class Fiesta < Carro
+              def mostrar_privado
+                  algo_mais
+                Danilo
+              end
+            end
+            Fiesta.mostrar_privado
+            </code>
+          </pre>
+        <p>
+          Se fosse criada uma nova instância de <code>Carro</code> nosso código não funcionaria.
+        </p>
+        <pre class="m-0">
+              <code class="language-ruby rounded">
+              class Fiesta < Carro
+                def mostrar_privado
+                    algo_mais
+                  Danilo
+                end
+              end
+              Carro.new.algo_mais
+              </code>
+            </pre>
+        <p>
+          Utilizando um método protegido.
+        </p>
+        <pre class="m-0">
+                  <code class="language-ruby rounded">
+                  class Fiesta < Carro
+                    def mostrar_privado
+                      algo_mais
+                      Carro.new.algo_mais
+                    end
+                    def mostrar_protegido
+                      algo_mais_protected
+                    end
+                  end
+                  </code>
+                </pre>
       </div>
   </section>
 </body>
