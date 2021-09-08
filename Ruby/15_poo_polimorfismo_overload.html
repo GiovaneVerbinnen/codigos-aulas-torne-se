@@ -21,18 +21,17 @@
       <!-- Aula Teórica -->
       <h2>Polimorfismo e Overload</h2>
       <br />
-      <h6>Interface</h6>
-      <p>Classe sem implementação, deve ser implementada em uma classe filha através da herança.
-        Você não conseguirá criar uma instância a partir dela. Pode ser vista como uma "ideia". </p>
-      <h6>Abstrata</h6>
-      <p>Classe com algumas implementações, deve ser implementada as classes que requerem numa classe filha através da
-        herança.
-        Você não conseguirá criar uma instância a partir dela. Pode ser vista como uma "ideia" com alguns métodos já
-        implementados, mas não todos. </p>
-      <h6>Singleton</h6>
+      <h6>Sobrescrita, Sobreposição ou Override</h6>
       <p>
-        Essa classe não permite criar uma nova instância, porém ela tem uma instância única.
+        Na Sobrescrita ou Sobreposição você pode acessar tanto o novo método que sobreescreveu da classe pai, e também
+        acessa-lô de
+        dentro desse novo método, unindo as características de ambos, aqui vemos o uso do polimorfismo.
       </p>
+      <p>
+        No Ruby não existe Overload, que consiste em ter mais de um método com mesmo nome, como em linguagens como C#,
+        mas temos a passagem de argumentos dinâmica com <code>*args</code>.
+      </p>
+
       <!-- Aula Prática -->
       <h3>Aula Prática</h3>
       <p>Como de praxe copie os arquivos das aulas anteriores para seguir conforme o padrão.</p>
@@ -43,122 +42,169 @@
         <code class="language-ruby rounded">
           require 'byebug'
 
-          require_relative 'interface'
-          require_relative 'abstrata'
-          require_relative 'klass'
-
-          debugger
-
-          x = "" 
-        </code>
-      </pre>
-      <p>Para o arquivo <code>interface.rb</code> faça: </p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          class Interface
-            def initialize
-              raise "Classe não pode ser instânciada, somente herdada, e implementada"
-            end
-
-            def test1
-             raise "Método para ser implementado"
-            end
-
-            def test2
-            raise "Método para ser implementado"
-            end
-          end
-        </code>
-      </pre>
-      <p>Para o arquivo <code>klass.rb</code> faça: </p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          class Klass < Interface
-            def initialize
-            end
-
-            def test1
-              "implementado"
-            end
-
-            def test2
-              "implementado"
-            end
-          end
-        </code>
-      </pre>
-      <p>Para o arquivo <code>abstrata.rb</code> faça: </p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          class Abstrata < Interface
-            def initialize
-              raise "Classe não pode ser implementada, somente herdada"
-            end
-
-            def test1
-              raise "Classe não pode ser implementada"
-            end
-
-            def test2
-              "este é o teste 2"
-            end
-          end
-        </code>
-      </pre>
-      <p>Para o arquivo <code>klass.rb</code> mudaremos algumas coisas: </p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          class Klass < Abstrata
-            def initialize;end
-          end
-        </code>
-      </pre>
-      <p>Neste ponto se tentarmos instanciar a classe Abstrata receberemos um erro, já na Klass, conseguimos
-        implementar
-        através da herança, mas apenas o método <code>test2</code>, visto que o <code>test1</code> está sinalizado para
-        não ser implementado na Abstrata.
-      </p>
-      <hr>
-      <h6>Singleton</h6>
-      <p>O Ruby tem um Singleton próprio para utilizarmos.</p>
-      <p>Aqui criamos outro diretório(pasta) para testar.</p>
-      <p>Para o arquivo <code>aula.rb</code> mudaremos algumas coisas: </p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          require 'byebug'
-
-          require_relative 'instancia_unica'
-
-          instancia = InstanciaUnica.instance
-
-          debugger
-
-          puts InstanciaUnica.new
-
-          x = ""
-        </code>
-      </pre>
-      <p>Para o arquivo <code>instancia_unica.rb</code>: </p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          require 'singleton'
+          require_relative 'carro'
+          require_relative 'fiesta'
+          require_relative 'golf'
           
-          class InstanciaUnica
-            include Singleton
+          
+          golf = Golf.new
+          fiesta = Fiesta.new
+          carro = Carro.new
+     
+          debugger
 
-            def test1
-              "Esse é o test 1"
+          golf.mostrar
+
+          fiesta.mostrar
+        </code>
+      </pre>
+      <p>Para o arquivo <code>carro.rb</code> faça: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Carro
+
+            def initialize(nome = "Modelo padrão")
+              @nome = nome
             end
 
-            def test2
-              "Esse é o test 2"
+            attr_accessor :nome, :porta, :painel, :roda
+            attr_reader :pneu
+
+            def mostrar(marca="Marca padrão")
+              "Marca: #{marca} - Modelo: #{self.nome} - #{algo_mais_protected}"
+            end
+
+            private
+            def algo_mais
+              "este é um metodo privado para retornar algo a mais"
+            end
+
+            def algo_mais2
+              "este é um metodo privado para retornar algo a mais"
+            end
+            
+            def algo_mais3
+              "este é um metodo privado para retornar algo a mais"
+            end
+            
+            def algo_mais4
+              "este é um metodo privado para retornar algo a mais"
+            end
+
+            public
+            def algo_mais_publico
+              "este é um metodo publico para retornar algo a mais"
+            end
+
+            protected
+            def algo_mais_protected
+              "este é um metodo protegido para retornar algo a mais"
+            end
+
+          end
+        </code>
+      </pre>
+      <p>Para o arquivo <code>golf.rb</code> faça: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Golf < Carro
+            def mostrar
+              puts "este é o medodo mostrar da classe golf"
             end
           end
         </code>
       </pre>
-      <p>Agora é só rodar com <code>ruby aula.rb</code>, se tentar criar uma instância de <code>InstanciaUnica</code>
-        não conseguirá, apenas utilizará com <code>InstanciaUnica.instance</code>.</p>
-      <p>Observe que o endereço de memória será sempre o mesmo, a menos que reiniciar o script ele não irá mudar.</p>
+      <p>Usando o <code>super</code> no <code>golf.rb</code> para usar o método mostrar da classe base: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Golf < Carro
+            def mostrar
+              mostrar_original = super
+              puts "este é o medodo mostrar da classe golf - #{mostrar_original}"
+            end
+            def andar
+              puts ""
+            end
+          end
+        </code>
+      </pre>
+      <p>Exemplo de Sobrescrita: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Golf < Carro
+            def mostrar
+              mostrar_original = super
+              puts "este é o medodo mostrar da classe golf - #{mostrar_original}"
+            end
+            def andar(p1,p2,p3)
+              puts "andar com parametros #{p1}, #{p2}, #{p3}"
+            end
+
+            def andar
+              puts "andar sem parametros"
+            end
+          end
+        </code>
+      </pre>
+
+      <p>Arquivo <code>golf.rb</code> final: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Golf < Carro
+            def mostrar
+              mostrar_original = super
+              puts "este é o medodo mostrar da classe golf - #{mostrar_original}"
+            end
+
+            def andar(p1,p2,p3)
+              puts "andar com parametros #{p1}, #{p2}, #{p3}"
+            end
+
+            def andar
+              puts "andar sem parametros"
+            end
+
+            def andar(*parametros)
+              puts "andar com parametros, opcionais #{parametros}"
+
+              parametros.each do |param|
+                puts param
+              end
+            end
+
+          end
+        </code>
+      </pre>
+      <p>Arquivo <code>Fiesta.rb</code> final: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Fiesta < Carro
+            attr_accessor :cor
+
+            def mostrar
+              puts "OIIII ---- #{super}"
+            end
+
+            def mostrar2(d,r)
+              puts "Osssssss - #{d} - #{r}"
+            end
+
+            def mostrar2
+              puts "Osssssss"
+            end
+
+            def mostrar_privado
+              # algo_mais
+              Carro.new.algo_mais
+            end
+
+            def mostrar_protegido
+              # algo_mais_protected
+              Carro.new.algo_mais_protected
+            end
+          end
+        </code>
+      </pre>
       <!-- FIM -->
   </section>
 </body>
