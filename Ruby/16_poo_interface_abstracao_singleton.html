@@ -1,36 +1,166 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
-          <code class="language-ruby rounded">
-            > 1.class
-            => Integer
-          </code>
-        </pre>
-      </div>
-    </section>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <h2>Interface, Abstração e Singleton</h2>
+      <br />
+      <h6>Interface</h6>
+      <p>Classe sem implementação, deve ser implementada em uma classe filha através da herança.
+        Você não conseguirá criar uma instância a partir dela. Pode ser vista como uma "ideia". </p>
+      <h6>Abstrata</h6>
+      <p>Classe com algumas implementações, deve ser implementada as classes que requerem numa classe filha através da
+        herança.
+        Você não conseguirá criar uma instância a partir dela. Pode ser vista como uma "ideia" com alguns métodos já
+        implementados, mas não todos. </p>
+      <h6>Singleton</h6>
+      <p>
+        Essa classe não permite criar uma nova instância, porém ela tem uma instância única.
+      </p>
+      <!-- Aula Prática -->
+      <h3>Aula Prática</h3>
+      <p>Como de praxe copie os arquivos das aulas anteriores para seguir conforme o padrão.</p>
+      <hr>
+      <p>Para essa aula criaremos alguns arquivos de classe separados do código principal.</p>
+      <p>Para o arquivo <code>aula.rb</code> faça: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          require_relative 'interface'
+          require_relative 'abstrata'
+          require_relative 'klass'
+
+          debugger
+
+          x = "" 
+        </code>
+      </pre>
+      <p>Para o arquivo <code>interface.rb</code> faça: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Interface
+            def initialize
+              raise "Classe não pode ser instânciada, somente herdada, e implementada"
+            end
+
+            def test1
+             raise "Método para ser implementado"
+            end
+
+            def test2
+            raise "Método para ser implementado"
+            end
+          end
+        </code>
+      </pre>
+      <p>Para o arquivo <code>klass.rb</code> faça: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Klass < Interface
+            def initialize
+            end
+
+            def test1
+              "implementado"
+            end
+
+            def test2
+              "implementado"
+            end
+          end
+        </code>
+      </pre>
+      <p>Para o arquivo <code>abstrata.rb</code> faça: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Abstrata < Interface
+            def initialize
+              raise "Classe não pode ser implementada, somente herdada"
+            end
+
+            def test1
+              raise "Classe não pode ser implementada"
+            end
+
+            def test2
+              "este é o teste 2"
+            end
+          end
+        </code>
+      </pre>
+      <p>Para o arquivo <code>klass.rb</code> mudaremos algumas coisas: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Klass < Abstrata
+            def initialize;end
+          end
+        </code>
+      </pre>
+      <p>Neste ponto se tentarmos instanciar a classe Abstrata receberemos um erro, já na Klass, conseguimos
+        implementar
+        através da herança, mas apenas o método <code>test2</code>, visto que o <code>test1</code> está sinalizado para
+        não ser implementado na Abstrata.
+      </p>
+      <hr>
+      <h6>Singleton</h6>
+      <p>O Ruby tem um Singleton próprio para utilizarmos.</p>
+      <p>Aqui criamos outro diretório(pasta) para testar.</p>
+      <p>Para o arquivo <code>aula.rb</code> mudaremos algumas coisas: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          require_relative 'instancia_unica'
+
+          instancia = InstanciaUnica.instance
+
+          debugger
+
+          puts InstanciaUnica.new
+
+          x = ""
+        </code>
+      </pre>
+      <p>Para o arquivo <code>instancia_unica.rb</code>: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'singleton'
+          
+          class InstanciaUnica
+            include Singleton
+
+            def test1
+              "Esse é o test 1"
+            end
+
+            def test2
+              "Esse é o test 2"
+            end
+          end
+        </code>
+      </pre>
+      <p>Agora é só rodar com <code>ruby aula.rb</code>, se tentar criar uma instância de <code>InstanciaUnica</code>
+        não conseguirá, apenas utilizará com <code>InstanciaUnica.instance</code>.</p>
+      <p>Observe que o endereço de memória será sempre o mesmo, a menos que reiniciar o script ele não irá mudar.</p>
+      <!-- FIM -->
+  </section>
+</body>
+
 </html>
