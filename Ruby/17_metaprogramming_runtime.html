@@ -1,36 +1,120 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
-          <code class="language-ruby rounded">
-            > 1.class
-            => Integer
-          </code>
-        </pre>
-      </div>
-    </section>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <h2>Metaprogramming ou Metaprogramação </h2>
+      <br />
+      <p>São programas que escrevem ou manipulam outros programas (ou a si próprios) assim como seus dados, ou que fazem
+        parte do trabalho em tempo de compilação.</p>
+      <!-- Aula Prática -->
+      <h3>Aula Prática</h3>
+      <p>Como de praxe copie os arquivos das aulas anteriores para seguir conforme o padrão.</p>
+      <hr>
+      <p>Para essa aula criaremos alguns arquivos de classe separados do código principal.</p>
+      <p>Para o arquivo <code>aula.rb</code> faça: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          require_relative 'interface'
+          require_relative 'abstrata'
+          require_relative 'klass'
+
+          debugger
+
+          x = "" 
+        </code>
+      </pre>
+
+
+      <p>Arquivo <code>aula.rb</code> final: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          # def String.mostrar_nova_string2
+          #   "nova string"
+          # end
+
+          # a = "danilo"
+          # debugger
+
+          # def a.mostrar_nova_string
+          #   "nova string"
+          # end
+
+          # x = ""
+
+          puts "[[[[Inicio: #{self}]]]]"
+          class Carro
+
+            puts "[[[[Class: #{self}]]]]"
+
+            def initialize(nome = "Modelo padrão")
+              @nome = nome
+            end
+
+            attr_accessor :nome, :porta, :painel, :roda
+            attr_reader :pneu
+
+            def mostrar(marca="Marca padrão")
+              puts "[[[[Method: #{self}]]]]"
+              "Marca: #{marca} - Modelo: #{self.nome}"
+            end
+
+
+            def self.metodo_de_classe
+              "de classe"
+            end
+
+          end
+
+          def Carro.metodo_de_classe2
+            "de classe"
+          end
+
+
+          puts "[[[[Fim: #{self}]]]]"
+
+          fiesta = Carro.new
+          golf = Carro.new
+
+          # def fiesta.mostrar
+          #   "Mostrar do fiesta"
+          # end
+
+          # def golf.mostrar
+          #   "Mostrar do golf"
+          # end
+
+
+          debugger
+
+
+
+          x = ""
+
+        </code>
+      </pre>
+      <!-- FIM -->
+  </section>
+</body>
+
 </html>
