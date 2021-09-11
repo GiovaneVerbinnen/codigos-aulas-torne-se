@@ -1,36 +1,132 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
-          <code class="language-ruby rounded">
-            > 1.class
-            => Integer
-          </code>
-        </pre>
-      </div>
-    </section>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <figure>
+        <h2>Instalando o Ruby on Rails</h2>
+        <img class="img-fluid "
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Ruby_On_Rails_Logo.svg/1200px-Ruby_On_Rails_Logo.svg.png"
+          alt="Ruby on Rails logo" width="256" height="256" />
+        <figcaption>Autor original: David Heinemeier Hansson - DHH</figcaption>
+
+      </figure>
+
+      <p>O Ruby on Rails ou simplesmente Rails é um framework web - Open Source - que promete trazer toda diversão e
+        facilidade do Ruby
+        para a web, lançado originalmente em 2004 ele popularizou diversos conceitos que utilizamos hoje em dia, além de
+        inspirar diversos outros frameworks.
+      </p>
+      <p>
+        Como curiosidade interessante existe um vídeo muito famoso onde o próprio DHH realizou a primeira apresentação
+        do Rails no FISL
+        6.0 no Brasil, construindo um motor de blog em 15 minutos - <a href="https://youtu.be/Gzj723LkRJY"
+          target="_blank">Link do
+          vídeo.</a>
+      </p>
+      <p>
+        E você provavelmente já utilizou alguma solução baseada no Rails como: Basecamp, HEY, GitHub,
+        Shopify, Airbnb, Twitch, SoundCloud, Hulu, Zendesk, Square, Cookpad.
+      </p>
+      <p>Para instalar o Rails do rubygems.org</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        gem install rails
+      </code>
+    </pre>
+      <p>Por padrão em qualquer aplicação Rails temos o <code>Gemfile</code> e o <code>Gemfile.lock</code>, o primeiro
+        contém todas suas gems, o segundo tem a "trava" de versionamento para as gems referidas, protegendo possíveis
+        quebras nas atualizações de gems.
+      </p>
+      <h5>Arquitetura</h5>
+      <p>O Rails trouxe a arquitetura MVC(Model, View, Controller), que facilita a troca de informações entre a
+        interface do usuário aos dados no banco de dados, fazendo com que as respostas sejam mais rápidas e dinâmicas.
+      </p>
+      <figure>
+        <img class="img-fluid"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/ModelViewControllerDiagram2.svg/1200px-ModelViewControllerDiagram2.svg.png"
+          alt="Representação visual do MVC">
+        <figcaption>Representação visual do MVC</figcaption>
+      </figure>
+      <p>A arquitetura MVC foi criada no final dos anos 70 na Xerox Parc, para ser utilizada com o Smalltalk-80,
+        separando as responsabilidades de uma aplicação.</p>
+      <dl>
+        Onde:
+        <dd>
+          Model = Modelo, camada responsável por manipular o banco de dados.
+        </dd>
+        <dd>
+          View = Visão, camada responsável por exibir algo para o usuário.
+        </dd>
+        <dd>
+          Controller = Controlador, normalmente manipula requisições web(http) intermediando as camadas Model e View.
+        </dd>
+      </dl>
+      <p>Para iniciar uma aplicação rails utilizamos <code>rails new nome-da-aplicacao</code></p>
+      <p>Alguns arquivos para prestar atenção ao criar uma nova aplicação: routes e config.
+      </p>
+      <h5>Bancos de dados</h5>
+      <p>O Rails tem um grande suporte a bancos de dados, por padrão ele utiliza o sqlite, que é um banco relacional sem
+        servidor, onde ele é apenas um arquivo com extensão <code>.sqlite</code>, nas aulas utilizaremos o Mysql por
+        conveniência, além deste ser preparado para um ambiente de produção, diferente do sqlite.</p>
+    </div>
+    <!-- Aula Prática -->
+    <div>
+      <h3>Aula Prática</h3>
+      <hr>
+      <p>Para instalar o Rails faça: </p>
+      <pre class="m-0">
+    <code class="language-ruby rounded">
+    gem install rails
+    </code>
+    </pre>
+      <p>Criaremos uma aplicação chamada teste, para isso utilize:</p>
+      <pre class="m-0">
+    <code class="language-ruby rounded">
+    rails new teste
+    </code>
+    </pre>
+      <p>Após ele criar tudo que é necessário, instalar as dependências, entre na pasta do projeto, e abra ele no seu
+        editor preferido.</p>
+      <p>Como pode ver ele trouxe o sqlite3 como banco de dados, o que não desejamos, confira o arquivo
+        <code>database.yml</code>
+        dentro do diretório <code>config</code>
+      </p>
+      <p>Apague o projeto anterior e crie uma nova aplicação com Mysql: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        rails new minha_primeira_aplicacao_rails -d mysql
+        </code>
+      </pre>
+      <p>O Rails costuma utilizar o underline entre palavras, padrão conhecido como Snake Case, node o
+        <code>-d mysql</code> para usar o mysql. Lembre-se de ter o Mysql instalado na sua máquina para utilizado.
+      </p>
+      <p>
+        Dentro da pasta <code>app</code>, temos as pastas padrão do MVC, controllers, views, models.
+      </p>
+      <p>Agora abra o arquivo <code>database.yml</code>
+        dentro do diretório <code>config</code>, note que agora temos o banco de dados mysql como padrão
+      </p>
+      <p>Na próxima aula continuaremos vendo mais conceitos! </p>
+      <br>
+      <!-- FIM -->
+  </section>
+</body>
+
 </html>
