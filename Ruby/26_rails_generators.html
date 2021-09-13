@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+
+      <h2>Ruby on Rails - Generators</h2>
+      <p>Nesta aula falaremos sobre:</p>
+      <dl>
+        <dd>Models</dd>
+        <dd>Controllers</dd>
+        <dd>Migrations</dd>
+        <dd>Helpers</dd>
+        <dd>Mailer</dd>
+        <dd>Tasks</dd>
+        <dd>Scaffold</dd>
+      </dl>
+      <p>Após a configuração inicial que vimos na aula anterior, vamos ver como criar os generators.
+
+      </p>
+      <p>
+        Quando criamos um Model, criamos um ojeto que terá conexão direta com nossa base de dados.
+      </p>
+      <p>Para gerar um model por exemplo: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          rails g model Carro nome:string marca:string
+        </code>
+      </pre>
+      <p>O <code>rails g</code> é uma abreviação para <code>rails generate</code>!</p>
+      <p>
+        Isso gerará uma classe chamada Carro com os atributos nome e marca, e já terá todos atributos de CRUD padrão,
+        atrás disso existe o Active Record, que é a classe que herdamos para obter os métodos relacionados ao banco de
+        dados, ele é um O.R.M. ( Object Relational Mapping ), uma técnica de mapeamento objeto-relacional que cria
+        uma camada de mapeamento entre nosso modelo de objetos. Ele cria todos nossos campos que precisamos diretamente
+        no banco, sem que seja necessária nossa intervenção, ou escriver as queries brutas em SQL.
+      </p>
+      <p>
+        O nosso controller irá receber noosas requisiçõees http e veremos como ele controla as rotas.
+      </p>
+      <p>
+        As migrations são responsaveis pelas criação de tabelas, novos campos, alteração etc.
+      </p>
+      <p>
+        O scaffold gera todos nosso recursos base, como controllers, views, models etc.
+      </p>
+    </div>
+    <!-- Aula Prática -->
+    <div>
+      <h3>Aula Prática</h3>
+      <hr>
+      <p>Lembre-se de entrar no diretório que criamos a primeira aplicação na aula passada.</p>
+      <p>Para começar faremos: </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      gem install rails
+      </code>
+      </pre>
+      <p>Criaremos uma aplicação chamada teste, para isso utilize:</p>
+      <pre class="m-0">
+    <code class="language-ruby rounded">
+    rails new teste
+    </code>
+    </pre>
+      <p>Após ele criar tudo que é necessário, instalar as dependências, entre na pasta do projeto, e abra ele no seu
+        editor preferido.</p>
+      <p>Como pode ver ele trouxe o sqlite3 como banco de dados, o que não desejamos, confira o arquivo
+        <code>database.yml</code>
+        dentro do diretório <code>config</code>
+      </p>
+      <p>Apague o projeto anterior e crie uma nova aplicação com Mysql: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        rails new minha_primeira_aplicacao_rails -d mysql
+        </code>
+      </pre>
+      <p>O Rails costuma utilizar o underline entre palavras, padrão conhecido como Snake Case, node o
+        <code>-d mysql</code> para usar o mysql. Lembre-se de ter o Mysql instalado na sua máquina para utilizado.
+      </p>
+      <p>
+        Dentro da pasta <code>app</code>, temos as pastas padrão do MVC, controllers, views, models.
+      </p>
+      <p>Agora abra o arquivo <code>database.yml</code>
+        dentro do diretório <code>config</code>, note que agora temos o banco de dados mysql como padrão
+      </p>
+      <p>Na próxima aula continuaremos vendo mais conceitos! </p>
+      <br>
+      <!-- FIM -->
+  </section>
+</body>
+
+</html>
