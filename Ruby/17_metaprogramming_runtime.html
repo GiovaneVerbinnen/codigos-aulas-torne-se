@@ -21,29 +21,163 @@
       <!-- Aula Teórica -->
       <h2>Metaprogramming ou Metaprogramação </h2>
       <br />
-      <p>São programas que escrevem ou manipulam outros programas (ou a si próprios) assim como seus dados, ou que fazem
-        parte do trabalho em tempo de compilação.</p>
+      <p>
+        São programas que escrevem ou manipulam outros programas (ou a si próprios) assim como seus dados, ou que fazem
+        parte do trabalho em tempo de execução.
+      </p>
+      <p>Obs.: OBJETO = ESTADO + COMPORTAMENTO</p>
+      <p>
+        Com a Metaprogramação conseguimos definir um método em tempo de execução. Dado exemplo:
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Carro
+            def initialize
+             @nome = "teste"
+            end
+            def show
+              @nome
+            end
+          end
+        </code>
+      </pre>
+      <p>Então observamos que um comportamento altera um estado, onde nossa variável é o estado e o método show a ação
+        que altera ela.</p>
+      <p>Simplificadamente um estado pode ser uma variável e um comportamento uma ação que altera esse estado.</p>
+      <p>O problema de utilizarmos o polimorfismo para herdar as classes, é que podemos acabar com uma "classe base"
+        guiando o desenvolvimento da nossa aplicação, dificultando o desenvolvimento.
+      </p>
+      <p>No exemplo abaixo a instância já está definida, e em momento de execução alteramos o comportamento dela, dando
+        muito mais agilidade e flexibilidade, dando liberdade para trocarmos em alguns casos o polimorfismo pela
+        metaprogramação.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          a = "Danilo"
+          def a.mostrar
+            "#{self}---"
+          end
+        </code>
+      </pre>
+      <p>Lembrando que <code>self</code> é referente a classe que ele está, se ele não está dentro de nenhuma classe,
+        irá referenciar a classe main.</p>
       <!-- Aula Prática -->
       <h3>Aula Prática</h3>
       <p>Como de praxe copie os arquivos das aulas anteriores para seguir conforme o padrão.</p>
       <hr>
-      <p>Para essa aula criaremos alguns arquivos de classe separados do código principal.</p>
       <p>Para o arquivo <code>aula.rb</code> faça: </p>
       <pre class="m-0">
         <code class="language-ruby rounded">
           require 'byebug'
+          debugger 
+          a = "Danilo"
+          def a.mostrar
+            "#{self}---"
+          end
+        </code>
+      </pre>
+      <p>Com o código abaixo rodando linha-a-linha com o <code>debugger</code> conseguimos observar que antes da linha
+        onde definimos o método <code>a.mostrar_nova_string</code></p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+           
+          a = "Danilo"
+          def a.mostrar
+            "#{self}---"
+          end
 
-          require_relative 'interface'
-          require_relative 'abstrata'
-          require_relative 'klass'
+          def a.mostrar_nova_string
+            "nova string"
+          end
+        </code>
+      </pre>
+      <p>Com o código abaixo rodando linha-a-linha com o <code>debugger</code> conseguimos observar que antes da linha
+        onde definimos o método <code>a.mostrar_nova_string</code></p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+           
+          a = "Danilo"
 
           debugger
 
-          x = "" 
+          def a.mostrar_nova_string
+            "nova string"
+          end
+
+          def a.mostrar_nova_string
+            "nova string"
+          end
+        </code>
+      </pre>
+      <p>Classe Carro que fizemos na aula de polimorfismo.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        class Carro
+          def initialize(nome = "Modelo Padrão")
+            @nome = nome
+          end
+
+          attr_accessor :nome, :porta, :painel, :roda
+          attr_reader :pneu
+
+          def mostrar(marca="Marca Padrão")
+            puts "Marca: #{marca} - Modelo: #{self.nome} - #{algo_mais}"
+          end
+
+          private
+          def algo_mais
+            "este é um método privado para retornar algo a mais"
+          end
+        end
+
+        fiesta = Carro.new
+
+        golf = Carro.new
+
+        def golf.mostrar 
+         "Mostrar do Golf"
+        end
+
+        def fiesta.mostrar 
+          "Mostrar do Fiesta"
+        end
+
+        debugger
+
+        x = ""
+        </code>
+        </pre>
+      <p>Na execução alteramos o método das instâncias atribuindo uma nova ação para eles. Isso mostra um dos
+        beneficios metaprogramação.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+
         </code>
       </pre>
 
 
+      <p>Com o <code>self.classe</code> podemos criar um método de classe.</p>
+
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          def self.metodo_de_classe
+              "de classe"
+            end
+
+          end
+
+          def Carro.metodo_de_classe2
+            "de classe"
+          end        
+        </code>
+      </pre>
+      <p>No código acima observe que os dois métodos de classe, sendo o que <code>self</code> representa a classe
+        <code>Carro</code> neste contexto.
+      </p>
+
+
+      <p>Para o último aprenderemos sobre o <code>self</code>.</p>
       <p>Arquivo <code>aula.rb</code> final: </p>
       <pre class="m-0">
         <code class="language-ruby rounded">
@@ -114,6 +248,7 @@
         </code>
       </pre>
       <!-- FIM -->
+      <br />
   </section>
 </body>
 
