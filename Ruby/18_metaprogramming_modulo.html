@@ -73,16 +73,17 @@
           puts a.nome
         </code>
       </pre>
-      <code class="language-ruby rounded">
-        class Carro
-          def initialize
-           @nome = "teste"
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Carro
+            def initialize
+            @nome = "teste"
+            end
+            def show
+              @nome
+            end
           end
-          def show
-            @nome
-          end
-        end
-      </code>
+        </code>
       </pre>
 
       <pre class="m-0">
@@ -113,20 +114,99 @@
       </pre>
       <p>Podemos utilizar o módulo para várias coisas, com</p>
 
-
-
-
-
-
-
-
-
-
-
-
-      <p>Arquivo final:</p>
-      <pre class="m-0">
+      <p>Para utilizarmos vários métodos pra <code>string</code> Danilo, fazemos:</p>
+      <pre>
         <code class="language-ruby rounded">
+        danilo = "teste"
+        def danilo.olha1
+          "teste danilo"
+        end
+        def danilo.olha2
+          "teste danilo"
+        end
+        def danilo.olha3
+          "teste danilo"
+        end
+
+        debugger
+      </code>
+      </pre>
+      <p>
+        Contudo torna-se repetitivo, observe quantas vezes utilizamos <code>danilo.alguma_coisa</code>, para nos
+        ajudaro com isso temos o Operador
+        com desvio a esquerda(<<), então podemos fazer: </p>
+          <pre class="m-0">
+        <code class="language-ruby rounded">
+          danilo = "teste"
+
+          class << danilo
+            def olha1
+              "teste danilo"
+            end
+            def olha2
+              "teste danilo"
+            end
+            def olha3
+              "teste danilo"
+            end
+          end
+
+          debugger
+        </code>
+      </pre>
+          <p>Com esse método alteramos dentro da classe o método sem ter que replicado.</p>
+          <p>Exemplo de defini;áo de m[etodo</p>
+          <pre class="m-0">
+            <code class="language-ruby rounded">
+            class Danilo
+              def self.ola
+                "olha danilo"
+              end
+            end
+
+            debugger
+
+            Danilo.ola
+            </code>
+          </pre>
+
+          <pre class="m-0">
+            <code class="language-ruby rounded">
+            class Danilo
+              class << self
+                def ola1
+                  "olha danilo"
+                end
+
+                def ola2
+                  "olha danilo"
+                end
+
+                def ola3
+                  "olha danilo"
+                end
+              end
+            end
+
+            debugger
+
+            Danilo.ola
+            </code>
+          </pre>
+
+
+
+
+
+
+
+
+
+
+
+          <p>Arquivo final:</p>
+          <pre class="m-0">
+      <code class="language-ruby rounded">
       require 'byebug'
 
       #################################
@@ -423,10 +503,10 @@
       #==================== Errado ====================
 
 </code>
-</pre>
+    </pre>
 
-      <!-- FIM -->
-      <br />
+          <!-- FIM -->
+          <br />
   </section>
 </body>
 
