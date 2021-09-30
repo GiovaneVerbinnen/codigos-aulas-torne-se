@@ -18,12 +18,118 @@
 <body>
   <section class="container">
     <div class="my-5">
-      <!-- Aula Teórica -->
       <h2>Metaprogramming - Dinâmicos </h2>
       <br />
+      <!-- Aula Teórica -->
+      <div>
+        <h6>Lambda</h6>
+        <p>Exemplo básico de lambda.
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            a = lambda do |p|
+              puts p
+            end
+            a.call("danilo")
+          </code>
+        </pre>
+        <p>
+          Assim definimos um bloco que pode receber parâmetros e exibe algo na tela, neste caso ele foi atribuído a
+          variavel <code>a</code>, e chamado com o <code>call</code>, e passando um parâmetro, ao chama-lô com
+          <code>a.call("danlo")</code>, é retornado na tela o parâmetro passado.
+        </p>
+        <h6>Proc</h6>
+        <p>Exemplo básico de proc.
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            a = proc.new do |p|
+              puts p
+            end
+            a.call("danilo")
+          </code>
+        </pre>
+        <p>
+          Este código terá o mesmo efeito do lambda, mas na passagem de parâmetros ele permite passar vários ou nenhum,
+          enquanto que no lambda ele obriga a passagem de parâmetros.
+        </p>
+        <h6>Bloco de métodos</h6>
+        <p>Exemplo básico de bloco, quando utilizamos o &bloco, ele utiliza o proc ao invés do lambda.
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            a = proc.new do |p|
+              puts p
+            end
+            a.call("danilo")
+          </code>
+        </pre>
+        <h6>Eval</h6>
+        <p>Exemplo de eval, com ele podemos utilizar um código que seja válido(exacutável).
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+           eval("puts '123'")
+          </code>
+        </pre>
+      </div>
+
+      <!-- Aula Prática -->
+      <div>
+        <h3>Aula Prática</h3>
+        <p>Como de praxe copie os arquivos das aulas anteriores para seguir conforme o padrão.</p>
+        <hr>
+        <p>Começaremos a ver o lambda padrão.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+
+            l = lambda {|param| param * 5}
+            puts l.call(4)
+            
+            l = lambda do |p1, p2| 
+              p1 + p2
+            end
+            puts l.call(4, 5)
+            debugger
+          </code>
+        </pre>
+
+        <p>O código abaixo gera um erro conforme foi explicado o lambda padrão é necessário passar e referenciar.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            
+            l = lambda {|param| param * 5}
+            puts l.call(4)
+            
+            l = lambda do |p1, p2| 
+              p1 + p2
+            end
+            puts l.call(4)
+            debugger
+          </code>
+        </pre>
+
+        <p>Agora com o <code>Proc.new</code>, assim não se torna necessário passar todos parâmetros.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            
+            l = Proc.new do |param, p2, p3|
+              puts param
+              puts p2
+              puts p3
+            end
+            
+            l.call(4)
+
+            debugger
+          </code>
+        </pre>
 
 
-
+      </div>
 
 
       <hr>
@@ -32,7 +138,7 @@
         <code class="language-ruby rounded">
           require 'byebug'
 
-          #lambda não aceita mais parametros do que os definidos
+          #lambda não aceita mais parâmetros do que os definidos
           #lambda retorno dentro do proprio lambda
           l = lambda {|param| param * 5}
           puts l.call(4)
@@ -54,7 +160,7 @@
           # puts "fim"
           
           ########################################################
-          #lambda aceita mais parametros do que os definidos
+          #lambda aceita mais parâmetros do que os definidos
           #lambda retorno do metodo inteiro
           
           l = Proc.new do |param, p2, p3|
