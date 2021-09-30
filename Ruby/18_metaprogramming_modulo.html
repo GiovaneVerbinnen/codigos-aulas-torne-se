@@ -28,7 +28,7 @@
           a = "Danilo"
         </code>
       </pre>
-      <p>Quando fazemos isso criamos uma nova instância de <code>String</code>, então ela é armazenada na váriavel
+      <p>Quando fazemos isso criamos uma nova instância de <code>String</code>, então ela é armazenada na variável
         <code>a</code>, vimos que podemos adicionar métodos em tempo de execução como:
       </p>
       <pre class="m-0">
@@ -115,7 +115,7 @@
       <p>Podemos utilizar o módulo para várias coisas, com</p>
 
       <p>Para utilizarmos vários métodos pra <code>string</code> Danilo, fazemos:</p>
-      <pre>
+      <pre class="m-0">
         <code class="language-ruby rounded">
         danilo = "teste"
         def danilo.olha1
@@ -131,11 +131,13 @@
         debugger
       </code>
       </pre>
-      <p>
-        Contudo torna-se repetitivo, observe quantas vezes utilizamos <code>danilo.alguma_coisa</code>, para nos
-        ajudaro com isso temos o Operador
-        com desvio a esquerda(<<), então podemos fazer: </p>
-          <pre class="m-0">
+      <div>
+        <p>
+          Contudo torna-se repetitivo, observe quantas vezes utilizamos <code>danilo.alguma_coisa</code>, para nos
+          auxiliar temos o Operador
+          com desvio a esquerda(<<), então podemos fazer: </p>
+      </div>
+      <pre class="m-0">
         <code class="language-ruby rounded">
           danilo = "teste"
 
@@ -154,300 +156,553 @@
           debugger
         </code>
       </pre>
-          <p>Com esse método alteramos dentro da classe o método sem ter que replicado.</p>
-          <p>Exemplo de defini;áo de m[etodo</p>
-          <pre class="m-0">
-            <code class="language-ruby rounded">
-            class Danilo
-              def self.ola
-                "olha danilo"
-              end
+      <p>Com esse método alteramos dentro da classe o método sem ter que replicado.</p>
+      <p>Exemplo de definição de método</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        class Danilo
+          def self.ola
+            "olha danilo"
+          end
+        end
+
+        debugger
+
+        Danilo.ola
+        </code>
+      </pre>
+      <p>E abaixo fazemos a inclusão de métodos para a classe.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        class Danilo
+          class << self
+            def ola1
+              "olha danilo"
             end
 
-            debugger
-
-            Danilo.ola
-            </code>
-          </pre>
-
-          <pre class="m-0">
-            <code class="language-ruby rounded">
-            class Danilo
-              class << self
-                def ola1
-                  "olha danilo"
-                end
-
-                def ola2
-                  "olha danilo"
-                end
-
-                def ola3
-                  "olha danilo"
-                end
-              end
+            def ola2
+              "olha danilo"
             end
 
-            debugger
+            def ola3
+              "olha danilo"
+            end
+          end
+        end
 
-            Danilo.ola
-            </code>
-          </pre>
+        debugger
+
+        Danilo.ola
+        </code>
+      </pre>
+      <p>Também podemos utilizar accessors pra nossa classe.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        class Danilo
+          class << self
+            attr_accessors :nome
+          end
+        end
+
+        debugger
+
+        Danilo.nome
+        </code>
+      </pre>
+      <p>Desta forma em tempo de execução você consegue manipular os getters e setters da sua aplicação, uma vez que
+        elas já foram atribuídas.
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        Danilo.nome = "Danilo"
+        Danilo.nome
+        </code>
+      </pre>
+
+      <h5>Módulos</h5>
+      <p>Módulos como namespace</p>
+      <p>Nós utilizamos <code>::</code>, para acessar os namespaces.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        module Utilidades
+          class Cpf
+            def validar
+            end
+          end
+          class Cnpj
+            def validar
+            end
+          end
+        end
+
+        debugger
+
+        Utilidades::Cpf
+        </code>
+      </pre>
+      <p>Incluindo módulos em outras classes</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          module Validacoes
+            def validar_cpf
+              true
+            end
+            def validar_cnpj
+              false
+            end
+          end
+    
+          module Mostrar
+            def ola
+              puts "dados"
+            end
+            def ola2
+              puts "dados2"
+            end
+          end
+    
+          class Cliente
+            include Validacoes
+            include Mostrar
+          end
+    
+          class Fornecedor
+            include Validacoes
+          end
+    
+          debugger
+    
+          Cliente.new.validar_cpf
+        </code>
+      </pre>
+      <p>Isso permite que uma injeção de alguns métodos específicos numa determinada classe melhor do que a herança
+        genérica que pode trazer algumas coisas desnecessárias.</p>
+
+      <p>Uma forma de adicionar métodos em tempo de execução é o <code>extend</code>, incluindo os métodos na classe da
+        mesma forma.</p>
+      <pre class="m-0">
+          <code class="language-ruby rounded">
+          module Validacoes
+            def validar_cpf
+              true
+            end
+            def validar_cnpj
+              false
+            end
+          end
+      
+          a = "ss"
+          a.extend Validacoes
+      
+          debugger
+          </code>
+        </pre>
+
+      <p>Com o código abaixo incluímos um método que retorna <code>olá</code>, em cada objeto do tipo
+        <code>String</code>.
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          module Teste
+            def oi
+              "ola"
+            end
+          end
+
+          String.include Teste
+
+          debugger
+        </code>
+      </pre>
+
+      <p>Com o código abaixo incluímos um método que troca os espaços por traços. </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        module Teste
+          def tirar_spacos
+            self.gsub(" ", "-")
+          end
+        end
+    
+        module Teste2
+          def metodo_de_classe
+            "teste"
+          end
+        end
+    
+        String.include Teste
+        String.extend Teste2
+        debugger
+        </code>
+      </pre>
+      <p>Obs.: o <code>include</code>, incluí o método na instancia, já o <code>extend</code> irá extender a classe,
+        assim toda classe terá o método incluído por ele.
+      </p>
+
+      <p>Com o código abaixo incluímos um método que tem o mesmo resultado do <code>extend</code>, isso por causa do
+        <code>self</code> feito na classe na hora de incluir.
+      </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        module Validacoes
+          def validar_cpf
+            true
+          end
+          def validar_cnpj
+            false
+          end
+        end
+        
+        class Teste
+          class << self
+            include Validacoes
+          end
+        end
+    
+        class Teste2
+          extend Validacoes
+        end
+    
+        debugger
+    
+        </code>
+      </pre>
+      <p>Aqui neste módulo estamos trabalhando com inclusão tanto na classe quanto na instância, neste caso faremos um
+        módulo dentro de outro módulo.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          module InstanciaEClasse
+            def instancia
+              "metodo de instancia"
+            end
+      
+            module Classe
+              def de_classe
+                "metodo de classe"
+              end
+            end
+          end
+      
+          class Teste
+            include InstanciaEClasse
+            extend InstanciaEClasse::Classe
+          end
+      
+          Teste.new.instancia
+          Teste.de_classe
+      
+          debugger
+        </code>
+      </pre>
 
 
+      <p>Agora vamos ver sobre o <code>included</code>, com esse método conseguimos fazer a inclusão e extensão ao mesmo
+        tempo, testando com o <code>debugger</code> você pode ver melhor como funciona</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
 
+          module InstanciaEClasse
+            def instancia
+              "metodo de instancia"
+            end
+            def instancia2
+              "metodo de instancia"
+            end
 
+            def self.included(cls)
+              puts "-----#{cls} ----"
+              cls.extend Classe
+            end
 
+            module Classe
+              def de_classe
+                "metodo de classe"
+              end
+            end
+          end
 
+          class Teste
+            include InstanciaEClasse
+          end
 
+          debugger
 
+          Teste.new.instancia
+          Teste.de_classe
+        </code>
+      </pre>
 
+      <p>No código abaixo vemos um exemplo de implementação errada, onde o <code>self</code> se refere ao módulo e não a
+        classe em si.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        module InstanciaEClasse
+          def instancia
+            "metodo de instancia"
+          end
+  
+          def self.de_classe
+            "metodo de classe"
+          end
+        end
+  
+        class Teste
+          include InstanciaEClasse
+        end
+  
+        debugger
+  
+        Teste.new.instancia
+        Teste.de_classe
+        </code>
+      </pre>
 
+      <hr>
 
-          <p>Arquivo final:</p>
-          <pre class="m-0">
+      <h5>Arquivo final:</h5>
+      <pre class="m-0">
       <code class="language-ruby rounded">
       require 'byebug'
 
       #################################
-      # danilo = "teste"
-      # def danilo.olha
-      #   "teste danilo"
-      # end
+      danilo = "teste"
+      def danilo.olha
+        "teste danilo"
+      end
 
-      # a = danilo.clone
-      # a.olha
+      a = danilo.clone
+      a.olha
 
-      # # b = danilo.dup
-      # # b.olha
+      b = danilo.dup
+      b.olha
 
-      # cc = a.dup
+      cc = a.dup
 
-      # debugger
+      debugger
 
-      # def cc.novo
-      #   2
-      # end
+      def cc.novo
+        2
+      end
 
 
-      # clone =  copia variáveis e metodos
-      # dup = publica sem a cópia da metaprogramacao
-
-      #################################
-
-      # danilo = "teste"
-      # def danilo.olha1
-      #   "teste danilo"
-      # end
-      # def danilo.olha2
-      #   "teste danilo"
-      # end
-      # def danilo.olha3
-      #   "teste danilo"
-      # end
-
-      # cleber = "teste"
-      # class << cleber
-      #   def olha1
-      #     "teste danilo"
-      #   end
-      #   def olha2
-      #     "teste danilo"
-      #   end
-      #   def olha3
-      #     "teste danilo"
-      #   end
-      # end
+      clone =  copia variáveis e metodos
+      dup = publica sem a cópia da metaprogramacao
 
       #################################
 
+      danilo = "teste"
+      def danilo.olha1
+        "teste danilo"
+      end
+      def danilo.olha2
+        "teste danilo"
+      end
+      def danilo.olha3
+        "teste danilo"
+      end
 
-      # class Danilo
-      #   class << self
-      #     def ola1
-      #       "olha danilo"
-      #     end
-
-      #     def ola2
-      #       "olha danilo"
-      #     end
-
-      #     def ola3
-      #       "olha danilo"
-      #     end
-      #   end
-      # end
-
-      # debugger
-
-      # Danilo.ola
-
-      #################################
-
-      # class Danilo
-      #   def self.nome=(value)
-      #     @nome = value
-      #   end
-
-      #   def self.nome
-      #     @nome
-      #   end
-
-      #   def self.endereco=(value)
-      #     @endereco = value
-      #   end
-
-      #   def self.endereco
-      #     @endereco
-      #   end
-
-      #   def self.telefone=(value)
-      #     @telefone = value
-      #   end
-
-      #   def self.telefone
-      #     @telefone
-      #   end
-      # end
-
-
-      # class Danilo
-      #   class << self
-      #     attr_accessor :nome, :endereco, :telefone
-      #   end
-      # end
-      # debugger
-
-      # Danilo.nome
+      cleber = "teste"
+      class << cleber
+        def olha1
+          "teste danilo"
+        end
+        def olha2
+          "teste danilo"
+        end
+        def olha3
+          "teste danilo"
+        end
+      end
 
       #################################
 
-      # module Utilidades
-      #   class Cpf
-      #     def validar
-      #     end
-      #   end
-      #   class Cnpj
-      #     def validar
-      #     end
-      #   end
-      # end
 
-      # debugger
-      # Utilidades::Cpf
+      class Danilo
+        class << self
+          def ola1
+            "olha danilo"
+          end
 
-      #################################
+          def ola2
+            "olha danilo"
+          end
 
-      # module Validacoes
-      #   def validar_cpf
-      #     true
-      #   end
-      #   def validar_cnpj
-      #     false
-      #   end
-      # end
+          def ola3
+            "olha danilo"
+          end
+        end
+      end
 
-      # module Mostrar
-      #   def ola
-      #     puts "dados"
-      #   end
-      #   def ola2
-      #     puts "dados2"
-      #   end
-      # end
+      debugger
 
-      # class Cliente
-      #   include Validacoes
-      #   include Mostrar
-      # end
-
-      # class Fornecedor
-      #   include Validacoes
-      # end
-
-      # debugger
-
-      # Cliente.new.validar_cpf
-      #################################
-
-      # module Validacoes
-      #   def validar_cpf
-      #     true
-      #   end
-      #   def validar_cnpj
-      #     false
-      #   end
-      # end
-
-      # a = "ss"
-      # a.extend Validacoes
-
-      # debugger
+      Danilo.ola
 
       #################################
 
-      # module Teste
-      #   def tirar_spacos
-      #     self.gsub(" ", "-")
-      #   end
-      # end
+      class Danilo
+        def self.nome=(value)
+          @nome = value
+        end
 
-      # module Teste2
-      #   def metodo_de_classe
-      #     "teste"
-      #   end
-      # end
+        def self.nome
+          @nome
+        end
 
-      # String.include Teste
-      # String.extend Teste2
-      # debugger
+        def self.endereco=(value)
+          @endereco = value
+        end
 
-      #################################
-      # module Validacoes
-      #   def validar_cpf
-      #     true
-      #   end
-      #   def validar_cnpj
-      #     false
-      #   end
-      # end
+        def self.endereco
+          @endereco
+        end
 
-      # class Teste
-      #   class << self
-      #     include Validacoes
-      #   end
-      # end
+        def self.telefone=(value)
+          @telefone = value
+        end
+
+        def self.telefone
+          @telefone
+        end
+      end
 
 
-      # class Teste2
-      #   extend Validacoes
-      # end
+      class Danilo
+        class << self
+          attr_accessor :nome, :endereco, :telefone
+        end
+      end
+      debugger
 
-      # debugger
+      Danilo.nome
 
       #################################
 
-      # module InstanciaEClasse
-      #   def instancia
-      #     "metodo de instancia"
-      #   end
+      module Utilidades
+        class Cpf
+          def validar
+          end
+        end
+        class Cnpj
+          def validar
+          end
+        end
+      end
 
-      #   module Classe
-      #     def de_classe
-      #       "metodo de classe"
-      #     end
-      #   end
-      # end
+      debugger
+      Utilidades::Cpf
 
-      # class Teste
-      #   include InstanciaEClasse
-      #   extend InstanciaEClasse::Classe
-      # end
+      #################################
 
-      # Teste.new.instancia
-      # Teste.de_classe
+      module Validacoes
+        def validar_cpf
+          true
+        end
+        def validar_cnpj
+          false
+        end
+      end
 
-      # debugger
+      module Mostrar
+        def ola
+          puts "dados"
+        end
+        def ola2
+          puts "dados2"
+        end
+      end
+
+      class Cliente
+        include Validacoes
+        include Mostrar
+      end
+
+      class Fornecedor
+        include Validacoes
+      end
+
+      debugger
+
+      Cliente.new.validar_cpf
+      #################################
+
+      module Validacoes
+        def validar_cpf
+          true
+        end
+        def validar_cnpj
+          false
+        end
+      end
+
+      a = "ss"
+      a.extend Validacoes
+
+      debugger
+
+      #################################
+
+      module Teste
+        def tirar_spacos
+          self.gsub(" ", "-")
+        end
+      end
+
+      module Teste2
+        def metodo_de_classe
+          "teste"
+        end
+      end
+
+      String.include Teste
+      String.extend Teste2
+      debugger
+
+      #################################
+      module Validacoes
+        def validar_cpf
+          true
+        end
+        def validar_cnpj
+          false
+        end
+      end
+
+      class Teste
+        class << self
+          include Validacoes
+        end
+      end
+
+
+      class Teste2
+        extend Validacoes
+      end
+
+      debugger
+
+      #################################
+
+      module InstanciaEClasse
+        def instancia
+          "metodo de instancia"
+        end
+
+        module Classe
+          def de_classe
+            "metodo de classe"
+          end
+        end
+      end
+
+      class Teste
+        include InstanciaEClasse
+        extend InstanciaEClasse::Classe
+      end
+
+      Teste.new.instancia
+      Teste.de_classe
+
+      debugger
 
       #################################
 
@@ -505,8 +760,8 @@
 </code>
     </pre>
 
-          <!-- FIM -->
-          <br />
+      <!-- FIM -->
+      <br />
   </section>
 </body>
 
