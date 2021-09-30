@@ -1,36 +1,331 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h2></h2>
+      <p></p>
+
+      <p>Acesso o <code>irb</code> para testar alguns códigos</p>
+      <pre class="m-0">
           <code class="language-ruby rounded">
             > 1.class
             => Integer
           </code>
         </pre>
-      </div>
-    </section>
-  </body>
+      <p>Arquivo <code>aula.rb</code> final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          #==================================
+          # Definir Classe em runtime
+          classe = "danilo"
+          classe = classe.capitalize
+          eval("class #{classe} end")
+          classe = Object.const_get(classe)
+          puts classe
+
+          #==================================
+          # Definir Metodo em runtime
+          class Teste
+            def self.definir(nome_metodo)
+              define_method(nome_metodo) do 
+                puts "metodo em runtime"
+              end
+            end
+          end
+
+          Teste.definir("teste")
+
+          Teste.new.teste
+
+          #==================================
+          # Definir Várias classes em runtime
+          def definir_classe(classe)
+            classe = classe.capitalize
+            eval("class #{classe} end")
+            classe = Object.const_get(classe)
+          end
+
+          ["Classe1", "Classe2", "Classe3"].each do |classe|
+            definir_classe(classe)
+          end
+
+
+          #==================================
+          # Definir Vários metodos em runtime
+          class Teste
+            def self.definir(*metodos)
+              metodos.each do |metodo|
+                define_method(metodo) do 
+                  puts "metodo em runtime"
+                end
+              end
+            end
+          end
+
+          Teste.definir("metodo1", "metodo2", "metodo3")
+          a = Teste.new
+          puts a.methods - Class.methods
+
+          #==================================
+          #definir classe e metodos em runtime
+          def definir_classe(classe, nome_metodo)
+            if(classe.is_a?(String))
+              classe = classe.capitalize
+              eval("class #{classe} end");
+              classe = Object.const_get(classe)
+            end
+
+            classe.class_eval do
+              define_method(nome_metodo) do |*params|
+                puts "o valor dos parametros é: #{params.join(", ")}"
+              end
+            end
+          end
+
+          ["mostrar", "exibir", "visualizar"].each do |metodo|
+            definir_classe("danilo2", metodo)
+          end
+
+          ["mostrar", "exibir", "visualizar"].each do |metodo|
+            Danilo2.new.send(metodo, 1,2,3)
+          end
+
+          # chamando todos dinamicos
+          ["Danilo", "Sheila", "Lana"].each do |classe|
+            ["mostrar", "exibir", "visualizar"].each do |metodo|
+              definir_classe(classe, metodo)
+              Object.const_get(classe).new.send(metodo, 1,2,3)
+            end
+          end
+
+
+          #==================================
+          #definir várias classes e metodos em runtime utilizando hash
+          def definir_classe(classe, nome_metodo)
+            if(classe.is_a?(String))
+              eval("class #{classe} end");
+              classe = Object.const_get(classe)
+            end
+
+            classe.class_eval do
+              define_method(nome_metodo) do |*params|
+                puts "o valor dos parametros é: #{params.join(", ")}"
+              end
+            end
+          end
+
+          {
+            "Danilo" => ["mostrar", "exibir", "visualizar"], 
+            "Sheila" => ["mostrar", "exibir", "visualizar"], 
+            "Lana" => ["mostrar", "exibir", "visualizar"]
+          }.each do |classe, metodos|
+            metodos.each do |metodo|
+              definir_classe(classe, metodo)
+            end
+          end
+
+          puts Danilo.new.methods - Class.methods
+          puts Sheila.new.methods - Class.methods
+          puts Lana.new.methods - Class.methods
+
+
+          # Danilo.new.mostrar 1,2,3
+          # Danilo.new.exibir 1,2,3
+          # Danilo.new.visualizar 1,2,3
+
+
+          # debugger
+            
+
+          x = ""
+        </code>
+      </pre>
+
+      <p>Arquivo <code>classe_dimamica.rb</code> final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          #==================================
+          # Definir Classe em runtime
+          classe = "danilo"
+          debugger
+          classe.capitalize!
+          eval("class #{classe} end")
+          classe = Object.const_get(classe)
+          puts classe
+        </code>
+      </pre>
+      <p>Arquivo <code>classes_dimamica.rb</code> final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+          # Definir Várias classes em runtime
+          def definir_classe(classe)
+            classe = classe.capitalize
+            eval("class #{classe} end")
+          end
+
+          ["Classe1", "classe2", "Classe3"].each do |classe|
+            definir_classe(classe)
+          end
+
+          debugger
+
+          x = ""
+        </code>
+      </pre>
+      <p>Arquivo <code>classes_e_metodos_dinamicos.rb</code> final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          #definir classe e metodos em runtime
+          def definir_classe(classe, nome_metodo)
+            if(classe.is_a?(String))
+              classe = classe.capitalize
+              eval("class #{classe} end");
+              classe = Object.const_get(classe)
+            end
+
+            classe.class_eval do
+              define_method(nome_metodo) do |*params|
+                puts "o valor dos parametros é: #{params.join(", ")}"
+              end
+            end
+          end
+
+          ["mostrar", "exibir", "visualizar"].each do |metodo|
+            definir_classe("danilo2", metodo)
+          end
+
+          ["mostrar", "exibir", "visualizar"].each do |metodo|
+            Danilo2.new.send(metodo, 1,2,3)
+          end
+
+          # chamando todos dinamicos
+          ["Danilo", "Sheila", "Lana"].each do |classe|
+            ["mostrar", "exibir", "visualizar"].each do |metodo|
+              definir_classe(classe, metodo)
+              Object.const_get(classe).new.send(metodo, 1,2,3)
+            end
+          end
+
+          debugger
+
+          x = ""
+        </code>
+      </pre>
+
+      <p>Arquivo <code>classes_e_metodos_dinamicos_com_hash.rb</code> final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          #definir várias classes e metodos em runtime utilizando hash
+          def definir_classe(classe, nome_metodo)
+            if(classe.is_a?(String))
+              eval("class #{classe} end");
+              classe = Object.const_get(classe)
+            end
+
+            classe.class_eval do
+              define_method(nome_metodo) do |*params|
+                puts "o valor dos parametros é: #{params.join(", ")}"
+              end
+            end
+          end
+
+          {
+            "Danilo" => ["show1", "show2", "show3"], 
+            "Sheila" => ["print1", "print2", "print3"], 
+            "Lana" => ["puts1", "puts2", "puts3"]
+          }.each do |classe, metodos|
+            metodos.each do |metodo|
+              definir_classe(classe, metodo)
+            end
+          end
+
+          puts Danilo.new.methods - Class.methods
+          puts Sheila.new.methods - Class.methods
+          puts Lana.new.methods - Class.methods
+
+          debugger
+
+          x = ""
+        </code>
+      </pre>
+
+      <p>Arquivo <code>metodo_dimamica.rb</code> final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          # Definir Metodo em runtime
+          class Teste
+            def self.definir(nome_metodo)
+              define_method(nome_metodo) do 
+                puts "metodo em runtime"
+              end
+            end
+          end
+
+          Teste.definir("teste")
+
+          Teste.new.teste
+
+          debugger
+
+          x = ""
+        </code>
+      </pre>
+
+      <p>Arquivo <code>metodos_dimamica.rb</code> final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          require 'byebug'
+
+          # Definir Vários metodos em runtime
+          class Teste
+            def self.definir(*metodos)
+              metodos.each do |metodo|
+                define_method(metodo) do 
+                  puts "metodo em runtime"
+                end
+              end
+            end
+          end
+
+          Teste.definir("metodo1", "metodo2", "metodo3")
+          a = Teste.new
+          puts a.methods - Class.methods
+
+          debugger
+
+          x = ""
+        </code>
+      </pre>
+      <!-- FIM -->
+      <br />
+    </div>
+  </section>
+</body>
+
 </html>

@@ -1,36 +1,181 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
-    <script src="../highlight/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <div class="mt-5">
-        <h2></h2>
-        <p></p>
 
-        <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-        <pre class="m-0">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h2></h2>
+      <p></p>
+
+      <p>Acesso o <code>irb</code> para testar alguns códigos</p>
+      <pre class="m-0">
           <code class="language-ruby rounded">
             > 1.class
             => Integer
           </code>
         </pre>
-      </div>
-    </section>
-  </body>
+
+      <p>Arquivo aula.rb final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          # missings
+          require 'byebug'
+
+          class Danilo
+            def self.method_missing(nome, parametro)
+              nome = nome.to_s
+
+              if nome =~ /busca_por_/
+                puts "Bucando no arquivo por #{nome.gsub("busca_por_", "")}, com o valor #{parametro}"
+                return
+              end
+
+              puts "Metodo de classe #{nome}, não exite na classe #{self}"
+            end
+
+            def method_missing(nome)
+              nome = nome.to_s
+              File.open("database/Danilo.csv") do |arquivo|
+                arquivo.each do |linha|
+                  campos = linha.split(";")
+
+                  unless campos.include?(nome)
+                    puts "Campo #{nome}, não existe no csv database/Danilo.csv"
+                  end
+
+                end
+              end
+
+              return nil
+            end
+          end
+
+          # puts Danilo.teste
+          puts Danilo.busca_por_dsdsdse("jsssoao")
+
+
+          # class Danilo
+          #   def self.const_missing(nome)
+          #     puts "Não existe a constante #{nome} na classe #{self}"
+          #   end
+          # end
+
+          # Danilo::TESTE
+
+
+          # class Danilo
+          #   def method_missing(nome)
+          #     puts "Não existe a propriedade #{nome} na classe #{self.class}"
+          #   end
+
+          #   def self.method_missing(nome)
+          #     puts "Não existe a propriedade de classe #{nome} na classe #{self}"
+          #   end
+          # end
+
+          # Danilo.new.nome
+          # Danilo.teste
+        </code>
+      </pre>
+
+      <p>Arquivo <code>classes_dinamicas_csv.rb</code> final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          # missings
+          require 'byebug'
+
+          # class Module
+          #   old_const_missing = instance_method(:const_missing)
+
+          #   define_method(:const_missing) do |nome|
+          #     existe = File.exist?("database/#{nome}.csv")
+          #     if !existe
+          #       puts "Classe #{nome} não encontrada"
+          #       return
+          #     end
+
+          #     old_const_missing.bind(self).call(nome)
+          #   end
+          # end
+
+          class Module
+            def const_missing(nome)
+              existe = File.exist?("database/#{nome}.csv")
+              unless existe
+                puts "Classe #{nome} não encontrada, porque não existe nenhum csv no diretório database"
+                return
+              end
+              const_set(nome, Class.new)
+              klass = const_get(nome)
+
+              File.open("database/#{nome}.csv") do |arquivo|
+                arquivo.each do |linha|
+                  campos = linha.split(";")
+
+                  campos.each do |campo|
+                    klass.class_eval do
+
+                      define_method("#{campo}=") do |value|
+                        instance_variable_set "@#{campo}", value
+                      end
+
+                      define_method("#{campo}") do
+                        instance_variable_get "@#{campo}"
+                      end
+
+                    end
+                  end
+
+                  break
+
+                end
+              end
+
+              klass
+            end
+          end
+
+          d = Pessoa.new
+          d.nome = "danilo teste"
+          puts d.nome
+
+          puts d.methods - Class.methods
+        </code>
+      </pre>
+      <p>Arquivo <code>const_missing_de_uma_classe.rb</code> final:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          # missings
+          require 'byebug'
+
+          class Danilo
+            TESTE = "123456"
+            def self.const_missing(nome)
+              puts "Constante #{nome}, não exite na classe #{self}"
+            end
+          end
+
+          puts Danilo::TESTE
+        </code>
+      </pre>
+      <!-- FIM -->
+      <br />
+    </div>
+  </section>
+</body>
+
 </html>
