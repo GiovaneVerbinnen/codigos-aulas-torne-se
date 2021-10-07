@@ -17,20 +17,66 @@
 
 <body>
   <section class="container">
-    <div class="mt-5">
-      <h2></h2>
-      <p></p>
+    <div class="my-5">
+      <h2>Metaprogramming - Eval para classes e instâncias </h2>
+      <br />
+      <!-- Aula Teórica -->
+      <div>
+        <h6>instance_eval</h6>
+        <h6>class_eval</h6>
+        <h6>Blocos</h6>
 
-      <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-      <pre class="m-0">
+        <p>Exemplo.</p>
+        <pre class="m-0">
           <code class="language-ruby rounded">
-            > 1.class
-            => Integer
+            require 'byebug'
+
+           
+            debugger
           </code>
         </pre>
+      </div>
+      <!-- Aula Prática -->
+      <div>
+        <div>
+          <h3>Aula Prática</h3>
+          <p>Como de praxe copie os arquivos das aulas anteriores para seguir conforme o padrão.</p>
+          <hr>
+          <pre class="m-0">
+          <code class="language-ruby rounded">
+              require 'byebug'
+              # código irá aqui
+              debugger
+            </code>
+          </pre>
+          <p>Nosso código abaixo é um exemplo básico de eval.</p>
+          <pre class="m-0">
+            <code class="language-ruby rounded">
+              require 'byebug'
 
-      <p>Arquivo final:</p>
-      <pre class="m-0">
+              a = "puts 'danilo'"
+              
+              debugger
+
+              eval(a)
+            </code>
+          </pre>
+
+          <p>Agora utilizaremos a instância.</p>
+          <pre class="m-0">
+            <code class="language-ruby rounded">
+              require 'byebug'
+
+              a = "puts 'danilo'"
+              
+              debugger
+
+              eval(a)
+            </code>
+          </pre>
+
+          <p>Arquivo final:</p>
+          <pre class="m-0">
           <code class="language-ruby rounded">
             require 'byebug'
             class Teste
@@ -218,9 +264,9 @@
             x = ""
           </code>
         </pre>
-      <!-- FIM -->
-      <br />
-    </div>
+          <!-- FIM -->
+          <br />
+        </div>
   </section>
 </body>
 
