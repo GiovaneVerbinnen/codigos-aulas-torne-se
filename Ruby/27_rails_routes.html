@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <h2>Ruby on Rails - Routes</h2>
+      <p>Nesta aula falaremos sobre:</p>
+      <ul>
+        <li>rails new</li>
+        <li>rails g controller</li>
+        <li>criação manual de estruturas</li>
+        <li>HTTP Verbs(GET, POST, PUT, DELETE)</li>
+      </ul>
+      <p>
+        Hoje entenderemos a fundo as funções dos generators para não ficar perdido e entender como
+        funcionam as coisas no Rails por baixo dos comandos básicos.
+      </p>
+
+    </div>
+    <!-- Aula Prática -->
+    <div>
+      <h3>Aula Prática</h3>
+      <hr>
+      <p>Para gerar uma nova aplicação Rails faça: </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rails new rails_manual_app -d mysql
+      </code>
+      </pre>
+      <h5>Importante saber:</h5>
+      <p>O <code>rails g</code> é uma abreviação para <code>rails generate</code>, e o próximo parâmetro é o nome
+        desejado para nosso app.</p>
+      <p>O <code> -d mysql</code> é uma abreviação para <code>database</code>, onde o próximo parâmetro é o banco de
+        dados desejado, podendo utilizar mysql, postgres, sqlite por exemplo.</p>
+      <p>Depois da aplicação ser gerada, abra a pasta do projeto num editor de código.</p>
+      <p>O Rails já traz uma estrutura padrão, na pasta <code>app/layouts</code>, você encontra o arquivo
+        <code>application.html.erb</code>, ele é nosso arquivo base para a aplicação, o <code> yield </code>, é onde
+        todo código do meio da página será renderizado.
+      </p>
+      <p>Um dos principais arquivos que trabalharemos será o <code>routes.rb</code> ele é encontrado dentro de
+        <code>app/config</code>, o Rails utiliza a nomenclatura <code>root</code> para dizer que esta é a principal
+        página, a que é renderizada primeiro na rota <code>/</code>, da aplicação.
+      </p>
+      <p>Até o momento indicamos qual controller deve ser utilizado na nossa rota base, mas não criamos ele, vamos fazer
+        isso agora.</p>
+      <p>Temos 2 formas de fazer isso, criando o arquivo manualmente, ou usando o generator de controller, que é o nosso
+        caso, então faça como abaixo.</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rails g controller Home
+      </code>
+      </pre>
+      <p>Como você verá além do arquivo do controller ele também gera arquivos de teste, diretório para as views,
+        arquivos para os assets de js e css, todo esqueleto base que é necessário. </p>
+      <p>Agora dentro de <code>app/controllers</code> temos o arquivo home_controller.rb</p>
+      <p>Obs.: Note que na criação utilizamos home_controller mas nas rotas é omitido a palavra controller, por
+        convenção do Rails.</p>
+      <p>Pronto, mas note que não temos o método <code>index</code> ou qualquer outro no nosso controller, inclusive
+        receberemos um
+        erro ao acessar a aplicação agora.</p>
+      <p>Criamos um método <code>index</code> então: </p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          class HomeController < ApplicationController
+            def index
+  
+            end
+          end
+        </code>
+        </pre>
+      <p>Preocupe-se com a estrutura é de extrema importância para nossa view criaremos um arquivo que será responsável
+        pela exibição inicial: </p>
+      <p>Navegue até <code>app/views/home</code>, crie um arquivo chamado <code>index.html.rb</code>, dentro dele
+        coloque: </p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+      <h1>Danilo</h1>
+      </code>
+      </pre>
+
+      <p>Faremos um pequeno ajuste no layout que está em <code>app/views/layouts/application.html.erb</code>, inclua o
+        código abaixo logo após a TAG <code>body</code> .</p>
+
+      <pre class="m-0">
+      <code class="language-html rounded">
+        <ul>
+          <li>
+          <a href="/">Home</a>
+          </li>
+          <li>
+          <a href="/sobre">Sobre</a>
+          </li>
+        </ul>
+      </code>
+      </pre>
+      <p>Acabamos de fazer um pequeno menu para nossa aplicação, como ele foi definido no layout geral do app, todas
+        views que usarem esse mesmo layout padrão terão o menu!</p>
+      <p>Agora acessando nossa aplicação veremos o texto Danilo na rota principal('/').</p>
+      <p>Para criar a opção Sobre podemos começar com a rota:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        get "/sobre", to:"sobre#index"
+      </code>
+      </pre>
+      <p>O resto do processo segue exatamente igual ao anterior.</p>
+      <p>Criaremos um controller e a view.</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rails g controller sobre
+      </code>
+      </pre>
+      <p>Com o controller criado, faremos o método <code>index</code> dele.</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+          def index;end
+        </code>
+      </pre>
+      <p>Como usamos o generator já temos a pasta sobre dentro de views, então só ajustar o HTML agora. Crie um arquivo
+        <code>index.html.erb</code>.
+      </p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+        <h1>Está é a minha página Sobre</h1>
+      </code>
+      </pre>
+      <h5>Recapitulando</h5>
+      <p>Nesta aula vimos melhor sobre como funciona o relacionamento entre os controllers as rotas e as views, também
+        entendemos melhor o que o Rails gera códigos e estruturas com o comando <code>generate</code> que pode ser
+        abreviado somente como
+        <code>g</code>, entendemos que é importante seguir as convenções que o Rails impõe para um fluxo mais fácil de
+        trabalho, para ganhar velocidade no desenvolvimento com Rails deve-se aproveitar dessas facilidades e
+        convenções.
+      </p>
+      <br>
+      <!-- FIM -->
+  </section>
+  <script type="text/javascript">
+    /* 
+     * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+     */
+    function formataCodigoHtml() {
+      document.querySelectorAll("code").forEach(function (element) {
+        element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+          "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      });
+    }
+    formataCodigoHtml();
+
+  </script>
+</body>
+
+</html>
