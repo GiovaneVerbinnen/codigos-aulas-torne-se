@@ -35,30 +35,30 @@
 
       </p>
       <p>
-        Quando criamos um Model, criamos um ojeto que terá conexão direta com nossa base de dados.
+        Quando criamos um Model, criamos um objeto que terá conexão direta com nossa base de dados.
       </p>
       <p>Para gerar um model por exemplo: </p>
       <pre class="m-0">
-        <code class="language-ruby rounded">
-          rails g model Carro nome:string marca:string
-        </code>
-      </pre>
+    <code class="language-ruby rounded">
+      rails g model Carro nome:string marca:string
+    </code>
+    </pre>
       <p>O <code>rails g</code> é uma abreviação para <code>rails generate</code>!</p>
       <p>
         Isso gerará uma classe chamada Carro com os atributos nome e marca, e já terá todos atributos de CRUD padrão,
         atrás disso existe o Active Record, que é a classe que herdamos para obter os métodos relacionados ao banco de
         dados, ele é um O.R.M. ( Object Relational Mapping ), uma técnica de mapeamento objeto-relacional que cria
         uma camada de mapeamento entre nosso modelo de objetos. Ele cria todos nossos campos que precisamos diretamente
-        no banco, sem que seja necessária nossa intervenção, ou escriver as queries brutas em SQL.
+        no banco, sem que seja necessária nossa intervenção, ou escrever as queries brutas em SQL.
       </p>
       <p>
-        O nosso controller irá receber noosas requisiçõees http e veremos como ele controla as rotas.
+        O nosso controller irá receber nossas requisições http e veremos como ele controla as rotas.
       </p>
       <p>
-        As migrations são responsaveis pelas criação de tabelas, novos campos, alteração etc.
+        As migrations são responsáveis pela criação de tabelas, novos campos, alteração etc.
       </p>
       <p>
-        O scaffold gera todos nosso recursos base, como controllers, views, models etc.
+        O scaffold gera todos nossos recursos base, como controllers, views, models etc.
       </p>
     </div>
     <!-- Aula Prática -->
@@ -66,10 +66,187 @@
       <h3>Aula Prática</h3>
       <hr>
       <p>Lembre-se de entrar no diretório que criamos a primeira aplicação na aula passada.</p>
+      <h5>generator de scaffold</h5>
+      <p>Para isso faremos:</p>
+      <pre class="m-0"><code class="language-ruby rounded"> rails g scaffold carro nome:string marca:string valor:float quantidade:integer</code>
+    </pre>
+      <p>Note que na criação utilizamos o nome no singular isso é importante para aplicações em Rails, existe um padrão
+        de nomenclaturas a ser respeitado.</p>
+      <p>Observe que agora nossa aplicação já tem uma série de abstraçẽos geradas conforme nós pedimos para o Rails
+        gerar, isso incluí rotas de CRUD básicas designadas pelo padrão REST, então terá rotas
+        <code>Get, Put, Patch, Delete</code>. Além disso tem rotas para recursos únicos como visualizar um item pelo ID
+        ou para retornar
+        todos, como a rota de <code>/carros</code>, usando o método HTTP GET, note que existem métodos separados dentro
+        da classe carro para cada uma das ações, pode começar a ver no arquivo
+        <code>routes.rb</code>, agora temos uma
+        linha
+        com:
+      </p>
+      <pre class="m-0">
+    <code class="language-ruby rounded">
+      resources :carros
+    </code>
+    </pre>
+      <p>Ainda sobre essa geração de código, ele gerou a classe de controller que é responsável pelas configurações
+        básicas no tratamento dos métodos que vimos nas rotas. Ele se encontra em:
+        <code>app/controllers/carros_controller.rb</code>.
+      </p>
+      <p>Já vimos as rotas, controladores e agora tem o modelo, ele é encontrado em:
+        <code>app/models/carro.rb</code>.
+      </p>
+      <p>Você notará que ele estará apenas herdando a classe ApplicationRecord, então ele não mostra explicitamente
+        os atributos de banco, logo mais abordaremos esse assunto e conheceremos os métodos gerados.</p>
+      <p>O scaffold também gera uma migration, com a criação de uma tabela carros no banco de dados. </p>
+      <p>Caso queira conferir o arquivo de configuração do banco de dados vá até, <code>app/config/database.yml</code>.
+      </p>
+      <p>Como vimos o Rails trabalha com convenção, seguindo as regras do Rails, ele fornecerá toda estrutura base
+        da aplicação.
+      </p>
 
+      <p>Para conferir todas rotas da sua aplicação use o comando:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rake routes
+      </code>
+      </pre>
+      <p>Para criar os banco de dados use:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rake db:create
+      </code>
+      </pre>
+      <p>Normalmente são criados dois bancos de dados, um <code>nome_do_banco_test</code>, e outro,
+        <code>nome_do_banco_development</code>.
+      </p>
+      <p>Para criar as tabelas no banco de dados use:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      rake db:migrate
+      </code>
+      </pre>
+      <p>Esse comando roda as migrações e já cria as tabelas como especificadas nos arquivos.
+      </p>
+      <p>Caso olhe o seu banco de dados existe uma tabela a mais chamada <code>schema_migrations</code>, nela contém
+        todos dados de migrações e versionamentos das mesmas. </p>
+      <p>O comando <code>rake db:migrate</code>, só irá executar caso haja alguma alteração nos arquivos de migrations,
+        caso contrário não terá ação nenhuma. </p>
+      <p>Agora vamos executar nosso servidor Rails e ver como estamos até agora, faça:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      rails s
+      </code>
+      </pre>
+      <p>Assim conseguimos acessar em <code>localhost:3000</code>, na rota padrão você verá a tela de boas vindas do
+        Rails, mas queremos ver o que fizemos então coloque na barra de endereços do navegador,
+        <code>localhost:3000/carros</code>, já temos uma tela de visualização inicial e um botão para criar um novo, e
+        quando houver dados, podemos editar, mostrar um único, ou excluir.
+      </p>
+      <p>Obs.: Para customizar qualquer uma das páginas acesse <code>app/views/carros</code>, e abra o arquivo
+        <code>*.html.erb</code> desejado. Demais configurações podem ser feitas <code>app/assets</code> também, lá você
+        consegue utilizar algumas configurações globais.
+      </p>
+      <p>Obs.: O Rails já vem com compilador Sass embutido, não sendo necessário ferramentas como Gulp.</p>
+      <h5>generator de migrations</h5>
+      <p>Neste geramos uma migração em que podemos definir os parâmetros:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      rails g migration carros_com_campo_ativo
+      </code>
+      </pre>
+      <p>Sempre consulte a documentação oficial do Rails em caso de dúvidas, vamos colocar uma linha em que adicionamos
+        uma coluna a mais:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      add_column :carros, :ativo, :boolean
+      </code>
+      </pre>
+      <p>Para atualizar as tabelas no banco de dados use:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      rake db:migrate
+      </code>
+      </pre>
+      <p>Desta forma foi criado mais um campo na tabela, assim já podemos utilizá-lo.</p>
+      <p>No arquivo <code>index.html.erb</code>, dentro de
+        <code>app/views/carros</code> vamos adicionar mais uma coluna na tabela HTML <code>carro.ativo</code> deve
+        existir agora, então lá você pode adicionar uma TAG <code>th</code> com texto Ativo, e uma TAG
+        <code><td><%= carro.ativo %></td></code>, no corpo da tabela, assim ele irá renderizar o conteúdo.
+      </p>
+      <p>Obs.: Lembre-se de parar e iniciar novamente o servidor Rails em caso de algum problema.</p>
+      <p>Nós apenas colocamos o campo "Ativo" na view, precisamos atualizar agora os demais lugares referentes, como no
+        formulário
+        de criação de registro para que tudo funcione corretamente, nesta aula não veremos isso, estamos focados em
+        entender os <code>generators</code>, mas
+        sinta-se à vontade para testar.</p>
+      <p>Vamos ver agora a criação de um model:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        rake g model usuario nome:string login:string senha:string
+        </code>
+      </pre>
+      <p>Para criar um controller:</p>
+      <pre class="m-0">
+        <code class="language-ruby rounded">
+        rake g controller home
+        </code>
+      </pre>
+      <p>Veremos agora como utilizar o controller home que foi criado e configurar para que seja exibido como padrão,
+        rota principal onde todas requisições serão direcionadas.</p>
+      <p>Para isso edite o arquivo <code>routes.rb</code>, logo após a linha 2 onde tem os recursos de
+        <code>:carros</code>, adicione o código abaixo:
+      </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        root to: 'home#index'
+      </code>
+      </pre>
+      <p>Pronto, mas note que não temos o método <code>index</code> ou qualquer outro no nosso controller, inclusive
+        receberemos um
+        erro ao acessar a aplicação agora.</p>
+      <p>Criamos um método <code>index</code> então: </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        class HomeController < ApplicationController
+          def index
+
+          end
+        end
+      </code>
+      </pre>
+      <p>Agora receberemos outro erro pois ele tentará recuperar uma view padrão para exibir mas ela não existe ainda.
+      </p>
+      <p>Navegue até <code>app/views/home</code>, crie um arquivo chamado <code>index.html.rb</code>, dentro dele
+        coloque: </p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+      <h1>Home do Site</h1>
+      </code>
+      </pre>
+      <p>Agora tudo funcionará, vamos apenas colocar um link para listagem de carros.</p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+        <a href="/carros">Lista de carros</a>
+      </code>
+      </pre>
+      <p>Pronto! Agora temos um link para a lista de carros.</p>
+      <p>Os outros generators que foram comentados e não foram vistos nessa aula serão abordados nas aulas futuras.</p>
       <br>
       <!-- FIM -->
   </section>
+
+  <script type="text/javascript">
+    /* 
+     * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+     */
+    function formataCodigoHtml() {
+      document.querySelectorAll("code").forEach(function (element) {
+        element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+          "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      });
+    }
+    formataCodigoHtml();
+
+  </script>
 </body>
 
 </html>
