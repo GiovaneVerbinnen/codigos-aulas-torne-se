@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <h2>Ruby on Rails - Partials</h2>
+      <p>Nesta aula entenderemos como funciona o layout e a gestão que o Rails faz com nossos arquivos HTML, como
+        separamos
+        componentes da página para serem reutilizados.
+      </p>
+      <p>O <%= yield %>, é onde dizemos a nossa aplicação que o código será injetado, caso verifique o
+          <code>application.html.erb</code> verá o <%= yield %> entra as TAGs <code>body</code>, com isso todo corpo da
+            aplicação será injetado ali, e o resto se manterá padrão neste layout.
+      </p>
+    </div>
+    <!-- Aula Prática -->
+    <div>
+      <h3>Aula Prática</h3>
+      <hr>
+      <p>Para acompanhar abre o projeto feito na aula passada: </p>
+      <h6>Localização dos layouts no Rails</h6>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        app/views/layouts
+      </code>
+      </pre>
+      <p>Para o caso de desejarmos utilizar o mesmo menu que criamos para o layout <code>application</code> num outro
+        layout como "sobre" por exemplo. Teremos de ter 2 layouts separados, devemos duplicar o
+        <code>application.html.erb</code> para um arquivo chamado <code>application_sobre.html.erb</code> na mesma
+        pasta,
+        com os dois tendo o mesmo conteúdo.
+      </p>
+      <p>Para diferenciarmos o <code>application_sobre.html.erb</code> aplicaremos uma cor no fundo da página conforme
+        código abaixo, coloque um style na tag body.</p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+        style="background-color:blue;"
+      </code>
+      </pre>
+
+      <p>Agora no controller <code>sobre_controller.rb</code>, logo abaixo da primeira linha com a definição a classe
+        coloque: </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        layout 'application_sobre'
+      </code>
+      </pre>
+      <p>Assim referenciamos qual layout desejamos naquele controller, mas temos um problema: o código do menu está
+        duplicado neste momento entre os dois layouts.</p>
+      <p>Para resolver isso utilizamos uma <code>partial</code>, na pasta layouts criaremos um arquivo chamado
+        <code>_header.html.erb</code>, note que toda <code>partial</code> utiliza o <code>underline(_)</code> no início,
+        recortamos todo menu que está dentro das TAGs <code>ul</code> e colocamos esse conteúdo para nossa
+        <code>partial</code>.
+      </p>
+      <p>Agora para referenciar a <code>partial</code> dentro dos arquivos de layouts utilizaremos: </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        <%= render '/layouts/header' %>
+      </code>
+      </pre>
+      <p>Note que deve ser feito nos 2 layouts essa alteração de menu para que obtenha o mesmo menu nas páginas, agora
+        alteraremos aquela cor de fundo que adicionamos anteriormente para uma mais agradável, dentro de
+        <code>application_sobre.html.erb</code> altere.
+      </p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+        style="background-color:lightblue;"
+      </code>
+      </pre>
+      <p>Precisamos adicionar um rodapé para nossas páginas então dentro dos layouts
+        <code>application.html.erb</code> e <code>application_sobre.html.erb</code> altere para conter um
+        <code>  render '/layouts/footer'</code> também.
+      </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        # Como deve ficar dentro da TAG body
+        <%= render '/layouts/header' %>
+        <%= yield %>
+        <%= render '/layouts/footer' %>
+      </code>
+      </pre>
+      <p>Ainda não temos nossa <code>partial</code> de rodapé, chamaremos ela de <code>footer</code>, então crie um
+        arquivo chamado
+        <code>_footer.html.erb</code> na mesma pasta de layouts.
+      </p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+        <div>
+          Registrado por Danilo.
+        </div>
+      </code>
+      </pre>
+      <p>Muito bem! Mas se quisermos passar parâmetros para nossas <code>views e partials</code>? </p>
+      <p>Nas aulas anteriores vimos a variável de contexto, não é global mas é acessível dentro daquela classe. </p>
+      <p>Adicione no HomeController dentro do método index a variável: <code>@teste = "danilo"</code></p>
+      <p>Agora dentro de <code>views/home/index.html.erb</code> faça:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        <%= @teste %>
+      </code>
+      </pre>
+      <p>Desta mesma forma esse código funcionará nas nossas <code>partials</code>, por conta da variável de contexto
+        que adicionamos. </p>
+      <p>Obs.: Note o igual em <code><%=</code> tem a função de renderizar na tela algo, como o <code>puts</code>, se
+        não tiver o igual o Rails simplesmente executa mas sem renderizar. </p>
+      <p>Podemos passar variáveis diretamente pelo render como:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        <%= render '/layouts/header', projeto: 'danilo-teste' %>
+      </code>
+      </pre>
+      <p>E para exibir na <code>partial</code> header faça: </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      <h1><%= projeto %></h1>
+      </code>
+      </pre>
+      <p>Exemplo com mais de uma variável:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        <%= render '/layouts/header', projeto: 'danilo-teste', projeto2: 'Lana' %>
+      </code>
+      </pre>
+      <p>E para exibir na <code>partial</code> header faça: </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      <h1><%= projeto %>, <%= projeto2 %></h1>
+      </code>
+      </pre>
+      <!-- FIM -->
+      <br>
+  </section>
+  <script type="text/javascript">
+    /* 
+     * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+     */
+    function formataCodigoHtml() {
+      document.querySelectorAll("code.language-html").forEach(function (element) {
+        element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+          "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      });
+    }
+    formataCodigoHtml();
+
+  </script>
+</body>
+
+</html>
