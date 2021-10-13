@@ -17,17 +17,104 @@
 
 <body>
   <section class="container">
-    <div class="mt-5">
-      <h2></h2>
-      <p></p>
-
-      <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-      <pre class="m-0">
+    <div class="my-5">
+      <h2>Metaprogramming - Classes e métodos dinâmicos </h2>
+      <br />
+      <!-- Aula Teórica -->
+      <div>
+        <p>Hoje falaremos sobre:</p>
+        <ul>
+          <li>eval</li>
+          <li>define_method</li>
+          <li>object.const_get</li>
+          <li>send</li>
+        </ul>
+        <p>Nós já falamos sobre em Ruby ser um objeto, e sobre utilizarmos o PascalCase.</p>
+        <h6></h6>
+      </div>
+      <!-- Aula Prática -->
+      <div>
+        <p>Primeiro vamos aprender como criar uma classe dinâmica, para isso criaremos um arquivo
+          <code>classe_dinamica.rb</code>, escreva o código abaixo dentro deste arquivo.
+        </p>
+        <pre class="m-0">
           <code class="language-ruby rounded">
-            > 1.class
-            => Integer
+          require 'byebug'
+          debugger
+          # Definir Classe em runtime
+          classe = "danilo"
+          classe = classe.capitalize
+          eval("class #{classe} end")
+          classe = Object.const_get(classe)
+          puts classe
           </code>
         </pre>
+        <p>No exemplo acima vimos como utilizar o método <code>.capitalize</code> necessário para atribuírmos as classes
+          dinâmicamente com o nome certo. Ao invés de <code> classe = classe.capitalize</code> você pode fazer
+          <code> classe.capitalize!</code> onde o <code>!</code> já executa na referência da classe.
+        </p>
+        <p>
+          Na linha com <code>eval</code> é onde criamos a nossa classe dinamicamente, abaixo disso temos agora a
+          variável <code>classe</code> que recebe um objeto criado, todas classes são constantes, por causa da letra
+          maíuscula
+          no começo.
+        </p>
+        <p>
+          Crie um arquivo <code>metodo_dimamica.rb</code>, já vimos este assunto em aulas anteriores, mas vamos rever
+          sobre runtime,
+          aqui definimos uma classe e um método estático, que dentro dele está definindo um método em tempo de execução
+          que será recebido como parametro do método estático.
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          require 'byebug'
+
+          # Definir Metodo em runtime
+          class Teste
+            def self.definir(nome_metodo)
+              define_method(nome_metodo) do 
+                puts "metodo em runtime"
+              end
+            end
+          end
+
+          Teste.definir("teste")
+
+          Teste.new.teste
+
+          debugger
+
+          x = ""
+          </code>
+        </pre>
+        <!-- 21:00 -->
+        <p>Agora veremos a definição de várias classes em runtime, crie um arquivo <code>classes_dimamica.rb</code>,
+          escreva o código abaixo e
+          execute. </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          require 'byebug'
+
+          def definir_classe(classe)
+            classe = classe.capitalize
+            eval("class #{classe} end")
+            classe = Object.const_get(classe)
+          end
+
+          ["Classe1", "Classe2", "Classe3"].each do |classe|
+            definir_classe(classe)
+          end
+
+          debugger
+
+          x = ""
+          </code>
+        </pre>
+        <!-- 24:00/25:00 -->
+
+      </div>
+      <!-- Arquivo Final -->
+      <hr>
       <p>Arquivo <code>aula.rb</code> final:</p>
       <pre class="m-0">
         <code class="language-ruby rounded">

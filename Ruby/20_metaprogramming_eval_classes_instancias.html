@@ -22,59 +22,234 @@
       <br />
       <!-- Aula Teórica -->
       <div>
+        <p>Hoje falaremos sobre:</p>
+        <ul>
+          <li>instance_eval</li>
+          <li>class_eval</li>
+          <li>Blocos</li>
+        </ul>
         <h6>instance_eval</h6>
+        <p>Abre um bloco para instância.</p>
         <h6>class_eval</h6>
+        <p>Abre um bloco para classe.</p>
         <h6>Blocos</h6>
-
-        <p>Exemplo.</p>
+        <p>&bloco, uso dele é parecido com o callback do JS.</p>
+        <p>Obs.: Com o <code>instance_eval</code>, você consegue abrir uma classe, inclusive trabalhar com os dados
+          privados, já o <code>class_eval</code> você pode definir dados dentro da classe.</p>
+        <p>Exemplo de exposição de variáveis privadas com instance_eval.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            class teste
+              def initialize
+                @nome = "Danilo"
+              end
+            end
+            teste.new.instance_eval{puts @nome}
+          </code>
+        </pre>
+        <p>Exemplo injeção de método na instância com instance_eval.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            class teste
+            end
+            teste.instance_eval do 
+              def exec 
+              end
+            end
+          </code>
+        </pre>
+        <p>Exemplo injeção de método na instância com instance_eval.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            class teste
+            end
+            teste.instance_eval do 
+              def exec 
+              end
+            end
+          </code>
+        </pre>
+        <p>Exemplo definição de método na classe com class_eval.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            class teste
+            end
+            teste.class_eval do 
+              def exec 
+              end
+            end
+            teste.new.exec
+          </code>
+        </pre>
+        <p>Note que na definição de métodos é necessário utilizar o <code>new</code> para inicializar a classe, já na
+          manipulação da instância não é necessário.</p>
+      </div>
+      <!-- Aula Prática -->
+      <div>
+        <h3>Aula Prática</h3>
+        <p>Como de praxe copie os arquivos das aulas anteriores para seguir conforme o padrão.</p>
+        <h6>Pré-requisitos</h6>
+        <p>
+          Precisamos da <code>gem byebug</code> instalada para utilizarmos o <code>debugger</code> no nosso código.
+        </p>
+        <p>Estrutura padrão:</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            # Nosso código irá aqui
+            debugger
+          </code>
+          </pre>
+        <hr>
+        <p>O <code>eval</code> permite rodar uma string como código Ruby.</p>
+        <p>O código abaixo é um exemplo básico de eval.</p>
         <pre class="m-0">
           <code class="language-ruby rounded">
             require 'byebug'
 
-           
+            a = "puts 'danilo'"
+            
             debugger
+
+            eval(a)
           </code>
         </pre>
-      </div>
-      <!-- Aula Prática -->
-      <div>
-        <div>
-          <h3>Aula Prática</h3>
-          <p>Como de praxe copie os arquivos das aulas anteriores para seguir conforme o padrão.</p>
-          <hr>
-          <pre class="m-0">
+        <p>Agora temos uma classe com uma variável de instância.</p>
+        <pre class="m-0">
           <code class="language-ruby rounded">
-              require 'byebug'
-              # código irá aqui
-              debugger
-            </code>
-          </pre>
-          <p>Nosso código abaixo é um exemplo básico de eval.</p>
-          <pre class="m-0">
-            <code class="language-ruby rounded">
-              require 'byebug'
+          require 'byebug'
 
-              a = "puts 'danilo'"
-              
-              debugger
+          class Teste
+            def initialize
+              @variavel = "danilo"
+            end
+          end
 
-              eval(a)
-            </code>
-          </pre>
+          teste = Teste.new
 
-          <p>Agora utilizaremos a instância.</p>
-          <pre class="m-0">
-            <code class="language-ruby rounded">
-              require 'byebug'
+          debugger
 
-              a = "puts 'danilo'"
-              
-              debugger
+          puts teste.instance_eval{ @variavel }
+          </code>
+        </pre>
+        <p>
+          Ao testarmos esse código veremos que o <code>instance_eval</code> consegue pegar o valor da variável, mas
+          nós não temos nenhum médodo que retorna o valor. Isso pode ser comprovado fazendo na linha de comando após
+          executar o código com debugger:
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          teste.methods - Class.methods
+          </code>
+        </pre>
+        <p>
+          Como abrimos um bloco de <code>instance_eval</code> dentro da classe e passamos a variável de classe nele,
+          conseguimos acessar o valor da variável em execução assim:
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          teste.instance_eval{ @variavel }
+          </code>
+        </pre>
+        <p>O código acima deve nos retornar o valor de <code>@variavel</code> que no caso é <code>"danilo"</code>.</p>
+        <p>
+          Lembrando que o bloco de código com <code>{}</code> pode ser utilizado como <code>do...end</code> conforme
+          abaixo:
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          teste.instance_eval{ @variavel }
+          # utilizando do...end
+          teste.instance_eval do
+            @variavel
+          end
+          </code>
+        </pre>
+        <p>Nós também podemos criar um método privado que retorna a variável de classe.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          require 'byebug'
 
-              eval(a)
-            </code>
-          </pre>
+          class Teste
+            def initialize
+              @variavel = "danilo"
+            end
 
+            private
+            def variavel
+              @variavel
+            end
+          end
+
+          teste = Teste.new
+
+          debugger
+
+          puts teste.instance_eval{ @variavel }
+          </code>
+        </pre>
+        <p>Rodando este código, se tentarmos fazer algo como <code>Class.methods</code> nesta instância ou tentar
+          acessar o método private receberemos um erro, entretanto o <code>instance_eval</code> permite acessar até os
+          métodos privados. </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          require 'byebug'
+
+          class Teste
+            def initialize
+              @variavel = "danilo"
+            end
+
+            private
+            def variavel_metodo
+              @variavel
+            end
+          end
+
+          teste = Teste.new
+
+          debugger
+
+          puts teste.instance_eval{ @variavel }
+          puts teste.instance_eval{ variavel_metodo }
+          </code>
+        </pre>
+        <p>No código abaixo conseguimos ver a instância de teste que está guardada em memória graças ao
+          <code>self</code>.
+        </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+
+          class Teste
+            def initialize
+              @variavel = "danilo"
+            end
+
+            private
+            def variavel
+              @variavel
+            end
+          end
+
+          teste = Teste.new
+
+          debugger
+
+          puts teste.instance_eval{ @variavel }
+
+          teste.instance_eval do
+            puts self
+          end
+          </code>
+        </pre>
+
+
+
+        <!-- Arquivo Final -->
+        <br>
+        <hr>
+        <div>
           <p>Arquivo final:</p>
           <pre class="m-0">
           <code class="language-ruby rounded">
@@ -83,87 +258,63 @@
               def initialize
                 @variavel = "danilo"
               end
-
               def variavel=(valor)
                 @variavel = valor
               end
-
               private
               def variavel_metodo
                 @variavel
               end
             end
-
             teste = Teste.new
             puts teste.instance_eval{ @variavel }
             puts teste.instance_eval{ variavel_metodo }
-
-            teste.instance_eval do 
+            teste.instance_eval do
               puts self
             end
-
-            teste.instance_eval do 
+            teste.instance_eval do
               def variavel
                 puts "metodo"
               end
-
               def metodo2
                 puts "metodo"
               end
-
               def metodo3
                 puts "metodo"
               end
             end
             puts teste.variavel
-
-
             #======================================
-
             class Teste
             end
-
-
-            Teste.instance_eval do 
+            Teste.instance_eval do
               def metodo_de_classe
                 puts "metodo de classe instance_eval"
               end
-
               def metodo_de_classe2
                 puts "metodo de classe instance_eval 2"
               end
             end
-
             Teste.metodo_de_classe
             Teste.metodo_de_classe2
-
             #======================================
-
-
             class Teste;end
-
-            Teste.class_eval do 
+            Teste.class_eval do
               def metodo_de_instancia
                 puts "metodo de class_eval"
               end
-
               def metodo_de_instancia2
                 puts "metodo de class_eval 2"
               end
             end
-
             Teste.new.metodo_de_instancia
             Teste.new.metodo_de_instancia2
-
             #======================================
-
             # não funciona
             # def String.teste
             #   "sssdds"
             # end
-
             # "danilo".teste
-
             # =============
             String.class_eval do
               def teste
@@ -197,9 +348,7 @@
             end
             String.ola1
             # =============
-
             #======================================
-
             module AtributosDinamicos
               def atributo(attr)
                 class_eval %{
@@ -212,7 +361,6 @@
                 }
               end
             end
-
             class Teste3
               extend AtributosDinamicos
               atributo :nome
@@ -221,13 +369,10 @@
               atributo :nome4
               atributo :nome5
             end
-
             teste = Teste3.new
             teste.nome = "danilo"
             teste.nome
-
             #======================================
-
             class ClasseBloco
               def metodo1
                 puts "medodo 1"
@@ -235,38 +380,33 @@
               def metodo2
                 puts "medodo 2"
               end
-
               def fique_a_vontade_em_executar(&bloco)
                 instance_eval(&bloco)
               end
-
               private
               def metodo3
                 puts "medodo 3"
               end
             end
-
             classe_bloco = ClasseBloco.new
             classe_bloco.fique_a_vontade_em_executar do
               metodo1
               metodo2
               metodo3
-
               def metodo_em_bloco
                 puts "metodo definifo em bloco"
               end
             end
-
             debugger
-
             classe_bloco.metodo_em_bloco
-
             x = ""
           </code>
         </pre>
-          <!-- FIM -->
-          <br />
         </div>
+        <p>Na próxima aula veremos mais conteceitos de metaprogramação com Ruby.</p>
+        <!-- FIM -->
+        <br />
+      </div>
   </section>
 </body>
 
