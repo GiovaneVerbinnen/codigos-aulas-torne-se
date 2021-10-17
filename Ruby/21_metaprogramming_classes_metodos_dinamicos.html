@@ -49,21 +49,21 @@
           puts classe
           </code>
         </pre>
-        <p>No exemplo acima vimos como utilizar o método <code>.capitalize</code> necessário para atribuírmos as classes
-          dinâmicamente com o nome certo. Ao invés de <code> classe = classe.capitalize</code> você pode fazer
+        <p>No exemplo acima vimos como utilizar o método <code>.capitalize</code> necessário para atribuirmos as classes
+          dinamicamente com o nome certo. Ao invés de <code> classe = classe.capitalize</code> você pode fazer
           <code> classe.capitalize!</code> onde o <code>!</code> já executa na referência da classe.
         </p>
         <p>
           Na linha com <code>eval</code> é onde criamos a nossa classe dinamicamente, abaixo disso temos agora a
           variável <code>classe</code> que recebe um objeto criado, todas classes são constantes, por causa da letra
-          maíuscula
+          maiúscula
           no começo.
         </p>
         <p>
           Crie um arquivo <code>metodo_dimamica.rb</code>, já vimos este assunto em aulas anteriores, mas vamos rever
           sobre runtime,
           aqui definimos uma classe e um método estático, que dentro dele está definindo um método em tempo de execução
-          que será recebido como parametro do método estático.
+          que será recebido como parâmetro do método estático.
         </p>
         <pre class="m-0">
           <code class="language-ruby rounded">
@@ -111,66 +111,77 @@
           </code>
         </pre>
         <!-- 24:00/25:00 -->
-
-      </div>
-      <!-- Arquivo Final -->
-      <hr>
-      <p>Arquivo <code>aula.rb</code> final:</p>
-      <pre class="m-0">
+        <p>Conseguimos também definir métodos em lote, através de um array por exemplo, em cada loop será definido um
+          método novo. </p>
+        <pre class="m-0">
         <code class="language-ruby rounded">
-          require 'byebug'
-          #==================================
-          # Definir Classe em runtime
-          classe = "danilo"
-          classe = classe.capitalize
-          eval("class #{classe} end")
-          classe = Object.const_get(classe)
-          puts classe
+        require 'byebug'
 
-          #==================================
-          # Definir Metodo em runtime
-          class Teste
-            def self.definir(nome_metodo)
-              define_method(nome_metodo) do 
+        # Definir Vários métodos em runtime
+        class Teste
+          def self.definir(*metodos)
+            metodos.each do |metodo|
+              define_method(metodo) do 
                 puts "metodo em runtime"
               end
             end
           end
+        end
 
-          Teste.definir("teste")
+        Teste.definir("metodo1", "metodo2", "metodo3")
+        a = Teste.new
+        puts a.methods - Class.methods
 
-          Teste.new.teste
+        </code>
+        </pre>
+        <p>
+          Juntando tudo que aprendemos até agora podemos ver como fica a definição de classes e métodos em runtime.
+          Note que temos um método <code>definir_classe</code> que recebe como parâmetro um nome de classe e um método
+        </p>
+        <pre class="m-0">
+        <code class="language-ruby rounded">
+        require 'byebug'
 
-          #==================================
-          # Definir Várias classes em runtime
-          def definir_classe(classe)
+        #definir classe e metodos em runtime
+        def definir_classe(classe, nome_metodo)
+          if(classe.is_a?(String))
             classe = classe.capitalize
-            eval("class #{classe} end")
+            eval("class #{classe} end");
             classe = Object.const_get(classe)
           end
-
-          ["Classe1", "Classe2", "Classe3"].each do |classe|
-            definir_classe(classe)
-          end
-
-
-          #==================================
-          # Definir Vários metodos em runtime
-          class Teste
-            def self.definir(*metodos)
-              metodos.each do |metodo|
-                define_method(metodo) do 
-                  puts "metodo em runtime"
-                end
-              end
+          classe.class_eval do
+            define_method(nome_metodo) do |*params|
+              puts "o valor dos parametros é: #{params.join(", ")}"
             end
           end
+        end
+        # debugger
+        ["mostrar", "exibir", "visualizar"].each do |metodo|
+          definir_classe("danilo2", metodo)
+        end
 
-          Teste.definir("metodo1", "metodo2", "metodo3")
-          a = Teste.new
-          puts a.methods - Class.methods
+        ["mostrar", "exibir", "visualizar"].each do |metodo|
+          Danilo2.new.send(metodo, 1,2,3)
+        end
 
-          #==================================
+        # chamando todos dinamicos
+        ["Danilo", "Sheila", "Lana"].each do |classe|
+          ["mostrar", "exibir", "visualizar"].each do |metodo|
+            definir_classe(classe, metodo)
+            Object.const_get(classe).new.send(metodo, 1,2,3)
+          end
+        end
+
+        </code>
+      </pre>
+        <p>Observe que quando for testar usando o debugger é necessário criar uma instância com o
+          <code>new</code>.
+        </p>
+        <p>Definindo classes classes e métodos para essas classes dinamicamente</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          require 'byebug'
+  
           #definir classe e metodos em runtime
           def definir_classe(classe, nome_metodo)
             if(classe.is_a?(String))
@@ -178,22 +189,18 @@
               eval("class #{classe} end");
               classe = Object.const_get(classe)
             end
-
             classe.class_eval do
               define_method(nome_metodo) do |*params|
                 puts "o valor dos parametros é: #{params.join(", ")}"
               end
             end
           end
-
           ["mostrar", "exibir", "visualizar"].each do |metodo|
             definir_classe("danilo2", metodo)
           end
-
           ["mostrar", "exibir", "visualizar"].each do |metodo|
             Danilo2.new.send(metodo, 1,2,3)
           end
-
           # chamando todos dinamicos
           ["Danilo", "Sheila", "Lana"].each do |classe|
             ["mostrar", "exibir", "visualizar"].each do |metodo|
@@ -201,214 +208,298 @@
               Object.const_get(classe).new.send(metodo, 1,2,3)
             end
           end
-
-
-          #==================================
+  
+          </code>
+          </pre>
+        <p>Agora vamos aprender como definir várias classes e metodos em runtime utilizando hash, pode criar um arquivo
+          novo para testar o código abaixo. </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          require 'byebug'
+  
           #definir várias classes e metodos em runtime utilizando hash
           def definir_classe(classe, nome_metodo)
             if(classe.is_a?(String))
               eval("class #{classe} end");
               classe = Object.const_get(classe)
             end
-
             classe.class_eval do
               define_method(nome_metodo) do |*params|
                 puts "o valor dos parametros é: #{params.join(", ")}"
               end
             end
           end
-
           {
-            "Danilo" => ["mostrar", "exibir", "visualizar"], 
-            "Sheila" => ["mostrar", "exibir", "visualizar"], 
+            "Danilo" => ["mostrar", "exibir", "visualizar"],
+            "Sheila" => ["mostrar", "exibir", "visualizar"],
             "Lana" => ["mostrar", "exibir", "visualizar"]
           }.each do |classe, metodos|
             metodos.each do |metodo|
               definir_classe(classe, metodo)
             end
           end
-
           puts Danilo.new.methods - Class.methods
           puts Sheila.new.methods - Class.methods
           puts Lana.new.methods - Class.methods
-
-
           # Danilo.new.mostrar 1,2,3
           # Danilo.new.exibir 1,2,3
           # Danilo.new.visualizar 1,2,3
-
-
-          # debugger
-            
-
-          x = ""
-        </code>
-      </pre>
-
-      <p>Arquivo <code>classe_dimamica.rb</code> final:</p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          require 'byebug'
-
-          #==================================
-          # Definir Classe em runtime
-          classe = "danilo"
+          
           debugger
-          classe.capitalize!
-          eval("class #{classe} end")
-          classe = Object.const_get(classe)
-          puts classe
-        </code>
-      </pre>
-      <p>Arquivo <code>classes_dimamica.rb</code> final:</p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          require 'byebug'
-          # Definir Várias classes em runtime
-          def definir_classe(classe)
+      
+          x = ""
+  
+          </code>
+        </pre>
+        <h6>Conclusão</h6>
+        <p>Como visto nessa série de metaprogramação conseguimos gerar código facilmente com o Ruby, todas
+          estratégias aqui visam otimizar o tempo e aumentar a nossa produtividade enquanto programadores. </p>
+      </div>
+      <!-- Arquivo Final -->
+      <hr>
+      <div>
+        <p>Arquivo <code>aula.rb</code> final:</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            #==================================
+            # Definir Classe em runtime
+            classe = "danilo"
             classe = classe.capitalize
             eval("class #{classe} end")
-          end
-
-          ["Classe1", "classe2", "Classe3"].each do |classe|
-            definir_classe(classe)
-          end
-
-          debugger
-
-          x = ""
-        </code>
-      </pre>
-      <p>Arquivo <code>classes_e_metodos_dinamicos.rb</code> final:</p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          require 'byebug'
-
-          #definir classe e metodos em runtime
-          def definir_classe(classe, nome_metodo)
-            if(classe.is_a?(String))
-              classe = classe.capitalize
-              eval("class #{classe} end");
-              classe = Object.const_get(classe)
-            end
-
-            classe.class_eval do
-              define_method(nome_metodo) do |*params|
-                puts "o valor dos parametros é: #{params.join(", ")}"
-              end
-            end
-          end
-
-          ["mostrar", "exibir", "visualizar"].each do |metodo|
-            definir_classe("danilo2", metodo)
-          end
-
-          ["mostrar", "exibir", "visualizar"].each do |metodo|
-            Danilo2.new.send(metodo, 1,2,3)
-          end
-
-          # chamando todos dinamicos
-          ["Danilo", "Sheila", "Lana"].each do |classe|
-            ["mostrar", "exibir", "visualizar"].each do |metodo|
-              definir_classe(classe, metodo)
-              Object.const_get(classe).new.send(metodo, 1,2,3)
-            end
-          end
-
-          debugger
-
-          x = ""
-        </code>
-      </pre>
-
-      <p>Arquivo <code>classes_e_metodos_dinamicos_com_hash.rb</code> final:</p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          require 'byebug'
-
-          #definir várias classes e metodos em runtime utilizando hash
-          def definir_classe(classe, nome_metodo)
-            if(classe.is_a?(String))
-              eval("class #{classe} end");
-              classe = Object.const_get(classe)
-            end
-
-            classe.class_eval do
-              define_method(nome_metodo) do |*params|
-                puts "o valor dos parametros é: #{params.join(", ")}"
-              end
-            end
-          end
-
-          {
-            "Danilo" => ["show1", "show2", "show3"], 
-            "Sheila" => ["print1", "print2", "print3"], 
-            "Lana" => ["puts1", "puts2", "puts3"]
-          }.each do |classe, metodos|
-            metodos.each do |metodo|
-              definir_classe(classe, metodo)
-            end
-          end
-
-          puts Danilo.new.methods - Class.methods
-          puts Sheila.new.methods - Class.methods
-          puts Lana.new.methods - Class.methods
-
-          debugger
-
-          x = ""
-        </code>
-      </pre>
-
-      <p>Arquivo <code>metodo_dimamica.rb</code> final:</p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          require 'byebug'
-
-          # Definir Metodo em runtime
-          class Teste
-            def self.definir(nome_metodo)
-              define_method(nome_metodo) do 
-                puts "metodo em runtime"
-              end
-            end
-          end
-
-          Teste.definir("teste")
-
-          Teste.new.teste
-
-          debugger
-
-          x = ""
-        </code>
-      </pre>
-
-      <p>Arquivo <code>metodos_dimamica.rb</code> final:</p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          require 'byebug'
-
-          # Definir Vários metodos em runtime
-          class Teste
-            def self.definir(*metodos)
-              metodos.each do |metodo|
-                define_method(metodo) do 
+            classe = Object.const_get(classe)
+            puts classe
+            #==================================
+            # Definir Metodo em runtime
+            class Teste
+              def self.definir(nome_metodo)
+                define_method(nome_metodo) do
                   puts "metodo em runtime"
                 end
               end
             end
-          end
-
-          Teste.definir("metodo1", "metodo2", "metodo3")
-          a = Teste.new
-          puts a.methods - Class.methods
-
-          debugger
-
-          x = ""
-        </code>
-      </pre>
+            Teste.definir("teste")
+            Teste.new.teste
+            #==================================
+            # Definir Várias classes em runtime
+            def definir_classe(classe)
+              classe = classe.capitalize
+              eval("class #{classe} end")
+              classe = Object.const_get(classe)
+            end
+            ["Classe1", "Classe2", "Classe3"].each do |classe|
+              definir_classe(classe)
+            end
+            #==================================
+            # Definir Vários metodos em runtime
+            class Teste
+              def self.definir(*metodos)
+                metodos.each do |metodo|
+                  define_method(metodo) do
+                    puts "metodo em runtime"
+                  end
+                end
+              end
+            end
+            Teste.definir("metodo1", "metodo2", "metodo3")
+            a = Teste.new
+            puts a.methods - Class.methods
+            #==================================
+            #definir classe e metodos em runtime
+            def definir_classe(classe, nome_metodo)
+              if(classe.is_a?(String))
+                classe = classe.capitalize
+                eval("class #{classe} end");
+                classe = Object.const_get(classe)
+              end
+              classe.class_eval do
+                define_method(nome_metodo) do |*params|
+                  puts "o valor dos parametros é: #{params.join(", ")}"
+                end
+              end
+            end
+            ["mostrar", "exibir", "visualizar"].each do |metodo|
+              definir_classe("danilo2", metodo)
+            end
+            ["mostrar", "exibir", "visualizar"].each do |metodo|
+              Danilo2.new.send(metodo, 1,2,3)
+            end
+            # chamando todos dinamicos
+            ["Danilo", "Sheila", "Lana"].each do |classe|
+              ["mostrar", "exibir", "visualizar"].each do |metodo|
+                definir_classe(classe, metodo)
+                Object.const_get(classe).new.send(metodo, 1,2,3)
+              end
+            end
+            #==================================
+            #definir várias classes e metodos em runtime utilizando hash
+            def definir_classe(classe, nome_metodo)
+              if(classe.is_a?(String))
+                eval("class #{classe} end");
+                classe = Object.const_get(classe)
+              end
+              classe.class_eval do
+                define_method(nome_metodo) do |*params|
+                  puts "o valor dos parametros é: #{params.join(", ")}"
+                end
+              end
+            end
+            {
+              "Danilo" => ["mostrar", "exibir", "visualizar"],
+              "Sheila" => ["mostrar", "exibir", "visualizar"],
+              "Lana" => ["mostrar", "exibir", "visualizar"]
+            }.each do |classe, metodos|
+              metodos.each do |metodo|
+                definir_classe(classe, metodo)
+              end
+            end
+            puts Danilo.new.methods - Class.methods
+            puts Sheila.new.methods - Class.methods
+            puts Lana.new.methods - Class.methods
+            # Danilo.new.mostrar 1,2,3
+            # Danilo.new.exibir 1,2,3
+            # Danilo.new.visualizar 1,2,3
+            # debugger
+        
+            x = ""
+          </code>
+        </pre>
+        <p>Arquivo <code>classe_dimamica.rb</code> final:</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            #==================================
+            # Definir Classe em runtime
+            classe = "danilo"
+            debugger
+            classe.capitalize!
+            eval("class #{classe} end")
+            classe = Object.const_get(classe)
+            puts classe
+          </code>
+        </pre>
+        <p>Arquivo <code>classes_dimamica.rb</code> final:</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            # Definir Várias classes em runtime
+            def definir_classe(classe)
+              classe = classe.capitalize
+              eval("class #{classe} end")
+            end
+            ["Classe1", "classe2", "Classe3"].each do |classe|
+              definir_classe(classe)
+            end
+            debugger
+            x = ""
+          </code>
+        </pre>
+        <p>Arquivo <code>classes_e_metodos_dinamicos.rb</code> final:</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            #definir classe e metodos em runtime
+            def definir_classe(classe, nome_metodo)
+              if(classe.is_a?(String))
+                classe = classe.capitalize
+                eval("class #{classe} end");
+                classe = Object.const_get(classe)
+              end
+              classe.class_eval do
+                define_method(nome_metodo) do |*params|
+                  puts "o valor dos parametros é: #{params.join(", ")}"
+                end
+              end
+            end
+            ["mostrar", "exibir", "visualizar"].each do |metodo|
+              definir_classe("danilo2", metodo)
+            end
+            ["mostrar", "exibir", "visualizar"].each do |metodo|
+              Danilo2.new.send(metodo, 1,2,3)
+            end
+            # chamando todos dinamicos
+            ["Danilo", "Sheila", "Lana"].each do |classe|
+              ["mostrar", "exibir", "visualizar"].each do |metodo|
+                definir_classe(classe, metodo)
+                Object.const_get(classe).new.send(metodo, 1,2,3)
+              end
+            end
+            debugger
+            x = ""
+          </code>
+        </pre>
+        <p>Arquivo <code>classes_e_metodos_dinamicos_com_hash.rb</code> final:</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            #definir várias classes e metodos em runtime utilizando hash
+            def definir_classe(classe, nome_metodo)
+              if(classe.is_a?(String))
+                eval("class #{classe} end");
+                classe = Object.const_get(classe)
+              end
+              classe.class_eval do
+                define_method(nome_metodo) do |*params|
+                  puts "o valor dos parametros é: #{params.join(", ")}"
+                end
+              end
+            end
+            {
+              "Danilo" => ["show1", "show2", "show3"],
+              "Sheila" => ["print1", "print2", "print3"],
+              "Lana" => ["puts1", "puts2", "puts3"]
+            }.each do |classe, metodos|
+              metodos.each do |metodo|
+                definir_classe(classe, metodo)
+              end
+            end
+            puts Danilo.new.methods - Class.methods
+            puts Sheila.new.methods - Class.methods
+            puts Lana.new.methods - Class.methods
+            debugger
+            x = ""
+          </code>
+        </pre>
+        <p>Arquivo <code>metodo_dimamica.rb</code> final:</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            # Definir Metodo em runtime
+            class Teste
+              def self.definir(nome_metodo)
+                define_method(nome_metodo) do
+                  puts "metodo em runtime"
+                end
+              end
+            end
+            Teste.definir("teste")
+            Teste.new.teste
+            debugger
+            x = ""
+          </code>
+        </pre>
+        <p>Arquivo <code>metodos_dimamica.rb</code> final:</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            require 'byebug'
+            # Definir Vários metodos em runtime
+            class Teste
+              def self.definir(*metodos)
+                metodos.each do |metodo|
+                  define_method(metodo) do
+                    puts "metodo em runtime"
+                  end
+                end
+              end
+            end
+            Teste.definir("metodo1", "metodo2", "metodo3")
+            a = Teste.new
+            puts a.methods - Class.methods
+            debugger
+            x = ""
+          </code>
+        </pre>
+      </div>
       <!-- FIM -->
       <br />
     </div>
