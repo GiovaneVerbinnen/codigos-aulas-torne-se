@@ -23,7 +23,7 @@
       <!-- Aula Teórica -->
       <p></p>
       <div>
-        <p>Hoje falaremos sobre:</p>
+        <p>Hoje falaremos sobre os Hooks:</p>
         <ul>
           <li>included</li>
           <li>extended</li>
@@ -31,160 +31,189 @@
           <li>const_missing</li>
           <li>method_missing</li>
         </ul>
-        <h6></h6>
+        <h6>Hooks são ganchos</h6>
       </div>
+      <!-- 15:25 -->
       <!-- Aula Prática -->
-      <p>Acesso o <code>irb</code> para testar alguns códigos</p>
-      <pre class="m-0">
+      <div>
+        <p>Treine com os códigos abaixo:</p>
+        <p>Aqui temos uma classe <code>Module</code> que contém um método
+          <code>const_missing</code> ele sobreescreve o padrão do Ruby e fica verificando se determinada classe existe.
+        </p>
+        <pre class="m-0">
           <code class="language-ruby rounded">
-            > 1.class
-            => Integer
-          </code>
-        </pre>
-
-      <p>Arquivo aula.rb final:</p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          # missings
           require 'byebug'
 
-          class Danilo
-            def self.method_missing(nome, parametro)
-              nome = nome.to_s
-
-              if nome =~ /busca_por_/
-                puts "Bucando no arquivo por #{nome.gsub("busca_por_", "")}, com o valor #{parametro}"
-                return
-              end
-
-              puts "Metodo de classe #{nome}, não exite na classe #{self}"
-            end
-
-            def method_missing(nome)
-              nome = nome.to_s
-              File.open("database/Danilo.csv") do |arquivo|
-                arquivo.each do |linha|
-                  campos = linha.split(";")
-
-                  unless campos.include?(nome)
-                    puts "Campo #{nome}, não existe no csv database/Danilo.csv"
-                  end
-
-                end
-              end
-
-              return nil
-            end
+          class Module
+            def const_missing(nome)
+              puts "Classe #{nome} não encontrada"
+            end 
           end
 
-          # puts Danilo.teste
-          puts Danilo.busca_por_dsdsdse("jsssoao")
-
-
-          # class Danilo
-          #   def self.const_missing(nome)
-          #     puts "Não existe a constante #{nome} na classe #{self}"
-          #   end
-          # end
-
-          # Danilo::TESTE
-
-
-          # class Danilo
-          #   def method_missing(nome)
-          #     puts "Não existe a propriedade #{nome} na classe #{self.class}"
-          #   end
-
-          #   def self.method_missing(nome)
-          #     puts "Não existe a propriedade de classe #{nome} na classe #{self}"
-          #   end
-          # end
-
-          # Danilo.new.nome
-          # Danilo.teste
-        </code>
-      </pre>
-
-      <p>Arquivo <code>classes_dinamicas_csv.rb</code> final:</p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          # missings
+          Danilo
+          </code>
+        </pre>
+        <p>Com esse Hook de verificação podemos tentar chamar o método <code>Danilo</code>, que não existe e nossa
+          classe retornará o texto. </p>
+        <p>Agora utilizando a manipulação de arquivos:</p>
+        <p>Observe que aqui criamos uma classe nova uma vez que exista um arquivo csv dentro do diretório database
+          com o nome passado por parâmetro ou retornamos um erro personalizado com texto informando qual classe não foi
+          encontrada.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
           require 'byebug'
-
-          # class Module
-          #   old_const_missing = instance_method(:const_missing)
-
-          #   define_method(:const_missing) do |nome|
-          #     existe = File.exist?("database/#{nome}.csv")
-          #     if !existe
-          #       puts "Classe #{nome} não encontrada"
-          #       return
-          #     end
-
-          #     old_const_missing.bind(self).call(nome)
-          #   end
-          # end
 
           class Module
             def const_missing(nome)
               existe = File.exist?("database/#{nome}.csv")
               unless existe
-                puts "Classe #{nome} não encontrada, porque não existe nenhum csv no diretório database"
+                puts "Classe #{nome} não encontrada"
                 return
               end
               const_set(nome, Class.new)
-              klass = const_get(nome)
-
-              File.open("database/#{nome}.csv") do |arquivo|
-                arquivo.each do |linha|
-                  campos = linha.split(";")
-
-                  campos.each do |campo|
-                    klass.class_eval do
-
-                      define_method("#{campo}=") do |value|
-                        instance_variable_set "@#{campo}", value
-                      end
-
-                      define_method("#{campo}") do
-                        instance_variable_get "@#{campo}"
-                      end
-
-                    end
-                  end
-
-                  break
-
-                end
-              end
-
-              klass
             end
           end
 
-          d = Pessoa.new
-          d.nome = "danilo teste"
-          puts d.nome
-
-          puts d.methods - Class.methods
-        </code>
-      </pre>
-      <p>Arquivo <code>const_missing_de_uma_classe.rb</code> final:</p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          # missings
+          puts Danilo
+          </code>
+        </pre>
+        <p>Lembrando que podemos guardar o const_missing antigo para usar.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
           require 'byebug'
 
-          class Danilo
-            TESTE = "123456"
-            def self.const_missing(nome)
-              puts "Constante #{nome}, não exite na classe #{self}"
+          class Module
+            old_const_missing = instance_method(:const_missing)
+            define_method(:const_missing) do |nome|
+              existe = File.exist?("database/#{nome}.csv")
+              if !existe
+                puts "Classe #{nome} não encontrada"
+                return
+              end
+              old_const_missing.bind(self).call(nome)
             end
           end
 
-          puts Danilo::TESTE
-        </code>
-      </pre>
+          puts Danilo
+          </code>
+        </pre>
+        <p>Criaremos um arquivo agora chamado <code>Danilo.csv</code> dentro de <code>database/</code>. </p>
+        <!-- Arquivo Final -->
+        <hr>
+        <div>
+          <p>Arquivo aula.rb final:</p>
+          <pre class="m-0">
+            <code class="language-ruby rounded">
+            # missings
+            require 'byebug'
+            class Danilo
+              def self.method_missing(nome, parametro)
+                nome = nome.to_s
+                if nome =~ /busca_por_/
+                  puts "Bucando no arquivo por #{nome.gsub("busca_por_", "")}, com o valor #{parametro}"
+                  return
+                end
+                puts "Metodo de classe #{nome}, não exite na classe #{self}"
+              end
+              def method_missing(nome)
+                nome = nome.to_s
+                File.open("database/Danilo.csv") do |arquivo|
+                  arquivo.each do |linha|
+                    campos = linha.split(";")
+                    unless campos.include?(nome)
+                      puts "Campo #{nome}, não existe no csv database/Danilo.csv"
+                    end
+                  end
+                end
+                return nil
+              end
+            end
+            # puts Danilo.teste
+            puts Danilo.busca_por_dsdsdse("jsssoao")
+            # class Danilo
+            #   def self.const_missing(nome)
+            #     puts "Não existe a constante #{nome} na classe #{self}"
+            #   end
+            # end
+            # Danilo::TESTE
+            # class Danilo
+            #   def method_missing(nome)
+            #     puts "Não existe a propriedade #{nome} na classe #{self.class}"
+            #   end
+            #   def self.method_missing(nome)
+            #     puts "Não existe a propriedade de classe #{nome} na classe #{self}"
+            #   end
+            # end
+            # Danilo.new.nome
+            # Danilo.teste
+            </code>
+          </pre>
+          <p>Arquivo <code>classes_dinamicas_csv.rb</code> final:</p>
+          <pre class="m-0">
+            <code class="language-ruby rounded">
+            # missings
+            require 'byebug'
+            # class Module
+            #   old_const_missing = instance_method(:const_missing)
+            #   define_method(:const_missing) do |nome|
+            #     existe = File.exist?("database/#{nome}.csv")
+            #     if !existe
+            #       puts "Classe #{nome} não encontrada"
+            #       return
+            #     end
+            #     old_const_missing.bind(self).call(nome)
+            #   end
+            # end
+            class Module
+              def const_missing(nome)
+                existe = File.exist?("database/#{nome}.csv")
+                unless existe
+                  puts "Classe #{nome} não encontrada, porque não existe nenhum csv no diretório database"
+                  return
+                end
+                const_set(nome, Class.new)
+                klass = const_get(nome)
+                File.open("database/#{nome}.csv") do |arquivo|
+                  arquivo.each do |linha|
+                    campos = linha.split(";")
+                    campos.each do |campo|
+                      klass.class_eval do
+                        define_method("#{campo}=") do |value|
+                          instance_variable_set "@#{campo}", value
+                        end
+                        define_method("#{campo}") do
+                          instance_variable_get "@#{campo}"
+                        end
+                      end
+                    end
+                    break
+                  end
+                end
+                klass
+              end
+            end
+            d = Pessoa.new
+            d.nome = "danilo teste"
+            puts d.nome
+            puts d.methods - Class.methods
+            </code>
+          </pre>
+          <p>Arquivo <code>const_missing_de_uma_classe.rb</code> final:</p>
+          <pre class="m-0">
+            <code class="language-ruby rounded">
+            # missings
+            require 'byebug'
+            class Danilo
+              TESTE = "123456"
+              def self.const_missing(nome)
+                puts "Constante #{nome}, não exite na classe #{self}"
+              end
+            end
+            puts Danilo::TESTE
+            </code>
+          </pre>
+        </div>
+      </div>
       <!-- FIM -->
       <br />
     </div>
