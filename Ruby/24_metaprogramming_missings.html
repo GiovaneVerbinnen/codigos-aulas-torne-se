@@ -31,11 +31,13 @@
           <li>const_missing</li>
           <li>method_missing</li>
         </ul>
-        <h6>Hooks são ganchos</h6>
+        <!-- <h6>Hooks são ganchos</h6> -->
       </div>
       <!-- 15:25 -->
       <!-- Aula Prática -->
       <div>
+        <hr>
+        <h5>Aula Prática</h5>
         <p>Treine com os códigos abaixo:</p>
         <p>Aqui temos uma classe <code>Module</code> que contém um método
           <code>const_missing</code> ele sobreescreve o padrão do Ruby e fica verificando se determinada classe existe.
@@ -97,7 +99,69 @@
           puts Danilo
           </code>
         </pre>
+        <!-- 21:00 -->
         <p>Criaremos um arquivo agora chamado <code>Danilo.csv</code> dentro de <code>database/</code>. </p>
+        <p>Agora quando rodarmos o código ele retornara a constante e não mais aquele erro.</p>
+        <p>Coloque o conteúdo abaixo dentro do arquivo CSV criado.</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          nome;telefone;endereco;email;cpf
+          </code>
+        </pre>
+        <p>E altere a última linha para</p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+            puts Danilo.new
+          </code>
+        </pre>
+        <p>Abaixo temos a implementação feita, onde ele buscará se existe um arquivo no diretório database,
+          criará um classe com o nome do arquivo, </p>
+        <pre class="m-0">
+          <code class="language-ruby rounded">
+          class Module
+            def const_missing(nome)
+              existe = File.exist?("database/#{nome}.csv")
+              unless existe
+                puts "Classe #{nome} não encontrada"
+                return
+              end
+              const_set(nome, Class.new)
+              klass = const_get(nome)
+
+              File.open("database/#{nome}.csv") do |arquivo|
+                arquivo.each do |linha|
+                  campos = linha.split(";")
+
+                  campos.each do |campo|
+                    klass.class_eval do
+                    
+                      define_method("#{campo}=") do |value|
+                        instance_variable_set "@#{campo}", value
+                      end
+
+                      define_method("#{campo}") do
+                        instance_variable_get "@#{campo}"
+                      end
+
+                    end
+                  end
+
+                  break
+                end
+              end
+              klass
+            end
+          end
+          
+          d = Pessoa.new
+          d.nome = "danilo teste"
+          puts d.nome
+          puts d.methods - Class.methods
+          </code>
+        </pre>
+
+        <!-- 30:00 -->
+
         <!-- Arquivo Final -->
         <hr>
         <div>
@@ -221,3 +285,16 @@
 </body>
 
 </html>
+
+<!-- 
+  
+<pre class="m-0">
+<code class="language-ruby rounded">
+  require 'byebug'
+
+  
+</code>
+</pre> 
+
+
+-->
