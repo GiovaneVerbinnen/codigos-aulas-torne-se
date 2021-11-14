@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <!-- <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" /> -->
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+
+  <title>Java</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <h2>Aula inicial de introdução ao Java</h2>
+      <p>Hoje iniciamos nosso curso de Java, iremos utilizar o framework Spring Boot para desenvolver nosso projeto.
+      </p>
+      <div>
+        <span>Material de apoio:</span>
+        <p>
+          <a href="https://www.java.com/pt-BR/">Baixe e configure o Java</a>
+        </p>
+        <p>
+          <a href="https://www.oracle.com/br/java/technologies/javase/javase8-archive-downloads.html">Baixe e configure
+            o JDK</a>
+        </p>
+        <p>
+          <a
+            href="https://medium.com/beelabacademy/configurando-vari%C3%A1veis-de-ambiente-java-home-e-maven-home-no-windows-e-unix-d9461f783c26">Configure
+            a variável JAVA_HOME</a>
+        </p>
+        <p>
+          <a href="https://spring.io/projects/spring-boot">Baixe e configure o Spring Boot</a>
+        </p>
+        <p>
+          <a href="https://github.com/torneseumprogramador/spring-web-youtube">Repositório deste curso</a>
+        </p>
+        <p>
+          <a href="https://code.visualstudio.com/">Site do Visual Studio Code</a>
+        </p>
+        <p>
+          <a href="https://maven.apache.org/download.cgi">Site para download Maven</a>
+        </p>
+        <p>
+          <a href="https://startbootstrap.com/theme/sb-admin-2">Site para download do tema SB Admin 2</a>
+        </p>
+      </div>
+    </div>
+    <!-- Aula Prática -->
+    <div>
+      <h3>Aula Prática</h3>
+      <hr>
+      <p>Apos configurar o Java e o JDK, entre no site do Spring Boot e configure um projeto inicial como mostrado,
+         no final você baixa um projeto já pré-pronto, com as configurações iniciais do Spring,
+         descompacte num diretório de sua preferência e abra ele no VS Code, caso ainda não tenha o VS Code irá sugerir extenções para o Java, pode aceitá-las.</p>
+      <p>Agora dentro do editor abra um novo terminal, faça: <kbd> Ctrl + ` </kbd>.</p>
+      <p>Obs.: Os arquivos necessários para o Maven já vem instalados e provavelmente você não precisará se preocupar.</p>
+      <p>O nosso projeto já vem com várias coisas configuradas, como o gitignore, o Maven para dependências, dentro de <code>src</code> é onde estará o nosso código</p>
+      <p>Os arquivos mvnw(unix) e mvnw.cmd(windows) na raiz do projeto são os executáveis que utilizaremos, por exemplo para rodar nossos testes:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      ./mvnw test
+      </code>
+      </pre>
+      <p>Para efetivamente rodar nossa aplicação:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      ./mvnw spring-boot:run
+      </code>
+      </pre>
+      <p>Já no Windows para rodar nossa aplicação seria:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      mvnw.cmd spring-boot:run
+      </code>
+      </pre>
+      <p>Vamos criar nossa primeira linha de código em Java, para isso vá até o diretório
+         <code>src/main/java/...</code>, onde dece achar um arquivo <code>AppConsoleApplication.java</code>,
+          comentaremos a linha que chama o <code>SpringApplication</code> e o import dele também,
+           agora dentro da função <code>main</code> faça:
+      </p>
+      <pre class="m-0">
+      <code class="language-java rounded">
+        System.out.println("=================");
+        System.out.println("Bem vindo ao app console em spring boot");
+        System.out.println("=================");
+      </code>
+      </pre>
+      <p>Pronto! temos nossa primeira aplicação, nas próximas aulas iremos complementar nosso App com mais conceitos.</p>
+      <br>
+      <!-- FIM -->
+  </section>
+  <script type="text/javascript">
+    /* 
+      * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+      */
+    function formataCodigoHtml() {
+      document.querySelectorAll("code.language-html").forEach(function (element) {
+        element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+          "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      });
+    }
+    formataCodigoHtml();
+
+  </script>
+</body>
+
+</html>
