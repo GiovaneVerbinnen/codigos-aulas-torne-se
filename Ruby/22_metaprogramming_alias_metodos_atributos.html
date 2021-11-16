@@ -12,7 +12,6 @@
   <script>
     hljs.initHighlightingOnLoad();
   </script>
-  <title>Document</title>
 </head>
 
 <body>
@@ -40,29 +39,53 @@
         <p>Começaremos com o arquivo <code>aula.rb</code> onde criaremos a classe pai abaixo.</p>
         <pre class="m-0">
           <code class="language-ruby rounded">
-            require 'byebug'
-        
-            class Danilo
-              def ola
-                "olha original"
-              end
+          require 'byebug'
+      
+          class Danilo
+            def ola
+              "olha original"
             end
+          end
           </code>
         </pre>
-        <p>Polimorfismo</p>
+        <p>Abaixo temos um exemplo de Polimorfismo, note a variável <code>super</code>,
+           ele modifica o nível de acesso à classe.</p>
         <pre class="m-0">
           <code class="language-ruby rounded">
-            class Danilo2 < Danilo
-              def ola
-                # "teste danilo para mostrar outras coisas "
-                # se não utilizar o super aqui, perde a referencia do original
-                "olha sobrescrito - " + super
-              end
+          class Danilo2 < Danilo
+            def ola
+              # "teste danilo para mostrar outras coisas "
+              # se não utilizar o super aqui, perde a referencia do original
+              "olha sobrescrito - " + super
             end
-            danilo2 = Danilo2.new
-            debugger
-            puts danilo2.ola # perco a referencia do 1
+          end
+          danilo2 = Danilo2.new
+
+          debugger
+
+          puts danilo2.ola # perco a referencia do 1
           </code>
+        </pre>
+        <!-- 20:00 -->
+        <p>Usando o <code>alias_method</code>, aqui nós conseguimos dar um apelido para o método.</p>
+        <pre class="m-0">
+        <code class="language-ruby rounded">
+          class Danilo2 < Danilo
+            alias_method :ola_original, :ola
+
+            def ola
+              "olha sobrescrito"
+            end
+            def todos
+              ola_original + ' ---- ' + ola
+              # send("ola_original") + ' ---- ' + ola # mais dinamico ainda
+            end
+          end
+          danilo2 = Danilo2.new
+          debugger
+          puts danilo2.ola
+          puts danilo2.todos
+        </code>
         </pre>
         <!-- Arquivo Final -->
         <hr>

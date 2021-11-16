@@ -12,6 +12,7 @@
   <script>
     hljs.initHighlightingOnLoad();
   </script>
+
   <title>Forms</title>
 </head>
 
@@ -21,41 +22,65 @@
       <!-- Aula Teórica -->
 
       <h2>Ruby on Rails - Forms</h2>
-      <p>Nesta aula falaremos sobre:</p>
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-      <p>
+      <p>Recapitulando: Criamos um Controller que passa os dados para o Model, aprendemos como criar manualmente e com o
+        <code>rails generate</code>, e retornava na View fazendo a rederização.
       </p>
-
-      <p>Para gerar um model por exemplo: </p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          rails g model Carro nome:string marca:string
-        </code>
-      </pre>
-      <p>O <code>rails g</code> é uma abreviação para <code>rails generate</code>!</p>
-
+      <p>O objetivo desta aula é criar um formulário onde possamos enviar dados até nossa aplicação e registrando em
+        nossa base de dados.</p>
+      <p>Material de apoio:
+        <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status">Documentação de códigos HTTP (MDN Web
+          Docs)</a>
+      </p>
     </div>
     <!-- Aula Prática -->
     <div>
       <h3>Aula Prática</h3>
       <hr>
-      <p>Lembre-se de entrar no diretório que criamos a primeira aplicação na aula passada.</p>
+      <p>Hoje iremos incluir uma página de cadastros.</p>
+      <p>Então dentro de <code>views/layouts/_header.html.erb</code> faça:</p>
       <pre class="m-0">
-        <code class="language-ruby rounded">
-          rails g model Carro nome:string marca:string
-        </code>
+      <code class="language-html rounded">
+      <a href="/produtos">Produtos</a>
+      </code>
       </pre>
+      <p>Agora em nosso menu temos um link para a rota <code>/produtos</code>, mas não temos ela criada ainda, então no
+        arquivo <code>routes.rb</code> adicionamos:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      get "/produtos", to: "produtos#index"
+      </code>
+      </pre>
+      <p>Ainda não criamos o controller de produtos, como já vimos anteriormente devemos criar um arquivo
+        <code>produtos_controller.rb</code> na pasta de controllers, um arquivo em branco não vai retornar nada, então
+        vamos copiar o conteúdo de <code>home_controller.rb</code> algo assim:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      class ProdutosController < ApplicationController
+        def index
+        end
+      end
+      </code>
+      </pre>
+      <p>Pronto! Nossa rota chama um controller que tem um método index, e nós temos um médodo index no arquivo do
+        controller, mas o Rails vai procurar um view com nome index e isso ainda não temos, por convenção o Rails
+        procura pelo nome que colocamos no controller, neste caso produtos, então criremos um diretório produtos e dentro a view index, devemos criar como: <code>views\produtos\index.html.erb</code>.
+      </p>
       <br>
       <!-- FIM -->
   </section>
+  <script type="text/javascript">
+    /* 
+      * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+      */
+    function formataCodigoHtml() {
+      document.querySelectorAll("code.language-html").forEach(function (element) {
+        element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+          "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      });
+    }
+    formataCodigoHtml();
+
+  </script>
 </body>
 
 </html>
