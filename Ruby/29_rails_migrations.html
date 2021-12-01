@@ -23,25 +23,15 @@
       <h2>Ruby on Rails - Migrations</h2>
       <p>Nesta aula falaremos sobre:</p>
       <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>Rails g migration</li>
+        <li>rake db:migrate</li>
+        <li>rake db:rollback</li>
+        <li>Rails g model</li>
+        <li>MVC</li>
       </ul>
       <p>
+        Nós criaremos os modelos de forma manual e através dos migrations para ver o comportamento a fundo.
       </p>
-
-      <p>Para gerar um model por exemplo: </p>
-      <pre class="m-0">
-        <code class="language-ruby rounded">
-          rails g model Carro nome:string marca:string
-        </code>
-      </pre>
-      <p>O <code>rails g</code> é uma abreviação para <code>rails generate</code>!</p>
-
     </div>
     <!-- Aula Prática -->
     <div>
@@ -49,6 +39,249 @@
       <hr>
       <p>Lembre-se de entrar no diretório que criamos a primeira aplicação na aula passada.</p>
 
+      <p>Començado, para gerar um banco de dados: </p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      rake db:create
+      </code>
+      </pre>
+      <p>Ou caso precise fazer pelo bundle:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      bundle exec rake db:create
+      </code>
+      </pre>
+      <p>Assim criamos um bando de desenvolvimento e o de teste é gerado automaticamente também.</p>
+      <p>Abra um gerenciador de banco de dados como o MySQL Workbench, crie uma tabela chamada <code>produtos1</code> seguindo as configurações da aula caso use o MySQL, ou adapte para o seu banco.</p>
+      <p>Agora na pasta <code>app/models</code> criaremos um model(modelo) chamado <code>produto.rb</code>, para interação com nosso banco de dados. </p>
+     
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      class Produto
+        def initialize(attrs=nil)
+          if attrs.present?
+            self.id = arrts["id"]
+            self.nome = arrts["nome"]
+        end
+
+        attr_accessor :id, :nome
+
+        def self.buscar
+          produtos = ActiveRecord::Base.connection.exec_query("select * from produtos1")
+          return produtos.map{|p| Produto.new(p)}
+        end
+      end
+      </code>
+      </pre>
+      <p>No código acima fizemos uma classe para acessar nossos dados através do Rails, assim fazemos um <code>attr_accessor</code>, que já provê métodos get e set para nós, um método <code>buscar</code> junto com o self para executar na mesma instância, além do <code>ActiveRecord</code>, que é nosso intermediário entre o Rails e o Banco de dados SQL, armazenamos o resultado dessa consulta que busca todos dados da tabela na variável <code>produtos</code>, retornamos a variável <code>produtos</code>, ela recebe os dados mapeados no caso id e nome, observe o construtor recebendo os argumentos no método <code>initialize</code>.</p>
+
+      <p>Utilizaremos o home_controller que fizemos na aula passada para testar nosso model. </p>
+
+      <p>Alteramos o código dentro da classe para:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      @produtos = Produto.buscar
+      </code>
+      </pre>
+
+      <p>Precisamos fazer a view exibir os dados agora, em <code>app/views/home/index.html.rb</code> faça:</p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+      <hr>
+      <ul>
+        <% produtos.each do |produto| %>
+        <li>
+          <div><b>ID:</b> <%= produto.id %> </div>
+          <div><b>NOME:</b> <%= produto.nome %> </div>
+        </li>
+        <% end %>
+      </ul>
+      <hr>
+      </code>
+      </pre>
+      <p>Caso tenha cadastrado algum dado no banco já deve aparecer aqui, mas vamos criar nossos métodos para isso.</p>
+      <p>Agora voltamos para o arquivo <code>produto.rb</code> faremos um método para criação/create ou seja salvar dados no banco:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        def salvar
+          ActiveRecord::Base.connection.execute("insert into produtos1 (nome) values ('#{self.nome}');")
+        end
+      </code>
+      </pre>
+      <p>Para fazer uma atualização/update:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        def atualizar
+          ActiveRecord::Base.connection.execute("update produtos1 set nome = '#{self.nome}') where = id = '#{self.id}');")
+        end
+      </code>
+      </pre>
+
+      <p>Para fazer uma exclusão/delete:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        def excluir
+          ActiveRecord::Base.connection.execute("delete from produtos1 where = id = '#{self.id}');")
+        end
+      </code>
+      </pre>
+
+      <p>Podemos testar nossos métodos com o controller, o arquivo <code>produto.rb</code> dentro de <code>index</code> deve ter dados novos quanto atualizar a página.</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        produto = Produto.new
+
+        produto.id = 4
+        produto.exluir
+      </code>
+      </pre>
+
+      <p>Criar:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        produto = Produto.new
+
+        produto.nome = "José"
+        produto.salvar
+
+        @produtos = Produto.buscar
+      </code>
+      </pre>
+
+      <p>Atualizar:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        produto = Produto.new
+
+        produto.id = 4
+        produto.nome = "José ---"
+        produto.atualizar
+
+        @produtos = Produto.buscar
+      </code>
+      </pre>
+
+      <p>Exluir:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        produto = Produto.new
+
+        produto.id = 4
+        produto.exluir
+      </code>
+      </pre>
+
+      <p>Agora vamos utilizar o jeito Rails de fazer as coisas, faremos nosso model diferente:</p>
+      <p>Execute no terminal:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rails g model produto2 nome:string
+      </code>
+      </pre>
+
+      <p>Agora temos uma migração/migrate, pela convenção nome que ele adiciona um "s" no final do nome da tabela, além da classe Model já gerado no diretório.</p>
+      <p>Para ele criar as tabelas das migrations execute no terminal:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rake db:migrate
+        # ou 
+        bundle exec rake db:migrate
+      </code>
+      </pre>
+      <p>Vamos testar nossa geração automática, no mesmo <code>home_controller</code> faça:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+      @produtos = Produto2.all
+      </code>
+      </pre>
+      <p>O <code>.all</code> tem a mesma ação do método buscar que implementamos anteriormente.</p>
+      <p>Agora os mesmos métodos utilizando o Active Record</p>
+      <p>Criar:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        produto = Produto2.new
+
+        produto.nome = "Danilo"
+        produto.save
+
+        @produtos = Produto2.all
+      </code>
+      </pre>
+
+      <p>Atualizar:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        produto = Produto2.find(1) # id a ser buscado
+
+        produto.nome = "Danilo -- 444 --"
+        produto.save
+
+        @produtos = Produto2.all
+      </code>
+      </pre>
+
+      <p>Exluir:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        Produto2.find(1).destroy  # id a ser buscado
+        # ou 
+        Produto2.destroy(1)  # id a ser buscado
+
+        @produtos = Produto2.all
+      </code>
+      </pre>
+
+      <p>Podemos criar uma coluna descrição no nosso banco, para testar como funciona, e em todos métodos e lugares onde utilizávamos o nome agora deve incluir o dado de descrição.</p>
+
+      <p>Vamos criar mais uma migration para ver como fica mais fácil:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rails g migration add_descricao_produto2
+      </code>
+      </pre>
+      <p>O rails retorna o nome da migration gerada, abra ela e adicione no método <code>change</code>:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        add_column :produto2s, :descricao, :text
+      </code>
+      </pre>
+      <p>Não esqueça de rodar as migrations:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rake db:migrate
+        # ou 
+        bundle exec rake db:migrate
+      </code>
+      </pre>
+      <p>Agora temos nosso banco de dados atualizado, inclusive o arquivo <code>schema.rb</code> que o rails mantém com a estrutura do banco de dados.</p>
+      <p>Caso tenha algum problema com a migration você pode voltar atrás com o <code>rollback</code>:</p>
+      <pre class="m-0">
+      <code class="language-ruby rounded">
+        rake db:rollback
+        # ou 
+        bundle exec rake db:rollback
+      </code>
+      </pre>
+
+      <p>Precisamos fazer a view exibir os dados agora, em <code>app/views/home/index.html.rb</code> faça:</p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+      <hr>
+      <ul>
+        <% produtos.each do |produto| %>
+        <li>
+          <div><b>ID:</b> <%= produto.id %> </div>
+          <div><b>NOME:</b> <%= produto.nome %> </div>
+          <div><b>DESCRICAO:</b> <%= produto.descricao %> </div>
+        </li>
+        <% end %>
+      </ul>
+      <hr>
+      </code>
+      </pre>
+      <p>E assim que funciona as migration, cada campo adicionado é automaticamente mapeado para o ActiveRecord, tendo todas opções disponíveis.</p>
+      <p>Leia o guia oficial: <a href="https://guides.rubyonrails.org/active_record_migrations.html">Active Record Migrations</a></p>
+      <p>Nossa aula fica por aqui, até a pŕoxima!</p>
       <br>
       <!-- FIM -->
   </section>
