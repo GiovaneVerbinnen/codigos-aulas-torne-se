@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <!-- <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" /> -->
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+
+  <title>Java</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <h2>Aula inicial de introdução ao Java</h2>
+      <p>Hoje iniciamos nosso curso de Java com Spring, iremos utilizar o framework Spring Boot para desenvolver nosso projeto.</p>
+      <!-- Links de apoio -->
+      <div>
+        <span>Material de apoio:</span>
+        <p>
+          <a href="https://www.java.com/pt-BR/">Baixe e configure o Java</a>
+        </p>
+        <p>
+          <a href="https://www.oracle.com/br/java/technologies/javase/javase8-archive-downloads.html">Baixe e configure
+            o JDK</a>
+        </p>
+        <p>
+          <a
+            href="https://medium.com/beelabacademy/configurando-vari%C3%A1veis-de-ambiente-java-home-e-maven-home-no-windows-e-unix-d9461f783c26">Configure
+            a variável JAVA_HOME</a>
+        </p>
+        <p>
+          <a href="https://spring.io/projects/spring-boot">Baixe e configure o Spring Boot</a>
+        </p>
+        <p>
+          <a href="https://github.com/torneseumprogramador/spring-web-youtube">Repositório deste curso</a>
+        </p>
+        <p>
+          <a href="https://code.visualstudio.com/">Site do Visual Studio Code</a>
+        </p>
+        <p>
+          <a href="https://maven.apache.org/download.cgi">Site para download Maven</a>
+        </p>
+        <p>
+          <a href="https://startbootstrap.com/theme/sb-admin-2">Site para download do tema SB Admin 2</a>
+        </p>
+      </div>
+    </div>
+    <!-- Aula Prática -->
+    <div>
+      <h3>Aula Prática</h3>
+      <hr>
+      <h6 class="font-weight-bold">Spring initializr</h6>
+      <p>Após configurar o Java e o JDK, entre no site do Spring Boot e configure um projeto inicial como mostrado,
+         no final você baixa um projeto já pré-pronto, com as configurações iniciais do Spring,
+         descompacte num diretório de sua preferência e abra ele no VS Code, caso ainda não tenha o VS Code irá sugerir extenções para o Java, pode aceitá-las.</p>
+      <p>Agora dentro do editor abra um novo terminal, faça: <kbd> Ctrl + ` </kbd>.</p>
+      <p>Obs.: Os arquivos necessários para o Maven já vem instalados e provavelmente você não precisará se preocupar.</p>
+      <p>O nosso projeto já vem com várias coisas configuradas, como o gitignore, o Maven para dependências, dentro de <code>src</code> é onde estará o nosso código</p>
+      <p>Os arquivos mvnw(unix) e mvnw.cmd(windows) na raiz do projeto são os executáveis que utilizaremos, por exemplo para rodar nossos testes:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      ./mvnw test
+      </code>
+      </pre>
+      <p>Para efetivamente rodar nossa aplicação:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      ./mvnw spring-boot:run
+      </code>
+      </pre>
+      <p>Já no Windows para rodar nossa aplicação seria:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      mvnw.cmd spring-boot:run
+      </code>
+      </pre>
+      <p>Para confirmar a versão do Java instalada num terminal faça:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      java -version
+      </code>
+      </pre>
+      <p>
+      Obs.: Caso tenha dúvidas em outros editores, lembre-se que o projeto que geramos foi feito com o Maven,
+      neste caso a maioria das IDEs tem a opção de abrir como um "Maven Project"
+      </p>
+      <p> Caso tentarmos rodar nossa aplicação neste momento receberemos alguns erros,
+         em que faltam algumas configurações. </p>
+         <p>Para começar as configurações abra <code>src/main/resourses/application.properties</code> 
+          e preencha com os dados da sua máquina. </p>
+      <pre class="m-0">
+      <code class="language-java rounded">
+        spring.datasource.username=${USER}
+        spring.datasource.password=${PASSWORD}
+        spring.datasource.url=jdbc:${DATABASE_URL}
+        spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+        spring.jpa.show_sql=true
+        spring.jpa.hibernate.ddl-auto=update
+      </code>
+      </pre>
+      <p>Após isso ainda precisamos de um driver pro MySQL conectar com o Java,
+         deve ser colocada no arquivo <code>pom.xml</code> como abaixo:</p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.25</version>
+      </dependency>
+      </code>
+    </pre>
+    <p>Nós precisamos ter um banco de dados criado para colocar em <code>spring.datasource.url=jdbc:</code>, então crie um e coloque o nome dele após os dois pontos.</p>
+    <p>Agora quando iniciarmos o servidor e acessar ele pelo <code>localhost:8080</code> receberemos um erro que não existe uma página web para ser exibida. </p>
+    <p>Dentro de <code>src/main/java/com/web/tornese/SpringWeb</code> criaremos um diretório chamado <code>controllers</code> e dentro dele um arquivo chamado <code>HomeController.java</code>,
+      tendo a classe <code>HomeController</code> lembre-se de conferir os packages se estão corretos.</p>
+    <p>Acima da classe precisamos colocar a anotação <code>@Controller</code>, o código já com o método index que retorna uma String para nós fica assim:</p>  
+    <p>Além disso precisamos informar a rota que o Spring usará, adicionamos uma anotação especial para isso.</p>
+    <pre class="m-0">
+    <code class="language-java rounded">
+      @Controller
+      public class HomeController {
+        @GetMapping("/")
+        public String index(){
+          return "olá alunos!"
+        }
+      }
+    </code>
+    </pre>
+    <p>Com isso feito reinicie a aplicação e veja os resultados, você notará que o erro continua, isso se deve ao fato de não termos ainda um template engine que fornece o suporte necessário para o Java montar o HTML e nos retornar algo.</p>
+    <p>Neste ponto acredito que entendeu já que nossa aplicação depende de outros pacotes, então vá ao <code>https://mvnrepository.com/</code>, 
+    procure pelo Thymeleaf Spring5 e Thymeleaf e copie a definição das dependências para nosso arquivo <code>pom.xml</code>, reinicie a aplicação, ainda receberá um erro mas desta vez o erro 500, caso busque pelo log no console verá que o erro vem da falta de template para o Thymeleaf, então vamos consertar isso, trocaremos o retorno para: </p>
+    <pre class="m-0">
+    <code class="language-java rounded">
+      return "home/index"
+    </code>
+    </pre>
+    <p>Dentro do diretório <code>resources/template</code> crie um diretório home e um arquivo chamado <code>index.html</code>, pode adicionar um conteúdo em HTML para testarmos, reiniciamos a aplicação agora e vemos que ela já retorna agora nosso código.</p>
+    <p> Acesse a página deste templete e baixe o arquivo compactado, <a href="https://startbootstrap.com/theme/sb-admin-2">site para download do tema SB Admin 2</a>.
+    </p>
+    <p>Dentro do diretório <code>resources/static</code> coloque os arquivos descompactados da pasta do tema. Com o arquivo <code>index.html</code>, copie todo conteúdo para o <code>index.html</code> de <code>resources/template</code>, sempre reinicie a aplicação quando estamos trabalhando com os templates para que funcionem as alterações.</p>
+    <p>Dentro da classe  <code>HomeController</code> vamos adicionar um parâmetro para que seja acessível através do template, neste caso adicionamos apenas o nome Danilo como atributo.</p>
+    <pre class="m-0">
+      <code class="language-java rounded">
+        @Controller
+        public class HomeController {
+          @GetMapping("/")
+          public String index(Model model){
+            model.addAttribute("nome", "Danilo");
+
+            return "home/index"
+          }
+        }
+    </code>
+    </pre>
+    <p>Encontre no <code>index.html</code> a parte com o título e adicione:  </p>
+    <pre class="m-0">
+    <code class="language-html rounded">
+      <span th:text="${nome}"></span>
+    </code>
+    </pre>
+    <p>Nosso template engine permite colocar atributos dinamicos dentro do HTML como fizemos com: <code>th:text="${nome}"</code>, pegando o atributo que passamos no controller.</p>
+    <p>Pronto! temos nossa primeira aplicação Web, nas próximas aulas iremos complementar nosso App com mais conceitos.</p>
+    <br>
+    <!-- FIM -->
+  </section>
+  <script type="text/javascript">
+    /** 
+      * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+      */
+    function formataCodigoHtml() {
+      document.querySelectorAll("code.language-html").forEach(function (element) {
+        element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+          "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      });
+    }
+    formataCodigoHtml();
+
+  </script>
+</body>
+
+</html>
