@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <!-- <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" /> -->
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <script src="../highlight/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+
+  <title>Java</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Aula Teórica -->
+      <h2>Usando <em>partials</em> com o Thymeleaf no Spring</h2>
+      <p>
+        Nesta aula abordaremos sobre as <em>partial</em> um assunto base quando tratamos da camada de visualização, consiste em basicamente separar nosso arquivo de marcações/estruturas(HTML) em partes menores reutilizáveis, como: cabeçalho, conteúdo principal e rodapé.
+      </p>
+      <!-- Links de apoio -->
+      <div>
+        <span>Material de apoio:</span>
+        <p>
+          <a href="https://www.java.com/pt-BR/">Baixe e configure o Java</a>
+        </p>
+        <p>
+          <a href="https://www.oracle.com/br/java/technologies/javase/javase8-archive-downloads.html">Baixe e configure
+            o JDK</a>
+        </p>
+        <p>
+          <a
+            href="https://medium.com/beelabacademy/configurando-vari%C3%A1veis-de-ambiente-java-home-e-maven-home-no-windows-e-unix-d9461f783c26">Configure
+            a variável JAVA_HOME</a>
+        </p>
+        <p>
+          <a href="https://spring.io/projects/spring-boot">Baixe e configure o Spring Boot</a>
+        </p>
+        <p>
+          <a href="https://github.com/torneseumprogramador/spring-web-youtube">Repositório deste curso</a>
+        </p>
+        <p>
+          <a href="https://code.visualstudio.com/">Site do Visual Studio Code</a>
+        </p>
+        <p>
+          <a href="https://maven.apache.org/download.cgi">Site para download Maven</a>
+        </p>
+        <p>
+          <a href="https://startbootstrap.com/theme/sb-admin-2">Site para download do tema SB Admin 2</a>
+        </p>
+        <p>
+          <a href="https://www.thymeleaf.org/doc/articles/layouts.html">Documentação do Thymeleaf sobre layout</a>
+        </p>
+        
+      </div>
+    </div>
+    <!-- Aula Prática -->
+    <div>
+      <h3>Aula Prática</h3>
+      <hr>
+      <p>Dentro de <code>/templates/</code> crie um diretório chamado compartilhado e dentro dele um arquivo chamado <code>topo.html</code>, será o arquivo onde colocaremos o cabeçalho e também um chamado <code>baixo.html</code>, que será o rodapé.</p>
+      <p>Obs.: No nosso projeto estamos utilizand nomenclaturas em português mas o padrão é encontrar esses nomes em inglês, como: <code>/shared/</code>, <code>header.html</code> e <code>footer.html</code>.</p>
+      <p>
+        <a href="https://www.thymeleaf.org/doc/articles/layouts.html">Documentação do Thymeleaf sobre layout</a>
+      </p>
+
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      ./mvnw test
+      </code>
+      </pre>
+      <p>Para efetivamente rodar nossa aplicação:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      ./mvnw spring-boot:run
+      </code>
+      </pre>
+      <p>Já no Windows para rodar nossa aplicação seria:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      mvnw.cmd spring-boot:run
+      </code>
+      </pre>
+      <p>Para confirmar a versão do Java instalada num terminal faça:</p>
+      <pre class="m-0">
+      <code class="language-shell rounded">
+      java -version
+      </code>
+      </pre>
+      <p>
+      Obs.: Caso tenha dúvidas em outros editores, lembre-se que o projeto que geramos foi feito com o Maven,
+      neste caso a maioria das IDEs tem a opção de abrir como um "Maven Project"
+      </p>
+        <!-- 11:00s -->
+   
+
+      <br>
+    </div>
+    <!-- FIM -->
+  </section>
+  <script type="text/javascript">
+    /** 
+      * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+      */
+    function formataCodigoHtml() {
+      document.querySelectorAll("code.language-html").forEach(function (element) {
+        element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+          "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      });
+    }
+    formataCodigoHtml();
+
+  </script>
+</body>
+
+</html>
