@@ -23,7 +23,7 @@
     <div class="my-5">
       <!-- Aula Teórica -->
       <h2>Aula sobre variáveis com Java</h2>
-      <p>Hoje veremos um pouco de lógica com variáveis em nosso programa Java.
+      <p>Hoje veremos um pouco sobre desacoplamento de funções no Java, isso permite termos um código mais organizado.
       </p>
       <div>
         <span>Material de apoio:</span>
@@ -38,101 +38,65 @@
     <div>
       <h3>Aula Prática</h3>
       <hr>
-     <p>Abra o arquivo <code>AppConsoleApplication.java</code>, temos o seguinte requisito:</p>
+     <p>Para começar vamos criar um diretório chamado servicos em: <code>appConsole/servicos</code>.</p>
+     <p>E ainda criaremos um arquivo <code>Configuracao.java</code> dentro de <code>/servicos</code>.</p>
       <pre class="m-0">
       <code class="language-java rounded">
-      /*
-      * João é um comerciante que vende laranjas Ele precisa fazer uma entrega de
-      * algumas caixas cada laranja ele vende por 0,50 centavos, cada caixa tem 50
-      * laranjas
-      * 
-      * Faça um programa que peça a quantidade de caixas para o joão e de o total a
-      * receber
-      */
-      </code>
-      </pre>
+      package com.tornese.java.appConsole.servicos;
 
-      <p>Nós construiremos uma aplicação em linha de comando pare resolver este problema, o Java contêm diversos pacotes já disponíveis, mas precisamos importar o que desejamos usar, neste caso:</p>
+      public class Configuracao {
+        private double valorLaranja = 0.50;
+        private int quantidadeCaixasPromocao = 3;
+        private int quantidadeDeLaranjaPorCaixa = 50;
+        private int porcentagemLucro = 40;
+        private int porcentagemDesconto = 10;
+        private int porcentagemAcrescimo = 15;
+        private int maximoParcelas = 12;
+        private double valorParaDesconto = 100;
+      }
+      </code>
+      </pre>
+      <p>Podemos criar os getters e setters com auxílio da IDE/Editor de Código, ficando assim:</p>
+      <pre class="m-0">
+      <code class="language-java rounded">
+        public double getValorLaranja() {
+          return valorLaranja;
+        }
+        public double getValorParaDesconto() {
+          return valorParaDesconto;
+        }
+        public int getMaximoParcelas() {
+          return maximoParcelas;
+        }
+        public int getPorcentagemDesconto() {
+          return porcentagemDesconto;
+        }
+        public int getPorcentagemAcrescimo() {
+          return porcentagemAcrescimo;
+        }
+        public int getPorcentagemLucro() {
+          return porcentagemLucro;
+        }
+        public int getQuantidadeCaixasPromocao() {
+          return quantidadeCaixasPromocao;
+        }
+        public int getQuantidadeDeLaranjaPorCaixa() {
+          return quantidadeDeLaranjaPorCaixa;
+        }
+      </code>
+      </pre>
+      <p>Feito isso podemos retornar ao arquivo principal e remover as variáveis que foram passadas para a outra classe,
+         mas como nós precisarmos acessar os dados dela, vamos trazer ela para esse nosso arquivo.</p>
+      <p>Logo abaixo da definição de <code>clientes</code> faça:</p>
+      <pre class="m-0">
+      <code class="language-java rounded">
+      Configuracao config = new Configuracao();
+      </code>
+      </pre>
+      <!-- 12:30 -->
 
-      <p>Não se esqueça do import do <code>java.io</code> para termos o <code>Console</code> disponível.</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      import java.io.*;
-      </code>
-      </pre>
-      <p>Agora o código Java:</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      System.out.println("=================");
-      System.out.println("Seja bem vindo João ao seu software");
-      System.out.println("=================");
-      Console cnsl = System.console();
-      String quantidadeCaixas = cnsl.readLine("Digite a quantidade de caixas que pretende vender?\n");
-      </code>
-      </pre>
-      <p>O <code>\n</code> quebra linha para onde nossa resposta será lida.</p>
 
-      <p>Para rodar nossa aplicação lembre do comando:</p>
-      <p>Linux e Mac:</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      ./mvnw spring-boot:run
-      </code>
-      </pre>
-      <p>Windows:</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      mvnw.cmd spring-boot:run
-      </code>
-      </pre>
-      <p>Agora para imprimir a resposta na tela fazemos:</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      System.out.prinln("[" + quantidadeCaixas + "]");
-      </code>
-      </pre>
-      <p>O sinal de "+" serve para concatenar/juntar 2 informações, neste caso nossa quantidade de caixas ser colocada entre colchetes [ x ].</p>
-      <p>Podemos fazer de uma outra forma:</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      System.out.prinf("[%s]\n", quantidadeCaixas);
-      </code>
-      </pre>
-      <p>O <code>printf</code> permite fazer uma string formatada, onde o <code>%s</code> representa uma variável do tipo string que deve ser colocada no local. Mas ele não quebra linha automaticamente então recorremos ao <code>\n</code> novamente, mas optaremos pela primeira forma por ser mais comum.</p>
-      <p>Agora como queremos converter a resposta para uma variável do tipo inteiro faremos:</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      int quantidadeCaixas = Integer.parseInt(cnsl.readLine("Digite a quantidade de caixas que pretende vender?\n"));
-      </code>
-      </pre>
-      <p>Para definir o valor das laranjas precisamos de um número com "vírgula", no padrão brasileiro, observe que o "padrão computacional" utiliza do ponto(.) para representação de valor com casas decimais, e assim é no Java.</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      double valorLaranja = 0.50;
-      </code>
-      </pre>
-      <p>No caso da quantidade de laranjas será um inteiro e observe o padrão de camelCase no Java.</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      int quantidadeDeLaranjaPorCaixa = 50;
-      </code>
-      </pre>
-      <p>Vamos calcular o total de laranjas e o valor total agora.</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      int totalDeLaranjas = quantidadeCaixas * quantidadeDeLaranjaPorCaixa;
-      double valorTotal = totalDeLaranjas * valorLaranja;
-
-      System.out.println("=================");
-      System.out.println("Muito bem seu João, parabéns pela venda!");
-      System.out.println("O valor total a receber é de: R$", valorTotal);
-      System.out.println("=================");
-      </code>
-      </pre>
-
-      <p>Caso não saiba ainda utilizamos como operadores numéricos além do <code>+ e -</code> como mais e menos, <code> * e /</code> como multiplicação e divisão respectivamente. </p>
-
-      <p>Nos vemos na próxima Aula!</p>
+      <p>Até a próxima Aula!</p>
       <br>
       <!-- FIM -->
   </section>
