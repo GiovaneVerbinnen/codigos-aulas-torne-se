@@ -65,8 +65,7 @@
     <div>
       <h3>Aula Prática</h3>
       <hr>
-      <p>Dentro de <code>/templates/</code> crie um diretório chamado compartilhado e dentro dele um arquivo chamado <code>topo.html</code>, será o arquivo onde colocaremos o cabeçalho e também um chamado <code>baixo.html</code>, que será o rodapé.</p>
-      <p>Obs.: No nosso projeto estamos utilizand nomenclaturas em português mas o padrão é encontrar esses nomes em inglês, como: <code>/shared/</code>, <code>header.html</code> e <code>footer.html</code>.</p>
+      
       <p>
         <a href="https://www.thymeleaf.org/doc/articles/layouts.html">Documentação do Thymeleaf sobre layout</a>
       </p>
@@ -98,10 +97,19 @@
       Obs.: Caso tenha dúvidas em outros editores, lembre-se que o projeto que geramos foi feito com o Maven,
       neste caso a maioria das IDEs tem a opção de abrir como um "Maven Project"
       </p>
-      <p>A primeira </p>
-        <!-- 11:00s -->
-   
-
+      <p>Dentro de <code>templates</code> crie um diretório chamado <code>compartilhado</code> e dentro dele um arquivo chamado <code>topo.html</code>, será o arquivo onde colocaremos o cabeçalho, crie também um chamado <code>baixo.html</code>, que será o rodapé.</p>
+      <p>Obs.: No nosso projeto estamos utilizando nomenclaturas em português mas o padrão é encontrar esses nomes em inglês, como: <code>shared</code>, <code>header.html</code> e <code>footer.html</code>.</p>
+      <p>Você pode localizar o conteúdo da página através da classe <code>container-fluid</code>, e preservar este bloco, no nosso caso, tudo acima é o cabeçalho e abaixo deste bloco é o rodapé, informações que não mudarão de uma página para outra. Assim podemos separa-lás em arquivos e só importarmos quando precisar, além de manter o código estático centralizado facilitando a manutenção.</p>
+      <!-- 11:00 -->
+      <p>Note que no arquivo <code>index.html</code> sobrou apenas a <code>div</code> com o contúdo do meio da página, neste mesmo arquivo adicionaremos os arquivos em que separamos os códigos com o <code>th:replace</code>.</p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+        <div th:replace="compartilhado/topo"></div>
+          <!-- div com conteúdo -->
+        <div th:replace="compartilhado/baixo"></div>
+      </code>
+      </pre>
+      <p>Agora reiniciamos a aplicação para vermos os resultados.</p>
       <br>
     </div>
     <!-- FIM -->
