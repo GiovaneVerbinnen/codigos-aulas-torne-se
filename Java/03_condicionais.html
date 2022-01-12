@@ -22,8 +22,8 @@
   <section class="container">
     <div class="my-5">
       <!-- Aula Teórica -->
-      <h2>Aula sobre variáveis com Java</h2>
-      <p>Hoje veremos um pouco de lógica com variáveis em nosso programa Java.
+      <h2>Aula sobre condicionais com Java</h2>
+      <p>Hoje veremos um pouco de lógica com condicionais em nosso programa Java.
       </p>
       <div>
         <span>Material de apoio:</span>
@@ -38,40 +38,7 @@
     <div>
       <h3>Aula Prática</h3>
       <hr>
-     <p>Abra o arquivo <code>AppConsoleApplication.java</code>, temos o seguinte requisito:</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      /*
-      * João é um comerciante que vende laranjas Ele precisa fazer uma entrega de
-      * algumas caixas cada laranja ele vende por 0,50 centavos, cada caixa tem 50
-      * laranjas
-      * 
-      * Faça um programa que peça a quantidade de caixas para o joão e de o total a
-      * receber
-      */
-      </code>
-      </pre>
-
-      <p>Nós construiremos uma aplicação em linha de comando pare resolver este problema, o Java contêm diversos pacotes já disponíveis, mas precisamos importar o que desejamos usar, neste caso:</p>
-
-      <p>Não se esqueça do import do <code>java.io</code> para termos o <code>Console</code> disponível.</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      import java.io.*;
-      </code>
-      </pre>
-      <p>Agora o código Java:</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      System.out.println("=================");
-      System.out.println("Seja bem vindo João ao seu software");
-      System.out.println("=================");
-      Console cnsl = System.console();
-      String quantidadeCaixas = cnsl.readLine("Digite a quantidade de caixas que pretende vender?\n");
-      </code>
-      </pre>
-      <p>O <code>\n</code> quebra linha para onde nossa resposta será lida.</p>
-
+      <h5>Lembre-se:</h5>
       <p>Para rodar nossa aplicação lembre do comando:</p>
       <p>Linux e Mac:</p>
       <pre class="m-0">
@@ -85,52 +52,95 @@
       mvnw.cmd spring-boot:run
       </code>
       </pre>
-      <p>Agora para imprimir a resposta na tela fazemos:</p>
+      <p>Requisitos:</p>
       <pre class="m-0">
       <code class="language-java rounded">
-      System.out.prinln("[" + quantidadeCaixas + "]");
+      /*
+      * João é um comerciante que vende laranjas Ele precisa fazer uma entrega de
+      * algumas caixas cada laranja ele vende por 0,50 centavos, cada caixa tem 50
+      * laranjas
+      * 
+      * Faça um programa que peça a quantidade de caixas para o joão e de o total a
+      * receber
+      * 
+      * Perguntar se o pagamento é a vista, caso seja a vista e valor for maior que
+      * R$ 100 reais dar um desconto de 10% 
+      
+      *
+      * Obs: aceitar parcelas no máximo até 12 meses, e mostrar o valor de cada
+      * parcela já com acrescimo
+      * 
+      * 
+      * O lucro do comerciante será de 45% em suas vendas
+      * 
+      * Dar um relatório final sobre a operação acima
+      */
       </code>
       </pre>
-      <p>O sinal de "+" serve para concatenar/juntar 2 informações, neste caso nossa quantidade de caixas ser colocada entre colchetes [ x ].</p>
-      <p>Podemos fazer de uma outra forma:</p>
+      <p>Com o projeto desenvolvido nas aulas passadas aberto.</p>
+
+      <p>Isso feito vamos começar as alterações necessárias, abra o arquivo <code>AppConsoleApplication.java</code> e já adicione as variáveis junto com as outras:</p>
       <pre class="m-0">
       <code class="language-java rounded">
-      System.out.prinf("[%s]\n", quantidadeCaixas);
-      </code>
-      </pre>
-      <p>O <code>printf</code> permite fazer uma string formatada, onde o <code>%s</code> representa uma variável do tipo string que deve ser colocada no local. Mas ele não quebra linha automaticamente então recorremos ao <code>\n</code> novamente, mas optaremos pela primeira forma por ser mais comum.</p>
-      <p>Agora como queremos converter a resposta para uma variável do tipo inteiro faremos:</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      int quantidadeCaixas = Integer.parseInt(cnsl.readLine("Digite a quantidade de caixas que pretende vender?\n"));
-      </code>
-      </pre>
-      <p>Para definir o valor das laranjas precisamos de um número com "vírgula", no padrão brasileiro, observe que o "padrão computacional" utiliza do ponto(.) para representação de valor com casas decimais, e assim é no Java.</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
-      double valorLaranja = 0.50;
-      </code>
-      </pre>
-      <p>No caso da quantidade de laranjas será um inteiro e observe o padrão de camelCase no Java.</p>
-      <pre class="m-0">
-      <code class="language-java rounded">
+      double valorLaranja = 0.5;
       int quantidadeDeLaranjaPorCaixa = 50;
+      int porcentagemLucro = 40;
+      int porcentagemDesconto = 10;
+      int porcentagemAcrescimo = 15;
+      int maximoParcelas = 12;
+      double valorParaDesconto = 100;
+      double valorTotal = totalDeLaranjas * valorLaranja;
+      double valorTotalAlterado = valorTotal;
+      int parcelas = 0;
       </code>
       </pre>
-      <p>Vamos calcular o total de laranjas e o valor total agora.</p>
+      <p>Agora como queremos saber o tipo de pagamento que será feito temos:</p>
       <pre class="m-0">
       <code class="language-java rounded">
-      int totalDeLaranjas = quantidadeCaixas * quantidadeDeLaranjaPorCaixa;
-      double valorTotal = totalDeLaranjas * valorLaranja;
+      String tipoPagamento = cnsl.readLine("Você deseja pagas a vista ou parcelado?\n A - à vista \n P - Parcelado \n");
+      
+      boolean aVista = tipoPagamento.toUpperCase().equals("A");
 
-      System.out.println("=================");
-      System.out.println("Muito bem seu João, parabéns pela venda!");
-      System.out.println("O valor total a receber é de: R$", valorTotal);
-      System.out.println("=================");
+      if(aVista){
+        System.out.println("Você selecionou o pagamento á vista!");
+        if(valorTotalAlterado > valorParaDesconto) {
+          valorTotalAlterado -= (valorTotal * porcentagemDesconto / 100);
+        }
+      }
+      else {
+        parcelas = parseInt(cnsl.readLine("Você selecionou pagamento parcelado! \n Digite a quantidade de parcelas: \n"));
+        if(parcelas > maximoParcelas){
+          System.out.println("Quantidade de parcelas inválidas, iremos assumir em " + maximoParcelas + " vezes!");
+          parcelas = maximoParcelas;
+        }
+        valorTotalAlterado += (valorTotal * porcentagemAcrescimo / 100);
+      }
+      double lucroAReceber = valorTotalAlterado * porcentagemLucro / 100);
       </code>
       </pre>
-
-      <p>Caso não saiba ainda utilizamos como operadores numéricos além do <code>+ e -</code> como mais e menos, <code> * e /</code> como multiplicação e divisão respectivamente. </p>
+      <p>Vamos imprimir o total agora.</p>
+      <pre class="m-0">
+      <code class="language-java rounded">
+      System.out.println("==============================================================");
+      System.out.println("Muito bem seu João, parabéns pela venda!");
+      System.out.println("O valor total a cobrar do cliente é de: R$", valorTotalAlterado);
+      System.out.println("O lucro é de: R$", lucroAReceber);
+      System.out.println("O cliente escolheu o tipo de pagamento:" + (aVista ? "Á vista" : "Parcelado em " + parcelas + "vezes") );
+      if(aVista){
+        System.out.println("Para o pagamento á vista o desconto é de: R$" + ( valorTotal - valorTotalAlterado) );
+      } else {
+        System.out.println("Para o pagamento parcelado o acrescimo é de: R$" + ( valorTotalAlterado - valorTotal ) );
+        System.out.println("O valor da parcela será de: R$" + ( valorTotalAlterado / parcelas ) );
+      }
+      System.out.println("==============================================================");
+      </code>
+      </pre>
+      <p>
+        Note que temos 2 estruturas condicionais, uma com o <code>if ternário</code> e outra com
+        <code>if</code> padrão, o ternário é identificado pelo: 
+        <code>valor ? condicao_verdadeira : condicao_falsa </code>,
+        já o normal pelas chaves <code>if(condicao){}</code>.
+      </p>
 
       <p>Nos vemos na próxima Aula!</p>
       <br>
