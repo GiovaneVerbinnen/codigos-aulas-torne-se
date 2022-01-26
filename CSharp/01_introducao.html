@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css">
+  <script src="../highlight/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <title>Document</title>
+</head>
+<body>
+  <section class="container">
+    <div class="mt-5">
+      <h1>Ambiente de Desenvolvimento</h1> 
+      <p>
+        Para começar o desenvolvimento em C# é requisito ter como S.O instalado o Windows. Como IDE será utilizado o Visual Studio 2015 versão Community, 
+        caso a seu Windows seja inferior ao 8 o ambiente de desenvolvimento a ser instalado será o Visual Studio 2010.
+      </p>
+      <p>
+        Para download da IDE <em>Visual Studio</em> pode-se pesquisar pelo próprio site da Microsoft. 
+      </p>
+      <h2>Tabs da IDE</h2>
+
+      <h5>Solution Explorer</h5>
+      <p>
+        É muito semelhante ao Explorer do Windows, para gerenciar seus projetos e arquivos.
+      </p>
+      <h5>Team Explorer </h5>
+      <p>
+        Em uma especie de “Git” da Microsoft, para gerenciamente de commit e deploys.
+      </p>  
+      <h5>Class View</h5>
+      <p>  
+        Mostra todas as classes que existentes no projeto 
+      </p>
+      <h5>Propriedades</h5>
+      <p>
+        Mostra todas as propriedades de determinado objeto.
+      </p>
+      <h5>ToolBox</h5>
+      <p>
+        Mostra todos os tipos de objeto disponíveis para serem adicionados a página (em Windows form ou web form).
+      </p>
+      <h5>Server explore</h5>
+      <p>
+        Para a conecção com o Microsoft Azure.
+      </p>
+      <h5>Nuget package maneger</h5>
+      <p>
+        Está localizado na aba Tools, é um gerenciador de bibliotecas para o projeto.        
+      </p>
+    
+
+      <h4>Sitaxe</h4>
+      <p>A sintaxe de c# é semelhante a Javascript</p>
+      <p>Logo a baixo temos um exemplo de código:</p>
+      <pre class="m-0">
+        <code class="language"> 
+          using System;
+          using System.Collections.Generic;
+          using System.Linq;
+          using System.Text;
+          using System.Threading.Task;
+
+          namespace OO
+          {
+            abstract class Abstrata
+            {
+              public abstract string ForcaInplementacao();
+
+              public string SemForcar()
+              {
+                return "sem forcar";
+              }
+            }
+          }
+        </code>
+      </pre>
+      <p>o <code>using</code> é semelhante a um <code>require</code> de NodeJS, ele importa uma dll para o objeto em questão</p>
+      <p>A baixo dos <code>using</code> está a uma classe que contem <code>namespace</code> que é equivalente a uma hash.</p>
+  </section>
+</body>
+</html>
+
