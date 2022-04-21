@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <title>PHP</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Começo -->
+      <h2>If Ternario e Switch</h2>
+      <p>
+        O operador ternário basicamente é uma forma de escrever uma instrução if e else em uma única linha.
+      </p>
+      <p>
+        O switch funciona como uma série de if juntos,testando valores para uma variável ou expressão. No entanto o switch trabalha basicamente com o operador de igualdade. Então em casos que devemos testar se nossa variável, ou expressão, é igual a uma série de valores, o switch é uma boa saída.
+      </p>
+      <p>Exemplo If Ternario <br>Se idade for maior ou igual a 18,liberado ,senão censurado.</p>
+      <pre class="m-0">
+      <code class="language-php rounded">
+        PHPINICIO
+        $idade = 18;
+        $resultado = ($idade >= 18 ? "Liberado":"Censurado");
+        echo $resultado;
+        PHPFIM
+        </code>
+      </pre>
+      <p>Exemplo Switch</p>
+      <pre class="m-0">
+        <code class="language-php rounded">
+            PHPINICIO
+        1    switch (expressão) {
+        2        case valor1:
+        3            //código a ser executado se a expressão for igual ao valor1
+        4            break;
+        5        case valor2:
+        6            //código a ser executado se a expressão for igual ao valor2
+        7            break;
+        8        case valorN:
+        9            //código a ser executado se a expressão for igual ao valorN
+        10            break;
+        11     }
+            PHPFIM
+        </code>
+      </pre>
+      <p>Explicação</p>
+      <p> Linha 1: O parâmetro do switch/case deve estar entre parênteses e pode ser tanto uma variável quanto um método ou expressão;
+      <p>Linhas 2, 5 e 8: A palavra reservada case seguida de um valor (numérico, string, etc) verifica se a expressão recebida como parâmetro é igual a esse valor. Se for, o trecho de código entre o case e o break logo abaixo será executado;</p>
+      <p> Linhas 3, 6 e 9: Os trechos de código entre o case e o break são executados caso a condição especificada no case seja atendida. Aqui pode haver várias linhas de código sem a necessidade de uso de chaves para delimitar o bloco;</p>
+      <p>Linhas 4, 7 e 10: O comando break faz com que a verificação seja encerrada caso a condição do case equivalente seja atendida. Isso faz com as demais condições não sejam avaliadas, pois como se trata de comparações de igualdade, apenas uma delas será atendida.</p>
+
+      <p>Dúvidas:</p>
+      <a href="mailto:prof.ackeley@gmail.com">prof.ackeley@gmail.com</a>
+
+      <!-- FIM -->
+    </div>
+  </section>
+
+<script src="../highlight/highlight.min.js"></script>
+<script>
+  // hljs.initHighlightingOnLoad(); # DEPRECATED
+  hljs.highlightAll()
+</script>
+<script type="text/javascript">
+  /* 
+    * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+    */
+  function formataCodigoHtml() {
+    document.querySelectorAll("code.language-html").forEach(function (element) {
+      element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+        "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+  }
+  /* 
+    * Script para "escapar" PHP dentro das tags code para não ser interpretado como HTML em si 
+    */
+  function formataCodigoPHP() {
+    document.querySelectorAll("code.language-php").forEach(function (element) {
+      element.innerHTML = element.innerHTML.replace(/PHPINICIO/g, "&lt;&quest;php").replace(/PHPFIM/g, "&quest;&gt;");
+    });
+  }
+
+  formataCodigoPHP();
+  formataCodigoHtml();
+
+</script>
+</body>
+
+</html>
