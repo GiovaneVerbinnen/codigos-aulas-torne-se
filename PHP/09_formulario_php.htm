@@ -19,29 +19,28 @@
       <p>
           Estrutura basica do html </p>
       <pre class="m-0">
-      <code class="language-php rounded">
-
-        < !DOCTYPE html >
-        < html lang="pt-br" >
-        < head >
-        < meta charset="utf-8" />
-        < title>HTML5 – Estrutura básica < /title>
-        < /head >
-        < body >
-        < /body >
-        < /html >
+      <code class="language-html rounded">
+        <!DOCTYPE html>
+        <html lang="pt-br">
+        <head>
+        <meta charset="utf-8" />
+        <title>HTML5 – Estrutura básica </title>
+        </head>
+        <body>
+        </body>
+        </html>
         
         </code>
       </pre>
       <p>Formulário
           <br>
-          Um formulário é construído através do uso da TAG < form > e nesta é definido o script para onde este formulário deve ser enviado, no caso, o atributo action e também, o método em que as informações deverão ser submetidas, no caso, temos que definir se o formulário será enviado através do métodos GET ou então do método POST no atributo de nome method da TAG.
+          Um formulário é construído através do uso da TAG <form > e nesta é definido o script para onde este formulário deve ser enviado, no caso, o atributo action e também, o método em que as informações deverão ser submetidas, no caso, temos que definir se o formulário será enviado através do métodos GET ou então do método POST no atributo de nome method da TAG.
       </p>
       <p>
           Exemplo:
       </p>
       <pre class="m-0">
-        <code class="language-php rounded">
+        <code class="language-html rounded">
             PHPINICIO
             <span>
            < !DOCTYPE html >
@@ -89,9 +88,8 @@
       </p>
       <p>Exemplo:</p>
       <pre class="m-0">
-        <code class="language-php rounded">
+        <code class="language-html rounded">
             PHPINICIO
-            <?php
               $media = ($_GET['nota1'] + $_GET['nota2']) / 2;
               $nome = $_GET['nome'];
               if ($media >= 7) {
@@ -111,14 +109,14 @@
       </p>
       <p>Exemplo:</p>
       <pre class="m-0">
-        <code class="language-php rounded">
-            PHPINICIO
-            < form action="sample.php" method="POST">
-                Nome: < input type="text" name="nome" />< br />
-                E-mail: < input type="text" name="email" />< br />
-                < input type="submit" name="button" id="button" value="Enviar" />
-              < /form>
-            PHPFIM
+        <code class="language-html rounded">
+            <!-- PHPINICIO -->
+            <form action="sample.php" method="POST">
+              Nome: <input type="text" name="nome" /><br />
+              E-mail: <input type="text" name="email" /><br />
+              <input type="submit" name="button" id="button" value="Enviar" />
+            </form>
+            <!-- PHPFIM -->
         </code>
       </pre>
       <p>
@@ -128,7 +126,7 @@
     </p>
     <p>Exemplo:</p>
     <pre class="m-0">
-      <code class="language-php rounded">
+      <code class="language-html rounded">
           PHPINICIO
             $var = 'teste';
             var_dump(isset($var));
@@ -142,7 +140,7 @@
     </p>
     <p>Exemplo:</p>
     <pre class="m-0">
-      <code class="language-php rounded">
+      <code class="language-html rounded">
           PHPINICIO
          //input array
           $state = array("AS"=>"ASSAM", "OR"=>"ORRISA", "KR"=>"KERELA");
@@ -173,21 +171,17 @@
     */
   function formataCodigoHtml() {
     document.querySelectorAll("code.language-html").forEach(function (element) {
-      element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
-        "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/PHPINICIO/g, "&lt;&quest;php").replace(/PHPFIM/g, "&quest;&gt;");;
     });
   }
-  /* 
-    * Script para "escapar" PHP dentro das tags code para não ser interpretado como HTML em si 
-    */
-  function formataCodigoPHP() {
-    document.querySelectorAll("code.language-php").forEach(function (element) {
-      element.innerHTML = element.innerHTML.replace(/PHPINICIO/g, "&lt;&quest;php").replace(/PHPFIM/g, "&quest;&gt;");
-    });
+  function formataMenorMaior() {
+    document.querySelectorAll("code.menor-maior").forEach(function (element) {
+      element.innerHTML = element.innerHTML.replace(/</g, "&lt;").replace(/>/g,
+        "&gt;")
+      });
   }
-
-  formataCodigoPHP();
   formataCodigoHtml();
+  formataMenorMaior();
 
 </script>
 </body>
