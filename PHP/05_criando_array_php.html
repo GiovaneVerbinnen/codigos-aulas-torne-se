@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <title>PHP</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Começo -->
+      <h2>Criando um Array utilizando PHP</h2>
+      <p>Criando Array utilizando PHP
+        Um array no PHP é na verdade um mapa ordenado. 
+        Um mapa é um tipo que relaciona valores a chaves. 
+        Este tipo é otimizado para vários usos diferentes: 
+        ele pode ser tratado como um array, 
+        uma lista (vetor), 
+        hashtable (que é uma implementação de mapa), 
+        dicionário, coleção, pilha, fila e provavelmente mais.
+      </p>
+
+      <h5>Aula Prática</h5>
+      <p>Exemplos:</p>
+      <!-- FALTAM ALGUMAS EXPLICAÇÕES -->
+      <pre class="m-0">
+      <code class="language-php rounded">
+        PHPINICIO
+        $vetorCarrosPhp7 = ["Pálio","Celta","Corsa"];
+        print_r($vetorCarrosPhp);
+        PHPFIM
+
+        PHPINICIO
+        echo 
+            $vetorCarros = array(
+                "Fiat"(Posição) => "Pálio"(Valor),
+                "Gm"(Posição)   => "Celta"(Valor),
+                "Ford"(Posição) => "Ranger"(Valor)
+            );
+            echo $vetorCarros[Gm]
+        PHPFIM
+      </code>
+      </pre>
+      <p></p>
+      <p>O print_r exibe informações sobre uma variável / Array de uma forma que é legível.</p>
+      <p>Posição de Array começa com 0.</p>
+      <p>echo — Exibe uma ou mais strings.</p>
+      <p>var_dump — Mostra informações sobre a variável.</p>
+      <p> Exemplos de Matriz: </p>
+      <pre class="m-0">
+      <code class="language-php rounded">
+        PHPINICIO
+        $matriz2x2 =[
+                      ["9","6"]
+                      ["8","4"]    
+                ];
+        print_r($matriz2x2); 
+        echo $matriz2x2[1][0];
+        PHPFIM
+      </code>
+      </pre>
+      <pre class="m-0">
+      <code class="language-php rounded">
+        PHPINICIO
+        $matris3x3 = [ 
+                        ["10","40","60"],
+                        ["25","90","100"],
+                        ["15","200","30"]   
+                    ];
+        print_r($matriz3x3);
+        PHPFIM
+      </code>
+      </pre>
+
+      <p>Dúvidas:</p>
+      <a href="mailto:prof.ackeley@gmail.com">prof.ackeley@gmail.com</a>
+
+      <!-- FIM -->
+    </div>
+  </section>
+
+<script src="../highlight/highlight.min.js"></script>
+<script>
+  // hljs.initHighlightingOnLoad(); # DEPRECATED
+  hljs.highlightAll()
+</script>
+<script type="text/javascript">
+  /* 
+    * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+    */
+  function formataCodigoHtml() {
+    document.querySelectorAll("code.language-html").forEach(function (element) {
+      element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+        "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+  }
+  /* 
+    * Script para "escapar" PHP dentro das tags code para não ser interpretado como HTML em si 
+    */
+  function formataCodigoPHP() {
+    document.querySelectorAll("code.language-php").forEach(function (element) {
+      element.innerHTML = element.innerHTML.replace(/PHPINICIO/g, "&lt;&quest;php").replace(/PHPFIM/g, "&quest;&gt;");
+    });
+  }
+
+  formataCodigoPHP();
+  formataCodigoHtml();
+
+</script>
+</body>
+
+</html>

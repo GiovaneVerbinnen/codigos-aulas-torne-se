@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../highlight/styles/monokai-sublime.min.css" />
+  <title>PHP</title>
+</head>
+
+<body>
+  <section class="container">
+    <div class="my-5">
+      <!-- Começo -->
+      <h2>Formulários com PHP</h2>
+      <p>
+          Estrutura basica do html </p>
+      <pre class="m-0">
+      <code class="language-html rounded">
+        <!DOCTYPE html>
+        <html lang="pt-br">
+        <head>
+        <meta charset="utf-8" />
+        <title>HTML5 – Estrutura básica </title>
+        </head>
+        <body>
+        </body>
+        </html>
+        
+        </code>
+      </pre>
+      <p>Formulário
+          <br>
+          Um formulário é construído através do uso da TAG <form > e nesta é definido o script para onde este formulário deve ser enviado, no caso, o atributo action e também, o método em que as informações deverão ser submetidas, no caso, temos que definir se o formulário será enviado através do métodos GET ou então do método POST no atributo de nome method da TAG.
+      </p>
+      <p>
+          Exemplo:
+      </p>
+      <pre class="m-0">
+        <code class="language-html rounded">
+            PHPINICIO
+            <span>
+           < !DOCTYPE html >
+< html lang="pt-br">
+
+< head>
+    < meta charset="UTF-8">
+    < title>Fomulário HTML - Curso PHP - eXcript< /title>
+< /head>
+< body>
+
+< form action="metodo_post.php?xget=50" method="POST">
+
+    < fieldset>
+        < legend>Formulário HTML< /legend>
+
+        < p>
+            < label for="nome">Nome: < /label>
+            < input type="text" name="nome" id="nome">
+        < /p>
+
+        < p>
+            < label for="email">E-mail: < /label>
+            < input type="email" name="email" id="email">
+        < /p>
+
+    < /fieldset>
+
+    < p>
+        < input type="submit" value="Enviar" id="enviar">
+    < /p>
+
+< /form>
+
+
+< /body>
+< /html>
+            </span>
+            PHPFIM
+        </code>
+      </pre>
+      <p>GET
+          <br>
+          GET é um dos métodos utilizados para o envio de dados de um formulário web para processamento por um script PHP. 
+      </p>
+      <p>Exemplo:</p>
+      <pre class="m-0">
+        <code class="language-html rounded">
+            PHPINICIO
+              $media = ($_GET['nota1'] + $_GET['nota2']) / 2;
+              $nome = $_GET['nome'];
+              if ($media >= 7) {
+              print("Aluno $nome aprovado com a média $media");
+            }
+              else {
+              print("Aluno $nome reprovado com a média $media");
+            }
+            ?>
+            PHPFIM
+        </code>
+      </pre>
+      <p>
+          Post
+          <br>
+          Este método é utilizado para enviar dados de formulários, como por exemplo um login ou contato, além disso ele é mais seguro e tem uma capacidade de enviar dados muito maior que o GET.
+      </p>
+      <p>Exemplo:</p>
+      <pre class="m-0">
+        <code class="language-html rounded">
+            <!-- PHPINICIO -->
+            <form action="sample.php" method="POST">
+              Nome: <input type="text" name="nome" /><br />
+              E-mail: <input type="text" name="email" /><br />
+              <input type="submit" name="button" id="button" value="Enviar" />
+            </form>
+            <!-- PHPFIM -->
+        </code>
+      </pre>
+      <p>
+        Isset
+        <br>
+        O PHP Isset é um função nativa do PHP que serve para saber se uma variável está definida. Ela basicamente verifica a existência de uma variável, e assim, retorna um valor boleano (true se for verdadeiro, e false se for falso). Ou seja, caso uma variável não esteja definida, ela possui o valor nulo (null).
+    </p>
+    <p>Exemplo:</p>
+    <pre class="m-0">
+      <code class="language-html rounded">
+          PHPINICIO
+            $var = 'teste';
+            var_dump(isset($var));
+          PHPFIM
+      </code>
+    </pre>
+    <p>
+        Extract
+        <br>
+        A função extract() faz conversão de array para variável. Ou seja, ele converte chaves de array em nomes de variáveis e valores de array em valor de variável.
+    </p>
+    <p>Exemplo:</p>
+    <pre class="m-0">
+      <code class="language-html rounded">
+          PHPINICIO
+         //input array
+          $state = array("AS"=>"ASSAM", "OR"=>"ORRISA", "KR"=>"KERELA");
+      
+         extract($state);
+      
+         //after using extract() function
+         echo"\$AS is $AS\n\$KR is $KR\n\$OR is $OR";
+          PHPFIM
+      </code>
+    </pre>
+      
+      <p>Dúvidas:</p>
+      <a href="mailto:prof.ackeley@gmail.com">prof.ackeley@gmail.com</a>
+
+      <!-- FIM -->
+    </div>
+  </section>
+
+<script src="../highlight/highlight.min.js"></script>
+<script>
+  // hljs.initHighlightingOnLoad(); # DEPRECATED
+  hljs.highlightAll()
+</script>
+<script type="text/javascript">
+  /* 
+    * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
+    */
+  function formataCodigoHtml() {
+    document.querySelectorAll("code.language-html").forEach(function (element) {
+      element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/PHPINICIO/g, "&lt;&quest;php").replace(/PHPFIM/g, "&quest;&gt;");;
+    });
+  }
+  function formataMenorMaior() {
+    document.querySelectorAll("code.menor-maior").forEach(function (element) {
+      element.innerHTML = element.innerHTML.replace(/</g, "&lt;").replace(/>/g,
+        "&gt;")
+      });
+  }
+  formataCodigoHtml();
+  formataMenorMaior();
+
+</script>
+</body>
+
+</html>
