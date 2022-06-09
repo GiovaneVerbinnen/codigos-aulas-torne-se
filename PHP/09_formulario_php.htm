@@ -16,69 +16,60 @@
     <div class="my-5">
       <!-- Começo -->
       <h2>Formulários com PHP</h2>
-      <p>
-          Estrutura basica do html </p>
+      <h5>Estrutura basica do html</h5>
       <pre class="m-0">
-      <code class="language-html rounded">
-        <!DOCTYPE html>
-        <html lang="pt-br">
-        <head>
-        <meta charset="utf-8" />
-        <title>HTML5 – Estrutura básica </title>
-        </head>
-        <body>
-        </body>
-        </html>
-        
-        </code>
+      <code class="language-php rounded">
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang="pt-br"&gt;
+        &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;HTML5 – Estrutura básica &lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+        &lt;/body&gt;
+        &lt;/html&gt;
+      </code>
       </pre>
       <p>Formulário
           <br>
-          Um formulário é construído através do uso da TAG <form > e nesta é definido o script para onde este formulário deve ser enviado, no caso, o atributo action e também, o método em que as informações deverão ser submetidas, no caso, temos que definir se o formulário será enviado através do métodos GET ou então do método POST no atributo de nome method da TAG.
+          Um formulário é construído através do uso da TAG &lt;form&gt;
+           e nesta é definido o script para onde este formulário deve ser enviado,
+            no caso, o atributo action e também,
+             o método em que as informações deverão ser submetidas, no caso,
+              temos que definir se o formulário será enviado através do métodos
+               GET ou então do método POST no atributo de nome method da TAG.
       </p>
       <p>
           Exemplo:
       </p>
       <pre class="m-0">
-        <code class="language-html rounded">
+        <code class="language-php rounded">
             PHPINICIO
-            <span>
-           < !DOCTYPE html >
-< html lang="pt-br">
-
-< head>
-    < meta charset="UTF-8">
-    < title>Fomulário HTML - Curso PHP - eXcript< /title>
-< /head>
-< body>
-
-< form action="metodo_post.php?xget=50" method="POST">
-
-    < fieldset>
-        < legend>Formulário HTML< /legend>
-
-        < p>
-            < label for="nome">Nome: < /label>
-            < input type="text" name="nome" id="nome">
-        < /p>
-
-        < p>
-            < label for="email">E-mail: < /label>
-            < input type="email" name="email" id="email">
-        < /p>
-
-    < /fieldset>
-
-    < p>
-        < input type="submit" value="Enviar" id="enviar">
-    < /p>
-
-< /form>
-
-
-< /body>
-< /html>
-            </span>
+           &lt;!DOCTYPE html&gt;
+            &lt;html lang="pt-br"&gt;
+            &lt;head&gt;
+                &lt;meta charset="UTF-8"&gt;
+                &lt;title&gt;Fomulário HTML - Curso PHP - eXcript&lt;/title&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+            &lt;form action="metodo_post.php?xget=50" method="POST"&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;Formulário HTML&lt;/legend&gt;
+                    &lt;p&gt;
+                        &lt;label for="nome"&gt;Nome: &lt;/label&gt;
+                        &lt;input type="text" name="nome" id="nome"&gt;
+                    &lt;/p&gt;
+                    &lt;p&gt;
+                        &lt;label for="email"&gt;E-mail: &lt;/label&gt;
+                        &lt;input type="email" name="email" id="email"&gt;
+                    &lt;/p&gt;
+                &lt;/fieldset&gt;
+                &lt;p&gt;
+                    &lt;input type="submit" value="Enviar" id="enviar"&gt;
+                &lt;/p&gt;
+            &lt;/form&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
             PHPFIM
         </code>
       </pre>
@@ -88,7 +79,7 @@
       </p>
       <p>Exemplo:</p>
       <pre class="m-0">
-        <code class="language-html rounded">
+        <code class="language-php rounded">
             PHPINICIO
               $media = ($_GET['nota1'] + $_GET['nota2']) / 2;
               $nome = $_GET['nome'];
@@ -109,14 +100,14 @@
       </p>
       <p>Exemplo:</p>
       <pre class="m-0">
-        <code class="language-html rounded">
-            <!-- PHPINICIO -->
-            <form action="sample.php" method="POST">
-              Nome: <input type="text" name="nome" /><br />
-              E-mail: <input type="text" name="email" /><br />
-              <input type="submit" name="button" id="button" value="Enviar" />
-            </form>
-            <!-- PHPFIM -->
+        <code class="language-php rounded">
+            PHPINICIO
+            &lt;form action="sample.php" method="POST"&gt;
+              Nome: &lt;input type="text" name="nome" /&gt;&lt;br /&gt;
+              E-mail: &lt;input type="text" name="email" /&gt;&lt;br /&gt;
+              &lt;input type="submit" name="button" id="button" value="Enviar" /&gt;
+            &lt;/form&gt;
+            PHPFIM
         </code>
       </pre>
       <p>
@@ -126,7 +117,7 @@
     </p>
     <p>Exemplo:</p>
     <pre class="m-0">
-      <code class="language-html rounded">
+      <code class="language-php rounded">
           PHPINICIO
             $var = 'teste';
             var_dump(isset($var));
@@ -140,7 +131,7 @@
     </p>
     <p>Exemplo:</p>
     <pre class="m-0">
-      <code class="language-html rounded">
+      <code class="language-php rounded">
           PHPINICIO
          //input array
           $state = array("AS"=>"ASSAM", "OR"=>"ORRISA", "KR"=>"KERELA");
@@ -152,11 +143,7 @@
           PHPFIM
       </code>
     </pre>
-      
-      <p>Dúvidas:</p>
-      <a href="mailto:prof.ackeley@gmail.com">prof.ackeley@gmail.com</a>
-
-      <!-- FIM -->
+    <!-- FIM -->
     </div>
   </section>
 
@@ -169,19 +156,23 @@
   /* 
     * Script para "escapar" html dentro das tags code para não ser interpretado como HTML em si 
     */
-  function formataCodigoHtml() {
+    function formataCodigoHtml() {
     document.querySelectorAll("code.language-html").forEach(function (element) {
-      element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/PHPINICIO/g, "&lt;&quest;php").replace(/PHPFIM/g, "&quest;&gt;");;
+      element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+        "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     });
   }
-  function formataMenorMaior() {
-    document.querySelectorAll("code.menor-maior").forEach(function (element) {
-      element.innerHTML = element.innerHTML.replace(/</g, "&lt;").replace(/>/g,
-        "&gt;")
-      });
+  /* 
+    * Script para "escapar" PHP dentro das tags code para não ser interpretado como HTML em si 
+    */
+  function formataCodigoPHP() {
+    document.querySelectorAll("code.language-php").forEach(function (element) {
+      element.innerHTML = element.innerHTML.replace(/PHPINICIO/g, "&lt;&quest;php").replace(/PHPFIM/g, "&quest;&gt;");
+    });
   }
+
+  formataCodigoPHP();
   formataCodigoHtml();
-  formataMenorMaior();
 
 </script>
 </body>
